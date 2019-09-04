@@ -4,6 +4,7 @@
 - Instalujte si MikTeX (spravuje knihovny TeXu): https://miktex.org/download
 - Instalujte si TeXový editor TeXmarker: https://www.xm1math.net/texmaker/download.html
 - Otevřete TeXmarker a můžete pracovat
+  - Kvůli bibliografii nastavte: volby -> Nastavit Texmaker -> Rychlý překlad -> PdfLaTeX + Bib(la)tex + PdfLaTeX(x2) + Zobrazit PDF (2 možnost) -> Zmáčkněte enter pro uložení
 
 ## Dokumenty:
 - README.md = tento soubor (nepotřebujete)
@@ -13,6 +14,8 @@
 - SP.sty = nastavení (potřebujete, ale neupravujete) 
 - VzorSP.tex = vzorový soubor (takto má vypadat váš kód, klidně ho stáhněte, přejmenujte a upravte)
 - images = složka na obrázky (potřebujete kvůli logu, ale obrázky klidně mohou být v základní složce)
+- Bibliografie.bib = váš seznam literatury (potřebujete)
+- Zkratky.tex = váš seznam zkratek (potřebujete)
 
 ## Mé příkazy
 - `\mytitlepage` = vytvoří titulní stranu
@@ -48,7 +51,12 @@
 - Seznam končíte `\end{itemize}` (resp. `\end{enumerate}` pro číslovaný)
 
 - Poznámku pod čarou vytvoříte jako `\footnote{Nezapomeňte na velké písmeno na začátku a tečku na konci.}`
-- Citaci pod čarou jako `\footcite{název knihy}` 
+- Citaci jako `\cite[text před (jako třeba viz), nepovinné][text za, třeba strana (např.: s. 50) nepovinné]{název knihy}`
+- Citaci pod čarou pak stejně jako citaci, akorát příkazem `\footcite`
+- Citaci v závorkách stejně jako citaci, akorát příkazem `\parencite`
+- Zkratku použijete jako `\gls{název zkratky}`
+
+- Zkratku definujete jako `\newglossaryentry{název zkratky}{name={to, co chcete vypsat na místě, kde ji používáte},description={popis zkratky}}` v souboru Zkratky.tex viz `\newglossaryentry{atd}{name={atd.},description={a tak dále}}` a pak použití: `\gls{atd}` vám vypíše `atd.` 
 
 
 
