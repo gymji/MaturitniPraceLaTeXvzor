@@ -5,9 +5,17 @@
 % Obvyklé balíčky na obrázky, tabulky a matematiku
 \usepackage{amsmath, amsthm, amssymb}
 \usepackage{graphicx, tabularx}
-\graphicspath{{images/}}
+\graphicspath{{images/}}									% Přidání složky do složek, kde se hledají obrázky
 
+\usepackage[hidelinks]{hyperref}							% Počítačová verze umí odkazy
 \usepackage{lipsum}											% Lorem ipsum text
+
+\usepackage[automake,toc]{glossaries}						% Balíček pro zkratky
+\makeglossaries												% Aktivování zkratek
+\loadglsentries{Zkratky}									% Načtení zkratek
+
+\usepackage[style=authoryear, backend=bibtex]{biblatex}		% Balíček pro citace
+\addbibresource{Bibliografie.bib}							% Import zdrojů
 
 \usepackage[a4paper,%										% Formát A4
             left=35mm,%										% Levý okraj 35 mm
@@ -79,4 +87,11 @@
 	\chapter*{Poděkování}
 		#1													% Parametr (text poděkování)
 	\newpage												% Nová strana
+}
+
+\newenvironment{prilohy}{									% Definování příloh
+	\chapter*{Přílohy}
+	\begin{enumerate}										% Začátek číslovaného seznamu
+}{
+	\end{enumerate}											% Konec číslovaného seznamu
 }

@@ -1,7 +1,6 @@
 \documentclass[12pt]{report}			% Začátek dokumentu
 \usepackage{SP}							% Import stylu
 
-
 \author{Jonáš Havelka}
 \title{Neuronová síť}
 \date{19. února 2020}
@@ -31,12 +30,34 @@
 	\tableofcontents\newpage			% Obsah
 	
 	
+	
+	
+	
 	\part{Teoretická část}
 	
 		\chapter{Asymptotická notace}
 			
 			\section{O-notace}
+				\parencite[see][page 900]{einstein}\\
+				\cite{knuthwebsite}\\
+				Dobrý den, ahoj, \gls{atd}\\
+				Praha, \gls{tj} hlavní město ČR
+				
 			\section{Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda }
 		
 	\part{Praktická část}
+
+
+
+	\appendix
+	
+	\nocite{*}
+    \printbibliography					% Vytvoří seznam literatury
+    \printglossary[title={Zkratky}]		% Vytvoří seznam zkratek
+    
+    \begin{prilohy}
+    	\item Vlastní program
+    	\item Dokumentace
+    	\item Testovací data
+    \end{prilohy}
 \end{document}

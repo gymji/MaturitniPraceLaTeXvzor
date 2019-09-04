@@ -47,6 +47,9 @@
 - Před každý prvek seznamu píšete `\item`                                  
 - Seznam končíte `\end{itemize}` (resp. `\end{enumerate}` pro číslovaný)
 
+- Poznámku pod čarou vytvoříte jako `\footnote{Nezapomeňte na velké písmeno na začátku a tečku na konci.}`
+- Citaci pod čarou jako `\footcite{název knihy}` 
+
 
 
 
