@@ -32,6 +32,10 @@
 	
 	
 	
+	\chapter*{Úvod}
+	
+		\lipsum[1]	
+	
 	
 	\part{Teoretická část}
 	
@@ -53,14 +57,19 @@
 	\appendix
 	\addcontentsline{toc}{part}{Apendix}
 	
+	\chapter*{Závěr}
+	
+		\lipsum[1]
+	
 	\nocite{*}
     \printbibliography					% Vytvoří seznam literatury
 	\addcontentsline{toc}{chapter}{Bibliografie}
     \printglossary[title={Zkratky}]		% Vytvoří seznam zkratek
     
     \begin{prilohy}
-    	\pitem{Vlastní program}
-    	\pitem{Dokumentace}
-    	\pitem{Testovací data}
+    	\pitem{Fotky z pokusů}
+    	\eitem{Vlastní program}
+    	\eitem{Dokumentace}
+    	\eitem{Testovací data}
     \end{prilohy}
 \end{document}
