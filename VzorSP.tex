@@ -4,7 +4,7 @@
 \author{Jonáš Havelka}
 \title{Neuronová síť}
 \date{19. února 2020}
-\vedouci{Dr.rer.nat. Michal Kočer}
+\vedouci{Dr. rer. nat. Michal Kočer}
 \place{V Českých Budějovicích}
 \skolnirok{2019/2020}
 \logo{\includegraphics[scale=0.75]{logo_gymji.jpg}}
@@ -38,8 +38,9 @@
 		\chapter{Asymptotická notace}
 			
 			\section{O-notace}
-				\parencite[see][page 900]{einstein}\\
-				\cite{knuthwebsite}\\
+				Odkaz v závorkách: \parencite[see][page 900]{einstein}\\
+				Odkaz: \cite{knuthwebsite}\\
+				A odkaz pod čarou: \footcite[see][s. 42]{latexcompanion}\\
 				Dobrý den, ahoj, \gls{atd}\\
 				Praha, \gls{tj} hlavní město ČR
 				
@@ -50,14 +51,16 @@
 
 
 	\appendix
+	\addcontentsline{toc}{part}{Apendix}
 	
 	\nocite{*}
     \printbibliography					% Vytvoří seznam literatury
+	\addcontentsline{toc}{chapter}{Bibliografie}
     \printglossary[title={Zkratky}]		% Vytvoří seznam zkratek
     
     \begin{prilohy}
-    	\item Vlastní program
-    	\item Dokumentace
-    	\item Testovací data
+    	\pitem{Vlastní program}
+    	\pitem{Dokumentace}
+    	\pitem{Testovací data}
     \end{prilohy}
 \end{document}

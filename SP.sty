@@ -89,8 +89,11 @@
 	\newpage												% Nová strana
 }
 
+\newcommand{\pitem}[1]{\addcontentsline{toc}{section}{#1} \item #1}
 \newenvironment{prilohy}{									% Definování příloh
 	\chapter*{Přílohy}
+	\let\olditem\item
+	\addcontentsline{toc}{chapter}{Přílohy}
 	\begin{enumerate}										% Začátek číslovaného seznamu
 }{
 	\end{enumerate}											% Konec číslovaného seznamu
