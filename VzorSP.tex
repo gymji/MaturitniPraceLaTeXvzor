@@ -9,6 +9,11 @@
 \skolnirok{2019/2020}
 \logo{\includegraphics[scale=0.75]{logo_gymji.jpg}}
 
+\newcommand{\Kotlin}{\icon{Kotlin-logo.png}Kotlin}
+\newcommand{\git}{\underlineicon{Git-logo.png}\,git}
+\newcommand{\GitHub}{\bigunderlineicon{GitHub-logo.png}\,GitHub}
+\newcommand{\Gradle}{\bigicon{Gradle-logo.png}Gradle}
+
 \begin{document}
 
 	\mytitlepage						% Vygenerování titulní strany
@@ -39,16 +44,81 @@
 	
 	\part{Teoretická část}
 	
-		\chapter{Asymptotická notace}
-			
-			\section{O-notace}
-				Odkaz v závorkách: \parencite[see][page 900]{einstein}\\
-				Odkaz: \cite{knuthwebsite}\\
-				A odkaz pod čarou: \footcite[see][s. 42]{latexcompanion}\\
-				Dobrý den, ahoj, \gls{atd}\\
-				Praha, \gls{tj} hlavní město ČR
+		\chapter{Programovací jazyky a nástroje}
+		
+			\section{\protect\Kotlin}
+
+				\Kotlin\ je programovací jazyk, který vznikl v roce 2011 jako moderní verze Javy. Na jeho vývoji se podílí hlavně firma JetBrains, avšak celý projekt je pod licencí Apache Licence (verze 2.0)\footnote{viz \odkaz{https://www.apache.org/licenses/LICENSE-2.0}} a veřejně přístupný na platformě \GitHub\footnote{viz \odkaz{https://github.com/JetBrains/kotlin}}.
 				
-			\section{Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda }
+				
+				
+				\subsection{Syntaxe}
+				
+					
+				
+				\subsection{Koma}
+				
+					Koma je vědecká matematická knihovna napsaná v \Kotlin u, zaměřená na vývoj multiplatformních numerických aplikací cílených na \gls{JVM}, \gls{JS} nebo/a na nativní kód).%https://koma.kyonifer.com/
+					
+					Zatím (k \date) je zaměřená hlavně na lineární algebru, především na n-rozměrné tenzory (a tedy i na matice, jež jsou 2-rozměrné tenzory) a operace s nimi. Dále při použití v \gls{JVM} a \gls{JS} dovoluje i vykreslování grafů.
+				
+				
+			\section{\protect\Gradle}
+			
+				
+				
+				\subsection{Základní prvky}
+			
+			\section{\protect\git}
+			
+				
+				
+				\subsection{Příkazy}
+					
+					Pro ovládání \git u využíváme příkazovou řádku, tedy každému příkazu předchází slovo \code{git}, čímž specifikujeme, že následující příkaz má vykonávat \git .
+					
+					Abychom vůbec mohli začít, potřebujeme založit repozitář. To uděláme příkazem \code{git init}. Jakmile máme vytvořený repozitář, můžeme do něj přidat soubory. Jeden soubor přidáme \code{git add "název souboru.přípona"}, pokud chceme přidat všechny soubory (až na soubory definované v .gitignore viz níže), použijeme parametr: \code{git add -a}. Stejným příkazem se poté přidávají i změny v souborech.
+					
+					Stále jsme ale nevytvořili žádnou \uv{verzi} souborů. K tomu slouží \code{git commit}, popřípadě \code{git commit -m "Zpráva ke commitu"}. To, které soubory jsme už přidali, které již byly v commitu, co se od posledního commitu změnilo atd, si můžeme zobrazit  za pomoci \code{git status}. Výpis vypadá přibližně následovně:
+					\begin{lstlisting}[autogobble=true]
+						On branch my_work
+						Your branch is up to date with 'origin/my_work'.
+
+						Changes not staged for commit:
+						  (use "git add <file>..." to update what will be committed)
+						  (use "git restore <file>..." to discard changes in working directory)
+						        modified:   SP.sty
+						        modified:   VzorSP.tex
+						        modified:   Zkratky.tex
+						
+						Untracked files:
+						  (use "git add <file>..." to include in what will be committed)
+						        images/Git-logo.png
+						        images/GitHub-Mark.zip
+						        images/GitHub-logo.png
+						        images/Gradle-logo.png
+						        images/Kotlin-logo.png
+						
+						no changes added to commit (use "git add" and/or "git commit -a")
+					\end{lstlisting}
+					
+					Na prvním řádku vidíme název větve, ve které se nacházíme, na druhém, zda se poslední verze shoduje s poslední verzí publikovaného repozitáře. 7. - 9. řádek pak udává změny na souborech, které již byly v commitu, 13. - 17. udává soubory, které ještě nebyly přidány za pomocí \code{add}. Můžeme si všimnout, že \git\ nám radí, co máme použít za příkazy.
+				
+				\subsection{\protect\GitHub}
+	
+	
+		
+		
+		\chapter{Strojové učení a umělá inteligence}
+		
+		\chapter{Neuronové sítě}
+	
+			\section{Historie}
+			
+			\section{Laický náhled}
+			
+			\section{Matematika}
+			
 		
 	\part{Praktická část}
 

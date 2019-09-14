@@ -4,11 +4,13 @@
 
 % Obvyklé balíčky na obrázky, tabulky a matematiku
 \usepackage{amsmath, amsthm, amssymb}
-\usepackage{graphicx, tabularx}
+\usepackage{graphicx, tabularx, xcolor}
 \graphicspath{{images/}}									% Přidání složky do složek, kde se hledají obrázky
 
 \usepackage[hidelinks]{hyperref}							% Počítačová verze umí odkazy
 \usepackage{lipsum}											% Lorem ipsum text
+\usepackage{listings}										% Balíček pro zvýraznění a formátování kódu
+\usepackage{lstautogobble}									% Doplňující balíček k listings
 
 \usepackage[automake,toc]{glossaries}						% Balíček pro zkratky
 \makeglossaries												% Aktivování zkratek
@@ -99,3 +101,20 @@
 }{
 	\end{enumerate}											% Konec číslovaného seznamu
 }
+
+\newlength{\height}
+\newcommand{\odkaz}[1]{\href{#1}{#1}}
+\newcommand{\icon}[1]{\settoheight{\height}{A}\includegraphics[height=\height]{#1}}
+\newcommand{\bigicon}[1]{\settoheight{\height}{A}\includegraphics[height=2\height]{#1}}
+\newcommand{\underlineicon}[1]{\settoheight{\height}{A}\raisebox{-0.25\height}{\includegraphics[height=1.25\height]{#1}}}
+\newcommand{\bigunderlineicon}[1]{\settoheight{\height}{A}\raisebox{-0.12\height}{\includegraphics[height=1.49\height]{#1}}}
+
+\definecolor{codegray}{gray}{0.9}
+\newcommand{\code}[1]{\colorbox{codegray}{\texttt{#1}}}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{codegray},
+	numbers=left, 
+	tabsize=2
+}
+\lstset{style=mystyle}
