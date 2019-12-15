@@ -1,0 +1,139 @@
+\documentclass[12pt]{report}			% Začátek dokumentu
+\usepackage{SP}							% Import stylu
+
+\author{Jonáš Havelka}
+\title{Neuronová síť}
+\date{19. února 2020}
+\vedouci{Dr. rer. nat. Michal Kočer}
+\place{V Českých Budějovicích}
+\skolnirok{2019/2020}
+\logo{\includegraphics[scale=0.75]{logo_gymji.jpg}}
+
+\newcommand{\Kotlin}{\icon{Kotlin-logo.png}\gls{Kotlin}}
+\newcommand{\git}{\underlineicon{Git-logo.png}\,git}
+\newcommand{\GitHub}{\bigunderlineicon{GitHub-logo.png}\,GitHub}
+\newcommand{\Gradle}{\bigicon{Gradle-logo.png}Gradle}
+
+\newcommand{\R}{\mathbb{R}}   			% množina reálnách čísel
+\newcommand{\Z}{\mathbb{Z}}   			% množina celých čísel
+\newcommand{\N}{\mathbb{N}}   			% množina přirozených čísel
+\newcommand{\powerset}[1]{\mathcal{P} ( #1 )}   
+										% potenční množina -- množina všech podmnožin
+
+\begin{document}
+
+	\mytitlepage						% Vygenerování titulní strany
+	
+	\prohlaseni{
+		Prohlašuji, že jsem tuto práci vypracoval samostatně s vyznačením všech použitých pramenů.
+	}	
+	
+	\abstrakt{
+	
+		Neuronové sítě se dnes objevují všude, ať už je to vyhledávání, překládání, nebo třeba jen zpracovávání dat. Mnoho programovacích jazyků má své knihovny pro práci s umělou inteligencí, ale zrovna \Kotlin{}, který lze použít skoro kdekoliv (Webové stránky, servery, mobily) takovou knihovnu postrádá. 
+		% Abstrakt
+	}{
+		Neuronové sítě, \Kotlin, Umělá inteligence, Multiplatformní knihovna						% Klíčová slova
+	}
+	
+	\podekovani{
+		Poděkování patří hlavně mému učiteli informatiky, který je zároveň vedoucím mé práce, za skvělou výuku na hodinách a velkou trpělivost při kontrole našich prací. Také nesmím zapomenout na Alžbětu Neubauerovou, který mě celý rok podporovala a práci několikrát provedla korekturu mé práce.
+		
+		Dále bych rád poděkoval všem komunitám, jejichž nástroje jsem používal, tj. JetBrains, v jejichž programovacím jazyce \Kotlin{} programuji a jejichž prostředí IntelliJ k tomu využívám, \Gradle{}, které používám ke kompilaci, \LaTeX{}, ve kterém píšu text a dále \git{} a \GitHub{}, jež uchovávají má data, ať už text nebo knihovnu. 					% Poděkování
+	}
+	
+	\tableofcontents\newpage			% Obsah
+	
+	
+	
+	
+	\chapter*{Úvod}
+	
+		Neuronové sítě jsou v poslední době velmi skloňované téma. Nikdo vlastně pořádně neví, jak fungují, ale fungují\footnote{Tady se hodí podotknout, že alespoň malou představu máme, přece jenom matematicky je to pouze sestup po gradientu, ale překvapivě to dokáže velmi mnoho}. Cílem této práce však nebude zkoumat neuronové sítě, ale implementovat je v co největším rozsahu (ať už struktury bez širšího využití jako asociativní paměť nebo často používané konvoluční sítě na rozpoznávání obrázků).
+		
+		\Kotlin je ideální programovací jazyk pro vývoj knihovny, protože umožňuje tuto knihovnu používat jak pro \gls{JVM}
+		
+		Celá maturitní práce je k dispozici na \GitHub{}u, text včetně zdrojového \LaTeX{}u na adrese \url{https://github.com/JoHavel/Maturitni-Seminarni-Prace/tree/my\_work} a knihovna samotná pak na \url{https://github.com/JoHavel/NeuralNetwork}.
+	
+	
+	\part{Teoretická část}
+		
+		\chapter{Strojové učení a umělá inteligence}
+		
+		\chapter{Neuronové sítě}
+		
+			\section{Laický náhled}
+			
+				\subsection{Neuron}
+					Počítačové neuronové sítě nejsou jen výmysl lidí, jejich základ nalezneme nervových soustavách živočichů. Základní stavební jednotka takové soustavy (stejně tak i neuronové sítě) je neuron. Neuron funguje tak, že přes \gls{dendrit}y přijímá elektrické (přesněji iontové) signály od jiných neuronů a když součet signálů přeteče určitou danou mez, vyšle neuron signál přes \gls{axon}y dál do dalších neuronů.
+					
+					Přenos signálu z \gls{axon}u do \gls{dendrit}u se odehrává v malých prostorách mezi nimi zvaných \gls{synapse}. Vodivost synapsí je ovlivněna jejich chemickým složením, a proto se domníváme, proces učení probíhá měněním těchto chemických spojů \autocite[s. 491]{Book:Informatika}.
+					
+					Náš umělý neuron tedy bude mít seznam \gls{dendrit}ů (nesoucích informaci, z jakého neuronu vedou signál a jak ho mění \gls{synapse}), tzv. aktivační funkci (tedy jak silný signál posílá dále v závislosti na součtu vstupních signálů) a výstupní signál. Často navíc bude obsahovat základní hodnotu (angl. bias), která reprezentuje hladinu iontů v neuronu.
+				
+				\subsection{Sítě}
+					Jelikož nahodilé neurony by se těžko udržovali v paměti a operace na nich by byly velmi pomalé, potřebujeme síť nějak uspořádat. Nejjednodušším uspořádáním jsou vrstvy. Každý neuron z nějaké vrstvy má \gls{dendrit}y ze všech neuronů z vrstvy minulé. Tak se předejde cyklům, které jsou složité na výpočty, a navíc si nemusíme u každého neuronu pamatovat, ze kterých neuronů do něj vede signál.
+					
+				\subsection{Dopředná propagace a zpětná propagace}
+					Dopředná propagace (častěji se používá anglický výraz forward propagation) je jednoduše spočítání signálů ve všech neuronech. Tedy u každého neuronu se sečtou vstupní signály (popř. přičte bias) a spočítá se funkční hodnota aktivační funkce v tomto bodě.
+					
+					Naopak zpětná propagace (častěji se používá anglický výraz backward propagation) je na základě chyby, kterou spočítáme z výstupu neuronové sítě a předpokládaného výstupu, určit, které proměnné hodnoty (\gls{synapse} a biasy) se na ní nejvíce podílejí. Potom tyto hodnoty posuneme odpovídajícím způsobem (stejně jako příroda mění chemické vlastnosti \gls{synapse})
+			
+			
+			\section{Formální náhled}
+				Nechť $n_i = (\left\{w_{x,\,i}\right\},\,f_i,\,b_i,v_i)$ je neuron, kde $w_{x,\,i} \in \R$ je hodnota (angl. weight), kterou \gls{synapse} jdoucí z neuronu $n_x$ násobí signál, $f_i: \R \leftarrow \R$ je aktivační funkce, $b_i \in \R$ je bias a $v_i \in \R$ je signál vycházející z daného neuronu. Potom dopředná propagace (tedy spočítání $v_i$) vypadá takto:
+				$$ v_i = f_i\left(b_i + \sum_x v_x \cdot w_{x,\,y} \right) $$
+				Což lze zapsat vektorově jako:
+				$$ \vec{v} = (v_{x_1},\,v_{x_2},\,\ldots) $$
+				$$ \vec{w}_i = (w_{x_1,\,i},\,w_{x_2,\,i},\,\ldots) $$
+				$$ v_i = f_i\left(b_i + \vec{w}_i \cdot \vec{v} \right) $$
+				Nebo můžeme do hodnot \uv{zakomponovat} i bias:
+				$$ \vec{v} = (v_{x_1},\,v_{x_2},\,\ldots,\,1) $$
+				$$ \vec{w}_i = (w_{x_1,\,i},\,w_{x_2,\,i},\,\ldots,\,b_i) $$
+				$$ v_i = f_i\left(\vec{w}_i \cdot \vec{v} \right) $$
+				
+			
+		
+	\part{Praktická část}
+	
+		\chapter{Struktura knihovny}
+			Knihovna je rozdělena do dvou částí:
+			\begin{itemize}
+				\item První, a ta hlavní, je core (česky jádro), které obsahuje definice neuronových sítí (tj. konvoluční neuronovou síť, obyčejnou neuronovou síť, asociativní paměť) a definice pro ně potřebné (například aktivační funkce)
+				\item Druhá je mnistDatabase, která se stará o učení neuronových sítí na datových databázích.
+			\end{itemize}
+			
+			\section{core}
+			
+			\section{mnistDatabase}
+				\subsection{Databáze MNIST}
+					\uv{Databáze MNIST, databáze ručně psaných číslic dostupná na stránkách \url{http://yann.lecun.com/exdb/mnist/} obsahuje 60\,000 tréninkových a 10\,000 ověřovacích příkladů. MNIST je vytvořená z databáze spravované NIST (National Institute of Standarts and Technology). Číslice mají normalizovanou velikost a jsou vycentrované v obrázcích shodné velikosti.} \parencite[přeloženo]{online:MNIST}
+					
+					Tuto databázi jsem použil pro první testování BasicNeuralNetwork, jelikož má pro první testování dostačující velikost. Pro pozdější testování využívám převážně EMNIST.
+				\subsection{Databáze EMNIST}
+					\uv{Databáze MNIST se stala standardem pro učení umělého vidění. Databáze MNIST je odvozená z databáze NIST Special Database 19, která obsahuje ručně psané číslice a velká i malá písmena. EMNIST (Extended MNIST), varianta celé databáze NIST, přebírá uspořádání z databáze MNIST\footnote{Má však prohozené řádky a sloupce obrázků.}.} \parencite[přeloženo]{article:EMNIST}
+					
+					Tato databáze obsahuje více příkladů než MNIST, navíc obsahuje i sety s písmeny, proto jsem po prvních pokusech s MNIST přešel na tuto databázi.
+
+		\chapter{Používání knihovny}
+
+
+	\appendix
+	\addcontentsline{toc}{part}{Apendix}
+	
+	\chapter*{Závěr}
+	
+		\lipsum[1]
+	
+	\nocite{*}
+    \printbibliography					% Vytvoří seznam literatury
+	\addcontentsline{toc}{chapter}{Bibliografie}
+    \printglossary[title={Slovníček pojmů}]	% Vytvoří seznam zkratek
+    
+    \begin{prilohy}
+    	\pitem{Fotky z pokusů}
+    	\eitem{Vlastní program}
+    	\eitem{Dokumentace}
+    	\eitem{Testovací data}
+    \end{prilohy}
+\end{document}
