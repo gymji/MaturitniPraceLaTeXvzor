@@ -56,7 +56,15 @@
 - Citaci v závorkách stejně jako citaci, akorát příkazem `\parencite`
 - Zkratku použijete jako `\gls{název zkratky}`
 
-- Zkratku definujete jako `\newglossaryentry{název zkratky}{name={to, co chcete vypsat na místě, kde ji používáte},description={popis zkratky}}` v souboru Zkratky.tex viz `\newglossaryentry{atd}{name={atd.},description={a tak dále}}` a pak použití: `\gls{atd}` vám vypíše `atd.` 
+- Zkratku definujete jako `\newglossaryentry{název zkratky}{name={to, co chcete vypsat na místě, kde ji používáte},description={popis zkratky}}` v souboru Zkratky.tex viz `\newglossaryentry{atd}{name={atd.},description={a tak dále}}` a pak použití: `\gls{atd}` vám vypíše `atd.`
+
+- Obrázek vkládáme jako `\begin{figure}\includegraphics[width=šířka obrázku,jiná další nastavení]{soubor obrázku}\caption{Název}\label{jmenoodkazu}\end{figure}`
+  - Odkazuje se na něj pomocí `\ref{jmenoodkazu}`
+  
+- Tabulku vkládáme jako `\begin{table}Tabulka\caption{Název}\label{jmenoodkazu}\end{figure}`
+  - Odkazuje se na ni pomocí `\ref{jmenoodkazu}`
+  - Tabulku můžeme vygenerovat na http://www.tablesgenerator.com/
+ 
 
 
 
