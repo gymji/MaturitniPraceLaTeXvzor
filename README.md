@@ -62,8 +62,8 @@
   - Odkazuje se na něj pomocí `\ref{jmenoodkazu}`
   
 - Tabulku vkládáme jako `\begin{table}Tabulka\caption{Název}\label{jmenoodkazu}\end{figure}`
-  - Odkazuje se na něj pomocí `\ref{jmenoodkazu}`
-  - Tabulku můžeme vygenerovat
+  - Odkazuje se na ni pomocí `\ref{jmenoodkazu}`
+  - Tabulku můžeme vygenerovat na http://www.tablesgenerator.com/
  
 
 
