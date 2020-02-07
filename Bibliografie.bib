@@ -1,14 +1,14 @@
 % Encoding: UTF-8
 
-@Book{Book:Informatika,
+@Book{book:Informatika,
   author       = {J. Glenn Brookshear and David T. Smith and Dennis Brylow},
   title        = {Informatika},
   year         = {2013},
   translator   = {Jakub Goner},
   maintitle    = {Informatika},
   mainsubtitle = {počítačová architektura, operační systémy, počítačové sítě, algoritmy, programovací jazyky, vývoj softwaru, grafika, umělá inteligence, abstraktní teorie vyčíslitelnosti},
-  language     = {Czech},
-  origlanguage = {English},
+  language     = {cs},
+  origlanguage = {en},
   edition      = {1},
   publisher    = {Computer Press},
   isbn         = {978-80-251-3805-2},
@@ -21,15 +21,8 @@
   title      = {THE MNIST DATABASE of handwritten digits},
   year       = {1998},
   url        = {http://yann.lecun.com/exdb/mnist/},
-  language   = {English},
+  language   = {en},
   urldate    = {2019-12-15},
-}
-
-@Article{article:EMNIST,
-  author  = {Cohen, Gregory and Afshar, Saeed and Tapson, Jonathan and van Schaik, Andr{\'e}},
-  title   = {EMNIST: an extension of MNIST to handwritten letters},
-  journal = {arXiv preprint arXiv:1702.05373},
-  year    = {2017},
 }
 
 @Online{wiki:ActivationFunctions,
@@ -37,15 +30,146 @@
   title   = {Activation function --- {Wikipedia}{,} The Free Encyclopedia},
   year    = {2019},
   url     = {https://en.wikipedia.org/w/index.php?title=Activation_function&oldid=933057521},
-  note    = {[Online; accessed 9-January-2020]},
+  note    = {[Online]},
   urldate = {2020-01-09},
 }
 
-@Book{Book:FFActivationFunctions,
+@Book{book:FFActivationFunctions,
   author    = {Farnoush Farhadi},
   title     = {Learning activation functions in deep neural networks},
   year      = {2017},
   publisher = {Université De Montréal (école Polytechnique De Montréal)},
+}
+
+@Online{online:Face,
+  author     = {Generated Media, Inc.},
+  title      = {Generated Photos},
+  year       = {2019},
+  url        = {https://generated.photos/},
+  language   = {en},
+  urldate    = {2020-01-29},
+}
+
+@Online{online:Koma,
+  author     = {Kyle Kauffman},
+  title      = {Koma},
+  year       = {2016},
+  url        = {http://koma.kyonifer.com/},
+  language   = {en},
+  urldate    = {2020-01-30},
+}
+
+@Book{book:Matanalysis,
+  author   = {L. Pick and S. Hencl and J. Spurný and M. Zelený},
+  title    = {Matematická analýza 1},
+  year     = {2019},
+  date     = {2019-04-03},
+  subtitle = {(velmi předběžná verze)},
+}
+
+@Article{article:AF,
+  author      = {Chigozie Nwankpa and Winifred Ijomah and Anthony Gachagan and Stephen Marshall},
+  title       = {Activation Functions: Comparison of trends in Practice and Research for Deep Learning},
+  date        = {2018-11-08},
+  eprint      = {http://arxiv.org/abs/1811.03378v1},
+  eprintclass = {cs.LG},
+  eprinttype  = {arXiv},
+  abstract    = {Deep neural networks have been successfully used in diverse emerging domains to solve real world complex problems with may more deep learning(DL) architectures, being developed to date. To achieve these state-of-the-art performances, the DL architectures use activation functions (AFs), to perform diverse computations between the hidden layers and the output layers of any given DL architecture. This paper presents a survey on the existing AFs used in deep learning applications and highlights the recent trends in the use of the activation functions for deep learning applications. The novelty of this paper is that it compiles majority of the AFs used in DL and outlines the current trends in the applications and usage of these functions in practical deep learning deployments against the state-of-the-art research results. This compilation will aid in making effective decisions in the choice of the most suitable and appropriate activation function for any given application, ready for deployment. This paper is timely because most research papers on AF highlights similar works and results while this paper will be the first, to compile the trends in AF applications in practice against the research results from literature, found in deep learning research to date.},
+  file        = {:http\://arxiv.org/pdf/1811.03378v1:PDF},
+  keywords    = {cs.LG, cs.CV},
+}
+
+@Article{article:EMNIST,
+  author        = {Gregory Cohen and Saeed Afshar and Jonathan Tapson and André van Schaik},
+  title         = {EMNIST: an extension of MNIST to handwritten letters},
+  date          = {2017-02-17},
+  eprint        = {http://arxiv.org/abs/1702.05373v2},
+  eprintclass   = {cs.CV},
+  eprinttype    = {arXiv},
+  __markedentry = {[Jonas:]},
+  abstract      = {The MNIST dataset has become a standard benchmark for learning, classification and computer vision systems. Contributing to its widespread adoption are the understandable and intuitive nature of the task, its relatively small size and storage requirements and the accessibility and ease-of-use of the database itself. The MNIST database was derived from a larger dataset known as the NIST Special Database 19 which contains digits, uppercase and lowercase handwritten letters. This paper introduces a variant of the full NIST dataset, which we have called Extended MNIST (EMNIST), which follows the same conversion paradigm used to create the MNIST dataset. The result is a set of datasets that constitute a more challenging classification tasks involving letters and digits, and that shares the same image structure and parameters as the original MNIST task, allowing for direct compatibility with all existing classifiers and systems. Benchmark results are presented along with a validation of the conversion process through the comparison of the classification results on converted NIST digits and the MNIST digits.},
+  file          = {:http\://arxiv.org/pdf/1702.05373v2:PDF},
+  keywords      = {cs.CV},
+}
+
+@Misc{lec:CNN,
+  author       = {Fei-Fei Li and Andrej Karpathy and Justin Johnson},
+  title        = {Lecture 7: Convolutional Neural Networks},
+  year         = {2016},
+  date         = {2016-01-27},
+  language     = {en},
+  howpublished = {Online},
+  note         = {Presentation},
+  location     = {Standford University},
+  url          = {http://cs231n.stanford.edu/slides/2016/winter1516_lecture7.pdf},
+  urldate      = {2020-01-30},
+}
+
+@Report{sem:CNN,
+  author      = {David Stutz},
+  title       = {Understanding Convolutional Neural Networks},
+  type        = {semreport},
+  institution = {Fakultät für Mathematik, Informatik und Naturwissenschafte},
+  year        = {2014},
+  date        = {2014-08-30},
+  language    = {en},
+  url         = {https://davidstutz.de/wordpress/wp-content/uploads/2014/07/seminar.pdf},
+  urldate     = {2020-01-30},
+}
+
+@TechReport{art:FCNN,
+  author      = {Harry Pratt and Bryan Williams and Frans Coenen and Yalin Zheng},
+  title       = {FCNN: Fourier Convolutional NeuralNetworks},
+  institution = {{University of Liverpool, Liverpool, L69 3BX, UK}},
+  language    = {en},
+  url         = {http://ecmlpkdd2017.ijs.si/papers/paperID11.pdf},
+  urldate     = {2020-01-30},
+  abstract    = {The Fourier domain is used in computer vision and machine learn-ing as image analysis tasks in the Fourier domain are analogous to spatial do-main methods but are achieved using different operations. Convolutional Neu-ral  Networks  (CNNs)  use  machine  learning  to  achieve  state-of-the-art  resultswith respect to many computer vision tasks. One of the main limiting aspectsof CNNs is the computational cost of updating a large number of convolution pa-rameters. Further, in the spatial domain, larger images take exponentially longerthan smaller image to train on CNNs due to the operations involved in convolu-tion methods. Consequently, CNNs are often not a viable solution for large im-age computer vision tasks. In this paper a Fourier Convolution Neural Network(FCNN) is proposed whereby training is conducted entirely within the Fourierdomain. The advantage offered is that there is a significant speed up in trainingtime without loss of effectiveness. Using the proposed approach larger imagescan therefore be processed within viable computation time. The FCNN is fullydescribed and evaluated. The evaluation was conducted using the benchmark Ci-far10 and MNIST datasets, and a bespoke fundus retina image dataset. The resultsdemonstrate that convolution in the Fourier domain gives a significant speed upwithout  adversely  affecting  accuracy.  For  simplicity  the  proposed  FCNN  con-cept is presented in the context of a basic CNN architecture, however, the FCNNconcept has the potential to improve the speed of any neural network system in-volving convolution.},
+}
+
+@Book{book:BNN,
+  author    = {Kevin Gurney {(University of Sheffield, UK)}},
+  title     = {An Introduction to Neural Networks},
+  year      = {1997},
+  date      = {1997-08-05},
+  publisher = {Taylor \& Francis Ltd},
+  isbn      = {1857285034},
+  pages     = {234},
+  url       = {https://www.ebook.de/de/product/3243601/kevin_university_of_sheffield_uk_gurney_an_introduction_to_neural_networks.html},
+  ean       = {9781857285031},
+}
+
+@Electronic{vid:NN,
+  author   = {Daniel Shiffman},
+  title    = {Neural Networks - The Nature of Code},
+  year     = {2017},
+  date     = {2017-06-26},
+  url      = {https://www.youtube.com/user/shiffman/playlists?view_as=subscriber&shelf_id=6&view=50&sort=dd},
+  language = {en},
+  note     = {YouTube},
+  urldate  = {2020-01-30},
+}
+
+@Book{book:NN,
+  author    = {Michael A. Nielsen},
+  title     = {Neural Networks and Deep Learning},
+  year      = {2015},
+  publisher = {Determination Press},
+  url       = {http://neuralnetworksanddeeplearning.com/},
+  urldate   = {2020-01-30},
+}
+
+@Article{art:GAN,
+  author        = {Ian J. Goodfellow and Jean Pouget-Abadie and Mehdi Mirza and Bing Xu and David Warde-Farley and Sherjil Ozair and Aaron Courville and Yoshua Bengio},
+  title         = {Generative Adversarial Networks},
+  date          = {2014-06-10},
+  eprint        = {http://arxiv.org/abs/1406.2661v1},
+  eprintclass   = {stat.ML},
+  eprinttype    = {arXiv},
+  __markedentry = {[Jonas:6]},
+  abstract      = {We propose a new framework for estimating generative models via an adversarial process, in which we simultaneously train two models: a generative model G that captures the data distribution, and a discriminative model D that estimates the probability that a sample came from the training data rather than G. The training procedure for G is to maximize the probability of D making a mistake. This framework corresponds to a minimax two-player game. In the space of arbitrary functions G and D, a unique solution exists, with G recovering the training data distribution and D equal to 1/2 everywhere. In the case where G and D are defined by multilayer perceptrons, the entire system can be trained with backpropagation. There is no need for any Markov chains or unrolled approximate inference networks during either training or generation of samples. Experiments demonstrate the potential of the framework through qualitative and quantitative evaluation of the generated samples.},
+  file          = {:http\://arxiv.org/pdf/1406.2661v1:PDF},
+  keywords      = {stat.ML, cs.LG},
 }
 
 @Comment{jabref-meta: databaseType:biblatex;}
