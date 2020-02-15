@@ -1,8 +1,13 @@
 \newglossaryentry{Kotlin}{name={Kotlin},description={programovací jazyk vyvíjený firmou JetBrains, založen na Javě}}
 \newglossaryentry{JVM}{name={JVM},description={Java Virtual Machine je virtuální stroj, který umožňuje běh Java Bytecodu, kódu, do kterého se překládá Java a~Kotlin}}
 
-\newglossaryentry{interface}{name={interface},description={česky rozhraní je v~objektově orientovaném programování zabalení funkcí a~vlastností třídy, které by měla každá \gls{trida} z~nějaké skupiny mít (např. každá fronta by měla mít funkci pro přidání a~odebrání prvku a~jedna z~jejích vlastností je velikost)}}
+\newglossaryentry{typ}{name={typ},description={\gls{trida} nebo \gls{rozhrani}, jehož instancí je daný objekt}}
+\newglossaryentry{rozhrani}{name={rozhraní},description={anglicky interface je v~objektově orientovaném programování zabalení funkcí a~vlastností třídy, které by měla každá \gls{trida} z~nějaké skupiny mít (např. každá fronta by měla mít funkci pro přidání a~odebrání prvku a~jedna z~jejích vlastností je velikost)}}
 \newglossaryentry{trida}{name={třída},description={anglicky class je základní prvek objektově orientovaného programování. Obsahuje funkce a~vlastnosti, které bude mít objekt, který se vytvoří z~dané třídy (popřípadě třídy, jež budou z~této třídy dědit)}}
+\newglossaryentry{balicek}{name={balíček},description={anglicky package je něco jako složka, používá se k izolování proměnných, funkcí, \glsdisp{trida}{tříd} a \gls{rozhrani}, které se dají nastavit na použití pouze v daném balíčku, a zároveň také udává samostatné části programu nebo knihovny, které jsou na sobě téměř nezávislé}}
+\newglossaryentry{cobject}{name={companion object},description={tzv. statická část \glsdisp{trida}{třídy} v \gls{Kotlin}u odpovídající modifikátoru \texttt{}static v Javě, obsahuje funkce a vlastnosti, které má \gls{trida} i bez instance}}
+\newglossaryentry{enum}{name={enumerate},description={česky výčet, typický prvek Javy či \gls{Kotlin}u, \gls{trida}, která má přesně definované instance (např. dny v týdnu by se implementovali jako \gls{enum})}}
+
 
 
 \newglossaryentry{synapse}{name={synapse},description={spojení (mezera) mezi \gls{axon}em a~\gls{dendrit}em, jež podle svých chemických vlastností zesílí nebo zeslabí signál předávaný z~\gls{axon}u do \gls{dendrit}u}}
@@ -12,3 +17,13 @@
 \newglossaryentry{xor}{name={xor},description={tzv. výlučné nebo, neboli binární (tj. přijímá dvě hodnoty / tvrzení) logická funkce, která je pravda právě tehdy, když jedno tvrzení je pravdivé a jedno nepravdivé}}
 \newglossaryentry{JSON}{name={JSON},description={zkratka JavaScript Object Notation, lidsky čitelný formát ukládání Javascriptových objektů, každý parametr objektu se uloží jako \uv{"nazev": hodnota} a celý objekt je obalený \uv{\{\}}}}
 \newglossaryentry{gradient}{name={gradient},description={vektor derivací funkce podle jednotlivých proměnných, v našem světě si ho můžeme představit jako vodorovnou šipku (v každém bodě světa), která ukazuje, kterým směrem a jak moc jde krajina nejvíce do kopce z tohoto bodu (proměnné jsou pro tento příklad vodorovné souřadnice, funkcí je výška třeba nad mořem)}}
+\newglossaryentry{cyklus}{name={cyklus},description={pojem z teorie grafů, cyklus je posloupnost vrcholů (zde neuronů), přičemž z každého vrcholu do dalšího a z posledního do prvního vede hrana (zde axon $\rightarrow$ dendrit), tzn. pokud graf nemá cykly, nemůžeme se do vrcholu dostat vícekrát (zde nemusíme ho počítat vícekrát) \\ pojem z programování, používá se pro to, aby počítač opakoval kód}}
+
+\newglossaryentry{true}{name={\texttt{true}},description={hodnota typu \texttt{Boolean} (typ nabývající hodnot \gls{true} a \gls{false}) udávající pravdu, většinou reprezentován 1}}
+\newglossaryentry{false}{name={\texttt{false}},description={opak \gls{true}, většinou reprezentován 0}}
+\newglossaryentry{Array}{name={\texttt{Array}},description={typ v \gls{Kotlin}u odpovídající tzv. polím či vektorům v jiných programovacích jazycích, uchovává uspořádanou množinu objektů}}
+\newglossaryentry{Double}{name={\texttt{Double}},description={implementace 64bitových čísel s plovoucí desetinou čárkou v \gls{Kotlin}u}}
+\newglossaryentry{DoubleArray}{name={\texttt{DoubleArray}},description={\gls{Array} pro \gls{typ} \gls{Double}}}
+\newglossaryentry{Pair}{name={\texttt{Pair}},description={\gls{typ} v \gls{Kotlin}u obsahující dvě vlastnosti \texttt{first} a \texttt{second}, dva objekty libovolného \gls{typ}u}}
+
+
