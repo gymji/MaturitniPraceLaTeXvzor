@@ -59,13 +59,14 @@
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.11}
 
+\pgfplotsset{every tick label/.append style={font=\scriptsize}}
 \newcommand{\drawF}[2]{
 	\begin{axis}[grid=both,
           		xmax=4,ymax=2,xmin=-4,ymin=-2,
 	     		axis lines=middle,
          		enlargelimits,
          		scale=0.7]
-		\addplot[thick, blue, #1] {#2};
+		\addplot[thick, blue, samples=100, #1] {#2};
 	\end{axis}
 }
 
@@ -87,6 +88,9 @@
     },
     rectifiedLinearUnit/.pic={
         \drawF{samples=400}{x^2/(2*abs(x)) + x*0.5}
+    },
+    leakyRectifiedLinearUnit/.pic={
+        \drawF{samples=400}{x^2/(2*abs(x)) + x*0.5 + 0.1*(x^2/(-2*abs(x)) + x*0.5)}
     },
     hardHyperbolicFunction/.pic={
     	\drawF{samples=400}{abs(x-1)/(2*(x-1)) - abs(-x-1)/(2*(-x-1)) + (abs(-x+1)/(2*(-x+1)) + 0.5)*(abs(x+1)/(2*(x+1)) + 0.5)*x}
@@ -143,7 +147,7 @@
 	\podekovani{
 		Poděkování patří hlavně mému učiteli informatiky, který je zároveň vedoucím mé práce, za skvělou výuku na hodinách a~velkou trpělivost při kontrole našich prací. Také nesmím zapomenout na Alžbětu Neubauerovou, která mě celý rok podporovala a~několikrát provedla korekturu mé práce.
 		
-		Dále bych rád poděkoval všem komunitám, jejichž nástroje jsem používal, tj.~\mbox{JetBrains}, v~jejichž programovacím jazyce \Kotlin{} programuji a~jejichž prostředí IntelliJ k~tomu využívám, \Gradle{}, který používám ke kompilaci, \LaTeX{}, ve kterém píšu, text a~dále \git{} a~\GitHub{}, jež uchovávají má data, ať už text nebo knihovnu. 					% Poděkování
+		Dále bych rád poděkoval všem komunitám, jejichž nástroje jsem používal, tj.~\mbox{JetBrains}, v~jejichž programovacím jazyce \Kotlin{} programuji a~jejichž prostředí IntelliJ k~tomu využívám, \Gradle{}, který používám ke kompilaci, \LaTeX{}, ve kterém píšu text, a~dále \git{} a~\GitHub{}, jež uchovávají má data, ať už text nebo knihovnu. 					% Poděkování
 	}
 	
 	\tableofcontents\newpage			% Obsah
@@ -155,9 +159,9 @@
 	
 		Neuronové sítě jsou v~poslední době velmi skloňované téma. Nikdo pořádně neví, jak to, že fungují tak dobře. Cílem této práce však nebude zkoumat neuronové sítě, ale implementovat je v~co největším rozsahu (ať už struktury bez širšího využití jako asociativní paměť, nebo často používané konvoluční sítě na rozpoznávání obrázků).
 		
-		\gls{Kotlin} je ideální programovací jazyk pro vývoj knihovny, protože je interoperabilní s~Javou, Javascriptem i~C, a~tak umožňuje tuto knihovnu používat jak pro \gls{JVM}, tak i~v~prohlížeči nebo v~programech kompilovaných přímo do binárního kódu.
+		\gls{Kotlin} je ideální programovací jazyk pro vývoj knihovny, protože je interoperabilní s~Javou, Javascriptem i~C, a~tak umožňuje tuto knihovnu používat jak pro \gls{JVM} (Java Virtual Machine), tak i~v~prohlížeči nebo v~programech kompilovaných přímo do binárního kódu.
 		
-		V~textu jsou použita pojmy ze stavby biologického neuronu, objektově orientovaného programování, \gls{Kotlin}u, \ldots Tyto pojmy jsou vysvětleny na konci práce. 
+		V~textu jsou použity pojmy ze stavby biologického neuronu, objektově orientovaného programování, \gls{Kotlin}u, atd. Tyto pojmy jsou vysvětleny na konci práce. 
 		
 		Celá maturitní práce je k~dispozici na GitHubu, text včetně zdrojového LaTeXu na adrese \url{https://github.com/JoHavel/Maturitni-Seminarni-Prace/tree/my\_work} a~knihovna samotná pak na \url{https://github.com/JoHavel/NeuralNetwork}.
 	
@@ -171,67 +175,69 @@
 					
 					Přenos signálu z~\gls{axon}u do \gls{dendrit}u se odehrává v~malých prostorách mezi nimi zvaných \emph{\gls{synapse}}. Vodivost synapsí je ovlivněna jejich chemickým složením, a~proto se domníváme, že proces učení probíhá měněním těchto chemických spojů \autocite[s. 491]{book:Informatika}.
 					
-					Náš umělý neuron tedy bude mít \emph{seznam \gls{dendrit}ů} (nesoucích informaci z~jakého neuronu vedou signál a~jak ho mění \gls{synapse}), tzv.~\emph{aktivační funkci} (viz dále) a~výstupní signál. Často navíc bude obsahovat základní hodnotu (angl. \emph{bias}), která reprezentuje mez, při jejímž překročení začne neuron vysílat signál. Jinak řečeno posouvá aktivační funkci ve směru osy $x$.
+					Náš umělý neuron tedy bude mít \emph{seznam \gls{dendrit}ů} (nesoucích informaci z~jakého neuronu vedou signál a~jak ho mění \gls{synapse}), tzv.~\emph{aktivační funkci} (viz dále) a~výstupní signál. Často navíc bude obsahovat základní hodnotu (angl. \emph{bias}), která reprezentuje mez, při jejímž překročení začne neuron vysílat signál. Jinak řečeno posouvá aktivační funkci ve směru osy~$x$.
 					
-					Neuron (hlavně ten umělý) ilustruje obrázek \ref{fig:neuron} nacházející se v~další kapitole. Podrobněji o~souvislosti biologických a~umělých neuronových sítích pojednává \autocite{book:BNN}.
+					Neuron (hlavně ten umělý) ilustruje obrázek~\ref{fig:neuron} nacházející se v~další kapitole. Podrobněji o~souvislosti biologických a~umělých neuronových sítích pojednává \autocite{book:BNN}.
 				
 				\section{Aktivační funkce}
 					Jak už bylo zmíněno, přírodní neuron funguje na principu toho, že když součet vstupních signálů nepřekračuje určitou mez, nevysílá neuron žádný (nebo téměř žádný) signál. Když je však tato mez překonána, neuron vyšle signál. V~podstatě tedy vysílá buď 0 nebo 1. Pro účely umělého neuronu je 0 a~1 nedostačující, jelikož při procesu učení potřebujeme měnit hodnoty jemně, abychom nerozbili již naučené znalosti.
 					
-					Proto se jako aktivační funkce (tedy to, co určuje jaký má být výstup v~závislosti na součtu vstupů, v~případě přírody tedy funkce zobrazující interval $-\infty$ až mez (bias) na 0 a~zbylá čísla na 1 viz \emph{binární krok} v~sekci \ref{s:af}) používají funkce co nejvíce podobné právě tomuto binárnímu kroku, které jsou ale spojité a~mají co \uv{nejhezčí} derivace (protože při zpětné propagaci právě podle derivace určíme, jak moc daný neuron ovlivňuje výsledek).
+					Proto se jako aktivační funkce (tedy to, co určuje jaký má být výstup v~závislosti na součtu vstupů, v~případě přírody tedy funkce zobrazující interval $-\infty$ až mez (bias) na 0 a~zbylá čísla na 1 viz \emph{binární krok} v~sekci~\ref{s:af}) používají funkce co nejvíce podobné právě tomuto binárnímu kroku, které jsou ale spojité a~mají co \uv{nejhezčí} derivace (protože při zpětné propagaci právě podle derivace určíme, jak moc daný neuron ovlivňuje výsledek).
 				
 				\section{Sítě} \label{s:net}
-					Jelikož \uv{nahodilé neurony} by se těžko udržovaly v~paměti a~operace na nich by byly velmi pomalé, potřebujeme síť nějak uspořádat. Nejjednodušším uspořádáním jsou \emph{vrstvy}. Každý neuron z~jedné vrstvy má \gls{dendrit}y ze všech neuronů z~vrstvy minulé. Tak se předejde \glsdisp{cyklus}{cyklům}, které jsou složité na výpočty, a~navíc si nemusíme u~každého neuronu pamatovat, ze kterých neuronů do něj vede signál.
+					Jelikož \uv{nahodilé neurony} by se těžko udržovaly v~paměti a~operace na nich by byly velmi pomalé, potřebujeme síť nějak uspořádat. Nejjednodušším uspořádáním jsou \emph{vrstvy} (viz obrázek~\ref{fig:bnn}). Každý neuron z~jedné vrstvy má \gls{dendrit}y ze všech neuronů z~vrstvy minulé. Tak se předejde \glsdisp{cyklus}{cyklům}, které jsou složité na výpočty, a~navíc si nemusíme u~každého neuronu pamatovat, ze kterých neuronů do něj vede signál.
+					
+					Velmi využívanými strukturami jsou také konvoluční neuronové sítě, kde nejdříve aplikujeme filtry\footnote{Často malé neuronové sítě, které sami vytvoříme. Sítě používané jako filtry se nemusí učit (učení filtrů není vzhledem k~obtížnosti zatím implementováno). Další možný filtr je třeba Fourierova transformace viz \autocite{art:FCNN}, kterou se však dále zabývat nebudeme (tato možnost není ani implementována v~knihovně).} na části vstupních dat a~teprve výstupy z~těchto filtrů jsou vstupem do neuronové sítě. O~konvolučních sítích se můžete dočíst v~\autocite{lec:CNN} nebo v~\autocite{sem:CNN}.
+					
+					I~tak se \uv{nahodilé neurony} občas používají, jelikož při malém množství neuronů a~hlavně při malém množství synapsí je přepočítání samotných neuronů efektivnější než počítání celých vrstev. Ukázkou takové malé sítě je asociativní paměť, kde neuronům přiřadíme objekty, které si tato síť má \uv{pamatovat}. Když chceme zjistit, co je v~paměti asociováno s~daným objektem, vybudíme (v~umělé síti to znamená nastavíme výstupní signál na 1) neuron odpovídající tomuto objektu a~následně sledujeme, které další neurony jsou vybuzeny (viz obrázek~\ref{fig:am}). Takto funguje i~lidská paměť, pamatujeme si právě asociace. Umělou asociativní paměť zmiňuje \autocite{book:Informatika}.
 					
 					\begin{figure}[h]
 						\resizebox{\textwidth}{!}{%
 							\begin{tikzpicture}
-								\def\first{2}
-								\def\second{4}
+								\def\first{3}
+								\def\second{5}
 								\def\third{9}
-								\def\fourth{2}
-								\foreach \x in {0,1,...,\first}{%
+								\def\fourth{4}
+								\foreach \x in {1,...,\first}{%
 							    	\node[X] (A\x) at (0, 2*\x-\first) {$n_{\x,\,1}$};
-							    	\node[align=center] at ($(A\x)+(0.7,0.7)$) {$v_{\x,\,1}$\\[-1mm] $\rightarrow$};
+							    	\node[align=center] at ($(A\x)+(0.7,0.7)$) {$v_{\x,\,1}$\\[-3.5mm] $\rightarrow$};
 							    }
      
-								\foreach \x in {0,1,...,\second}{%
+								\foreach \x in {1,...,\second}{%
 					    	  		\node[X] (B\x) at (15, 2*\x-\second) {$n_{\x,\,2}$};
 								}
 					     
-								\foreach \x in {0,1,...,\third}{%
+								\foreach \x in {1,...,\third}{%
 							    	\node[X] (C\x) at (20, 2*\x-\third) {$n_{\x,\,3}$};
 							    }
 				     
-								\foreach \x in {0,1,...,\fourth}{%
+								\foreach \x in {1,...,\fourth}{%
 							    	\node[X] (D\x) at (25, 2*\x-\fourth) {$n_{\x,\,4}$};
 							    }
      
-					    		\foreach \x in {0,1,...,\first}{%
-					    			\foreach \y in {0,1,...,\second}{%
+					    		\foreach \x in {1,...,\first}{%
+					    			\foreach \y in {1,...,\second}{%
 						    		\draw [->] (A\x) -- ($(A\x)!.6!(B\y)$) -- node[fill=white] {\scriptsize $\W(n_{\x,\,1}, n_{\y,\,2})$} (B\y);
 					    			}
 							    }
      
-							    \foreach \x in {0,1,...,\second}{%
-					    			\foreach \y in {0,1,...,\third}{%
+							    \foreach \x in {1,...,\second}{%
+					    			\foreach \y in {1,...,\third}{%
 								    	\draw [->] (B\x) -- (C\y);
 			    					}
 						    	}
 	     
-							    \foreach \x in {0,1,...,\third}{%
-					    			\foreach \y in {0,1,...,\fourth}{%
+							    \foreach \x in {1,...,\third}{%
+					    			\foreach \y in {1,...,\fourth}{%
 			    						\draw [->] (C\x) -- (D\y);
 				    				}
 							    }
 						    \end{tikzpicture}
 						}
-						\caption{Běžná neuronová síť ($\W$ jsou váhy, $n$ neurony a~$v$ je výstupní signál, viz kapitola \ref{s:fn} a~sekce \ref{s:n})}
+						\caption{Běžná neuronová síť ($\W$ jsou váhy, $n$ neurony a~$v$ je výstupní signál, viz kapitola~\ref{s:fn}, konkrétně sekce~\ref{s:n})}
+						\label{fig:bnn}
 					\end{figure}
 					
-					Velmi využívanými strukturami jsou také konvoluční neuronové sítě, kde nejdříve aplikujeme filtry\footnote{Často malé neuronové sítě, které sami vytvoříme. Sítě používané jako filtry se nemusí učit\footnote{Učení filtrů není vzhledem k~obtížnosti zatím implementováno.}. Další možný filtr je třeba Fourierova transformace viz \autocite{art:FCNN}, kterou se však dále zabývat nebudeme (tato možnost není ani implementována v~knihovně).} na části vstupních dat a~teprve výstupy z~těchto filtrů jsou vstupem do neuronové sítě. O~konvolučních sítích se můžete dočíst v~\autocite{lec:CNN} nebo v~\autocite{sem:CNN}.
-					
-					I~tak se \uv{nahodilé neurony} občas používají, jelikož při malém množství neuronů a~hlavně při malém množství synapsí je přepočítání samotných neuronů efektivnější než počítání celých vrstev. Ukázkou takové malé sítě je asociativní paměť, kde neuronům přiřadíme objekty, které si tato síť má \uv{pamatovat}. Když chceme zjistit, co je v~paměti asociováno s~daným objektem, vybudíme (v~umělé síti to znamená nastavíme výstupní signál na 1) neuron odpovídající tomuto objektu a~následně sledujeme, které další neurony jsou vybuzeny. Takto funguje i~lidská paměť, pamatujeme si právě asociace. Umělou asociativní paměť zmiňuje \autocite{book:Informatika}.
 					
 					\newcommand{\pictureAP}{
 						\resizebox{\textwidth}{!}{%
@@ -290,6 +296,7 @@
 						\tikzset{X4/.style={XX, color=red}}
 						\subf{4 kroky po vybuzení 1. neuronu}
 						\caption{Asociativní paměť, červeně jsou vybuzené neurony}
+						\label{fig:am}
 					\end{figure}
 					
 				\section{Dopředná propagace a~zpětná propagace}
@@ -302,7 +309,7 @@
 					
 					Další oblastí je překlad. Překládat slova zvládneme jednoduše podle slovníků, ale aby věta dávala smysl a~slovo bylo přeloženo v~kontextu věty, potřebujeme něco více. Pro to se používá vektorový prostor slov, tedy všem slovům přiřadíme určitý vektor (to musíme udělat vždy, protože neuronová síť nemá jiný vstup) a~poté na vzorovém textu učíme neuronovou síť odhadovat slovo podle několika okolních slov. Při tom ale neupravujeme jen hodnoty neuronové sítě, ale i~vektorů slov. Tím dostaneme vektorový prostor slov, na kterém se překládající neuronová síť (jiná než ta, co vyrobila vektorový prostor) naučí překládat velmi lidsky. Stejný vektorový prostor se dá použít i~na neuronovou síť generující text.
 					
-					Když už bylo zmíněno generování, umělé neuronové sítě jsou schopny i~generovat obrázky, hudbu, atd.\footnote{Stále je to však na základě nějakého datasetu obrázků nebo hudby.} K~tomu se používá systém GAN (tj.~Generative adversarial network) \autocite{art:GAN}, což jsou dvě sítě, jedna generuje a~druhá dostane dvojici objekt vytvořený člověkem (resp. skutečností v~případě fotek) a~objekt vygenerovaný první sítí a~má za úkol určit, který je který. Tyto sítě se učí spolu a~výsledkem jsou relativně pěkná díla viz obrázek \ref{fig:face}.
+					Když už bylo zmíněno generování, umělé neuronové sítě jsou schopny i~generovat obrázky, hudbu, atd.\footnote{Stále je to však na základě nějakého datasetu obrázků nebo hudby.} K~tomu se používá systém GAN (tj.~Generative adversarial network) \autocite{art:GAN}, což jsou dvě sítě, jedna generuje a~druhá dostane dvojici objekt vytvořený člověkem (resp. skutečností v~případě fotek) a~objekt vygenerovaný první sítí a~má za úkol určit, který je který. Tyto sítě se učí spolu a~výsledkem jsou relativně pěkná díla viz obrázek~\ref{fig:face}.
 					
 					\begin{figure}
 						\centering
@@ -316,7 +323,7 @@
 			
 				Matematikou za neuronovými sítěmi a~její implementací v~Pythonu se zabývají videa \autocite{vid:NN}. Kniha zabývající se touto problematikou je např. \autocite{book:NN}.
 				
-				V~dalším textu $\vec{x}\cdot\vec{y}$ značí skalární součin\footnote{To jest to samé jako $\vec{x}^T\vec{y}$.} vektorů $\vec{x}$ a~$\vec{y}$. Vektory jsou uvedeny horizontálně, ale chápejme to jako by byly vertikálně\footnote{Mohli bychom doplnit za každou definici vektoru $^T$, třeba \ref{eq:v} přepíšeme jako $\vec{v} = \left(v_{1},\,v_{2},\,\ldots\right)^T$}.
+				V~dalším textu $\vec{x}\cdot\vec{y}$ značí skalární součin\footnote{To jest to samé jako $\vec{x}^T\vec{y}$.} vektorů $\vec{x}$ a~$\vec{y}$. Vektory jsou uvedeny horizontálně, ale chápejme to jako by byly vertikálně\footnote{Mohli bychom doplnit za každou definici vektoru $^T$, třeba~(\ref{eq:v2}) přepíšeme jako $\vec{v} = \left(v_{1},\,v_{2},\,\ldots\right)^T$}.
 
 				\section{Definice neuronu a~sítě} \label{s:neuron}
 					
@@ -329,9 +336,9 @@
 								\node (NI) at (0, 2*\first-3) {Vstupní neurony: $N_{in}$};
 								\node (N) at (15, 2*\first-3) {Vyšetřovaný neuron: $n$};
 								\node (NO) at (20, 2*\first-3) {Výstupní neurony: $N_{out}$};
-								\node (S) at ($(NI)!.65!(N)$) {Synapse z~$n_{i*}$ do $n$};
-								\node at ($(S)!.48!(N)$) {Dendrity};
-								\node at ($(NI)!.5!(S)$) {Axony vstupních neuronů};
+								\node (S) at ($(NI)!.60!(N)$) {\Gls{synapse} z~$n_{i*}$ do $n$};
+								\node at ($(S)!.48!(N)$) {\Gls{dendrit}y};
+								\node at ($(NI)!.5!(S)$) {\Gls{axon}y vstupních neuronů};
 																
 								\foreach \x in {0,1,...,\first}{%
 							    	\node[X] (A\x) at (0, 2*\x-\first) {$n_{i\x}$};
@@ -344,11 +351,11 @@
 							    }
 				     
 					    		\foreach \x in {0,1,...,\first}{%
-						    		\draw [->] (A\x) --node[fill=white, align=center] {\scriptsize $v_{i\x}$\\[-1mm] $\rightarrow$} ($(A\x)!.2!(B)$) -- ($(A\x)!.4!(B)$) -- node[fill=white] {\scriptsize $\W(n_{i\x}, n)$} (B);
+						    		\draw [->] (A\x) --node[fill=white, align=center] {\scriptsize $v_{i\x}$\\[-1mm] $\rightarrow$} ($(A\x)!.2!(B)$) -- ($(A\x)!.3!(B)$) -- node[fill=white] {\scriptsize $\W(n_{i\x}, n)$} (B);
 							    }
      
 				    			\foreach \y in {0,1,...,\third}{%
-							    	\draw [->] (B)  -- node[fill=white, align=center] {\scriptsize $v$\\[-1mm] $\rightarrow$} ($(B)!.7!(C\y)$) -- (C\y);
+							    	\draw [->] (B)  -- node[fill=white, align=center] {\scriptsize $v$\\[-1mm] $\rightarrow$} ($(B)!.9!(C\y)$) -- (C\y);
 		    					}
 						    \end{tikzpicture}
 						}
@@ -365,7 +372,7 @@
 					\begin{equation} v~= f\left(b + \sum_{n_x \in N_{in},\,v_x \in n_x} v_x \cdot W\left(n_x,\,n\right) \right) \label{eq:v} \end{equation}
 				
 					To lze při označení
-					\begin{equation} \vec{v} = \left(v_{1},\,v_{2},\,\ldots\right) \label{eq:v} \end{equation}
+					\begin{equation} \vec{v} = \left(v_{1},\,v_{2},\,\ldots\right) \label{eq:v2} \end{equation}
 					\begin{equation} \vec{w} = \left(w_{1},\,w_{2},\,\ldots\right) \end{equation}
 					\begin{equation} \left(\forall n_x \in N_{in}\right)\left(\exists! i~\in \N\right)\left(v_i \in n_x \land w_i = W(n_x, n)\right) \end{equation}
 					zapsat vektorově jako:
@@ -387,7 +394,7 @@
 					, tedy $\varepsilon$ výstupních neuronů spočítáme pouze jako rozdíl chtěných a~reálných výstupů.
 				
 				\section{Zpětná propagace}
-					Při zpětné propagaci je důležitý vzorec pro derivaci složené funkce, někdy také znám jako \uv{řetízkové pravidlo} (pro funkci jedné proměnné platí (\ref{eq:rp1}), pro více pak (\ref{eq:rp2}))\footnote{Pro funkce musí platit, že mají v~daných bodech derivaci, viz \autocite[s. 623]{book:Matanalysis}.}
+					Při zpětné propagaci je důležitý vzorec pro derivaci složené funkce, někdy také znám jako \uv{řetízkové pravidlo} (pro funkci jedné proměnné platí rovnice~(\ref{eq:rp1}), pro více pak rovnice~(\ref{eq:rp2}))\footnote{Pro funkce musí platit, že mají v~daných bodech derivaci, viz \autocite[s. 623]{book:Matanalysis}.}
 					\begin{equation} \frac{dy}{dx} = \frac{dz}{dx}\frac{dy}{dz} \label{eq:rp1} \end{equation}
 					\begin{equation} \frac{\delta y}{\delta x} = \sum_z\frac{\delta z}{\delta x}\frac{\delta y}{\delta z} \label{eq:rp2} \end{equation}
 					Díky tomu můžeme $\varepsilon$ neuronu spočítat pomocí
@@ -400,12 +407,13 @@
 					\begin{equation} \varepsilon = \frac{ \delta v}{\delta f^{-1}(v)}\sum_{n_x \in N_{out},\,\varepsilon_x \in n_x}\varepsilon_x \cdot W\left(n,\,n_x\right) \end{equation}
 					\begin{equation} \varepsilon = f'\left(f^{-1}(v)\right) \sum_{n_x \in N_{out},\,\varepsilon_x \in n_x} \varepsilon_x \cdot W\left(n,\,n_x\right) \label{eq:bpve} \end{equation}
 					
-					$\varepsilon$ nás dovede k~tomu, o~kolik musíme posunout bias. Hlavním parametrem neuronové sítě jsou ale váhy (funkce $W$). Derivaci chybové funkce podle váhy určíme za pomoci \ref{eq:f1}, tj.
+					$\varepsilon$ nás dovede k~tomu, o~kolik musíme posunout bias. Hlavním parametrem neuronové sítě jsou ale váhy (funkce $W$). Derivaci chybové funkce podle váhy určíme za pomoci~rovnice~(\ref{eq:f1}), tj.
 					\begin{equation} \frac{\delta f_y^{-1}(v_y)}{\delta W\left(n,\,n_y\right)} = v~\end{equation}
-					a~z~rovnice \ref{eq:v}:
-					\begin{equation} \frac{\delta E}{\delta W\left(n,\,n_y\right)} = \frac{\delta E}{\delta f_y^{-1}\left(v_y\right)}\cdot\frac{\delta f_y^{-1}\left(v_y\right)}{\delta W\left(n,\,n_y\right)} = e_y \cdot v~\end{equation}
+					a~z~rovnice~(\ref{eq:v}):
+					\begin{equation} \frac{\delta E}{\delta W\left(n,\,n_y\right)} = \frac{\delta E}{\delta f_y^{-1}\left(v_y\right)}\cdot\frac{\delta f_y^{-1}\left(v_y\right)}{\delta W\left(n,\,n_y\right)} = \varepsilon_y \cdot v~\end{equation}
 				
-					Obdobně jako v~předchozím případě definujeme vektory\footnote{Značení $\frac{\delta E}{\delta\vec{w}}$ a~$\frac{\delta E}{\delta\W}$ z~rovnicí \ref{eq:wd} a~\ref{eq:wdm} neznačí derivace podle vektoru a~matice, ale je to symbolické značení pro vektor a~matici derivací podle jednotlivých složek daného tensoru.}:
+					Obdobně jako v~předchozím případě definujeme vektory\footnote{Značení $\frac{\delta E}{\delta\vec{w}}$ a~$\frac{\delta E}{\delta\W}$ z~rovnic~(\ref{eq:wd}) a~(\ref{eq:wdm}) neznačí derivace podle vektoru a~matice, ale je to symbolické značení pro vektor a~matici derivací podle jednotlivých složek daného tensoru.}:
+					
 					\begin{equation} \vec{\varepsilon} = \left(\varepsilon_{1},\,\varepsilon_{2},\,\ldots\right) \end{equation}
 					\begin{equation} \vec{w} = \left(w_{1},\,w_{2},\,\ldots\right) \end{equation}
 					\begin{equation} \frac{\delta E}{\delta\vec{w}} = \left(\frac{\delta E}{\delta w_{1}},\,\frac{\delta E}{\delta w_{2}},\,\ldots\right) \label{eq:wd} \end{equation}
@@ -414,11 +422,11 @@
 					\begin{equation} \frac{\delta E}{\delta\vec{w}} = \vec{\varepsilon}\cdot v~\label{eq:bp2} \end{equation}
 					Vektor $\frac{\delta E}{\delta\vec{w}}$ už stačí jen přičíst k~$\vec{w}$, abychom upravili hodnoty $W\left(n, n_x\right)$.
 					
-					Pomocí tohoto můžeme spočítat všechno kromě $\varepsilon$ na výstupních neuronech. To můžeme z~rovnice \ref{eq:ef} ($n_o \in O$ jsou výstupní neurony, $\varepsilon_o \in n_o$, $f_o \in n_o$ a~$v_o \in n_o$):
+					Pomocí tohoto můžeme spočítat všechno kromě $\varepsilon$ na výstupních neuronech. To můžeme z~rovnice~(\ref{eq:ef}) ($n_o \in O$ jsou výstupní neurony, $\varepsilon_o \in n_o$, $f_o \in n_o$ a~$v_o \in n_o$):
 					\begin{equation} \varepsilon_o = \frac{\delta E}{\delta f_o^{-1}\left(v_o\right)} = \frac{\delta E}{\delta v_o} \cdot \frac{\delta v_o}{\delta f_o^{-1}\left(v_o\right)} = (v_{od} - v_o) f_o'\left(f_o^{-1}\left(v_o\right)\right) \label{eq:bpout} \end{equation}
 					
 				\section{Síť} \label{s:n}
-					V~\ref{s:net} jsme se bavili o~tom, že nejpoužívanější sítě mají neurony seřazené do vrstev. Nechť jsou tudíž neurony uspořádány ve vrstvách číslovaných přirozenými čísly od 1 a~nechť jsou navíc i~neurony v~každé vrstvě zvlášť očíslovány přirozenými čísly od 1 (tj.~vrstva je vlastně vektor neuronů). Potom značme $L_x$ vrstvu s~indexem $x$ a~$n_{x,\,y}$ neuron s~indexem $y$ příslušící do $L_x$. To znamená, že pokud $N_{in} \in n_{x,\,y}$, tak $N_{in} = L_{x-1}$, a~pokud $N_{out} \in n_{x,\,y}$, tak $N_{out} = L_{x+1}$. Následně zaveďme vektory ($v_{x,\,i} \in n_{x,\,i}$, $b_{x,\,i} \in n_{x,\,i}$, $f_{x,\,i} \in n_{x,\,i}$ a~$\varepsilon_{x,\,i} \in n_{x,\,i}$):
+					V~sekci~\ref{s:net} jsme se bavili o~tom, že nejpoužívanější sítě mají neurony seřazené do vrstev. Nechť jsou tudíž neurony uspořádány ve vrstvách číslovaných přirozenými čísly od 1 a~nechť jsou navíc i~neurony v~každé vrstvě zvlášť očíslovány přirozenými čísly od 1 (tj.~vrstva je vlastně vektor neuronů). Potom značme $L_x$ vrstvu s~indexem $x$ a~$n_{x,\,y}$ neuron s~indexem $y$ příslušící do $L_x$. To znamená, že pokud $N_{in} \in n_{x,\,y}$, tak $N_{in} = L_{x-1}$, a~pokud $N_{out} \in n_{x,\,y}$, tak $N_{out} = L_{x+1}$. Následně zaveďme vektory ($v_{x,\,i} \in n_{x,\,i}$, $b_{x,\,i} \in n_{x,\,i}$, $f_{x,\,i} \in n_{x,\,i}$ a~$\varepsilon_{x,\,i} \in n_{x,\,i}$):
 					
 					\begin{equation} \vec{v}_x = \left(v_{x,\,1},\,v_{x,\,2},\,\ldots\right) \end{equation}
 					\begin{equation} \vec{w}_{x,\,i} = \left(W\left(n_{x,\,1}, n_{x+1,\,i}\right),\,W\left(n_{x,\,2}, n_{x+1,\,i}\right),\,\ldots\right) \end{equation}
@@ -429,7 +437,7 @@
 					\begin{equation} \frac{\delta E}{\delta\vec{w'}_{x,\,i}} = \left(\frac{\delta E}{\delta W\left(n_{x,\,y}, n_{x+1,\,1}\right)},\,\frac{\delta E}{\delta W\left(n_{x,\,y}, n_{x+1,\,2}\right)},\,\ldots\right) \end{equation}
 					
 					\subsection{Dopředná propagace}
-					Přepíšeme rovnici dopředné propagace \ref{eq:fp}:
+					Přepíšeme rovnici dopředné propagace~(\ref{eq:fp}):
 					\begin{equation} v_{x,\,i} = f_{x,\,i}\left(b_{x,\,i} + \vec{w}_{x-1,\,i} \cdot \vec{v}_{x-1} \right) \end{equation}
 					Můžeme využít matici vah a~maticové násobení (aplikaci vektoru funkcí $\vec{f}(\vec{x})$ chápejme tak, že na každou složku $\vec{x}$ se aplikuje odpovídající složka $\vec{f}$):
 					\begin{equation}
@@ -447,17 +455,17 @@
 					\begin{equation} \vec{v}_x = \vec{f}_x\left(\vec{b}_x + W_{x-1} \cdot \vec{v}_{x-1} \right) \label{eq:bpn} \end{equation}
 					
 					\subsection{Zpětná propagace}
-					Nyní přepíšeme rovnice \ref{eq:bp1} a~\ref{eq:bp2} zpětné propagace:
+					Nyní přepíšeme rovnice~(\ref{eq:bp1}) a~(\ref{eq:bp2}) zpětné propagace:
 					
 					\begin{equation} \varepsilon_{x,\,i} = f_{x,\,i}'\left(f_{x,\,i}^{-1}(v_{x,\,i})\right) \odot \left(\vec{w'}_{x,\,i} \cdot \vec{\varepsilon}_{x+1}\right) \label{eq:bp3} \end{equation}
 					
 					\begin{equation} \frac{\delta E}{\delta\vec{w'}_{x,\,i}} = \vec{\varepsilon}_{x+1}\cdot v_{x,\,i} \label{eq:bp4}\end{equation}
-					Rovnici \ref{eq:bp3} můžeme převést hned do maticového tvaru ($\W^T$ značí transponovanou matici $\W$, $\vec{f}^{-1}(x)$ a~$\vec{f}'(x)$ značí aplikaci inverzní funkce a~derivace funkce podobně jako v~\ref{eq:bpn}, $\odot$ značí násobení po složkách\footnote{Násobením vektorů $\vec{x} = \left(x_1,\,x_2,\,\ldots\right)$ a~$\vec{y} = \left(y_1,\,y_2,\,\ldots\right)$ tzv.~po složkách získáme vektor $\vec{x}\odot\vec{y} = \left(x_1\cdot y_1,\,x_2 \cdot y_2,\,\ldots\right)$.}):
+					Rovnici~(\ref{eq:bp3}) můžeme převést hned do maticového tvaru ($\W^T$ značí transponovanou matici $\W$, $\vec{f}^{-1}(x)$ a~$\vec{f}'(x)$ značí aplikaci inverzní funkce a~derivace funkce podobně jako v~(\ref{eq:bpn}), $\odot$~značí násobení po složkách\footnote{Násobením vektorů $\vec{x} = \left(x_1,\,x_2,\,\ldots\right)$ a~$\vec{y} = \left(y_1,\,y_2,\,\ldots\right)$ tzv.~po složkách získáme vektor $\vec{x}\odot\vec{y} = \left(x_1\cdot y_1,\,x_2 \cdot y_2,\,\ldots\right)$.}):
 					\begin{equation} \vec{\varepsilon}_x = \vec{f}_x'\left(\vec{f}_x^{-1}(\vec{v}_x)\right) \odot \left(\W_x^T \cdot \vec{\varepsilon}_{x+1}\right)  \label{eq:bpab} \end{equation}
 					
-					Pro rovnici \ref{eq:bp4} potřebujeme spojit definice \ref{eq:wd} (definice vektoru derivací), kterou přepíšeme do tvaru vrstev:
+					Pro rovnici~(\ref{eq:bp4}) potřebujeme spojit definice~(\ref{eq:wd}) (definice vektoru derivací), kterou přepíšeme do tvaru vrstev:
 					\begin{equation} \frac{\delta E}{\delta\vec{w_{x,i}}} = \left(\frac{\delta E}{\delta W\left(n_{x, i}, n_{x+1,1}\right)},\,\frac{\delta E}{\delta W\left(n_{x, i}, n_{x+1,2}\right)},\,\ldots\right) \end{equation}
-					a~\ref{eq:wm} (definici matice vah):
+					a~(\ref{eq:wm}) (definici matice vah):
 					\begin{equation}
 						\frac{\delta E}{\delta \W_x} = \begin{pmatrix}
 							\frac{\delta E}{\delta w_{x,\,1}} \\
@@ -471,10 +479,10 @@
 						\label{eq:wdm}
 					\end{equation}
 					
-					Nyní jsme již schopni zapsat \ref{eq:bp4} maticově:
+					Nyní jsme již schopni zapsat rovnici~(\ref{eq:bp4}) maticově:
 					\begin{equation} \frac{\delta E}{\delta \W_x} = \vec{\varepsilon}_{x+1} \vec{v}_x^T \label{eq:bpab2} \end{equation}
 
- 					I~spočítání $\varepsilon$ u~poslední vrstvy (tj.~neuronů v~$O$, značme ji $L_o$) lze zapsat vektorově ($\vec{v}_{od}$ zde značí vektor předpokládaných výsledků):
+ 					I~spočítání $\varepsilon$ u~poslední vrstvy (tj.~neuronů v~$O$, značme ji $L_o$) lze zapsat vektorově ($\vec{v}_{od}$~zde~značí vektor předpokládaných výsledků):
 					\begin{equation} \vec{\varepsilon}_o = \vec{f}_x'\left(\vec{f}_x^{-1}(\vec{v}_x)\right) \odot \left(\vec{v}_{od} - \vec{v}_o\right) \label{eq:bpab3} \end{equation}
 					
 					\subsection{Zakomponování biasu}
@@ -499,9 +507,9 @@
 						\end{pmatrix}
 					\end{equation}
 					
-					Rovnice \ref{eq:bpn} (samozřejmě bez biasu:
+					Rovnice~(\ref{eq:bpn}) (samozřejmě bez biasu:
 					\begin{equation} \vec{v}_x = \vec{f}_x\left(W_{x-1} \cdot \vec{v}_{x-1} \right) \label{eq:bpnb} \end{equation}
-					), \ref{eq:bpab} a~\ref{eq:bpab2} poté fungují pořád stejně. Rovnice \ref{eq:bpab3} funguje také shodně, jelikož prostě řekneme, že první člen odhadu vyšel tak, jak má, tj.~$\vec{\varepsilon} = \left(0,\,\ldots\right)$
+					),~(\ref{eq:bpab}) a~(\ref{eq:bpab2}) poté fungují pořád stejně. Rovnice~(\ref{eq:bpab3}) funguje také shodně, jelikož prostě řekneme, že první člen odhadu vyšel tak, jak má, tj.~$\vec{\varepsilon} = \left(0,\,\ldots\right)$
 				
 				\section{Aktivační funkce} \label{s:af}
 					Jelikož neurony mají bias, není nutné udávat aktivační funkce obecně, stačí je jen udat tak, že $x=0$ odpovídá mezi v~pomyslném biologickém neuronu. Mezi aktivační funkce\footnote{Funkce jsem čerpal převážně z~\autocite{wiki:ActivationFunctions}.} patří:
@@ -523,7 +531,7 @@
 						\item \emph{Sigmoid} \autocite{article:AF} (značí se $\sigma$)
 							\begin{equation}\sigma(x) = \frac{1}{1+e^{-x}}\end{equation}										
 							\begin{equation}\sigma'(x) = \frac{e^{-x}}{\left(1+e^{-x}\right)^2} = \frac{1}{1+e^{-x}}\left(1-\frac{1}{1+e^{-x}}\right) = \sigma(x)\cdot\left(1-\sigma(x)\right)\end{equation}										
-							je jedna z~nejznámějších aktivačních funkcí. Je to vlastně takový hladký přechod mezi 0 a~1. Také je na $\sigma$ dobře vidět, proč se často počítá derivace z~funkční hodnoty, místo počítání exponenciální funkce a~dělení si vystačíme s~násobením a~odčítáním.
+							je jedna z~nejznámějších aktivačních funkcí. Je to vlastně takový hladký přechod mezi 0 a~1. Také je na $\sigma$ dobře vidět, proč se často počítá derivace z~funkční hodnoty, místo počítání exponenciální funkce a~dělení si vystačíme s~násobením a~odčítáním. \emph{Sigmoida} se také používá ve spojení s~ostatními funkcemi, většinou $\sigma(x)$ pro kladné a~druhá funkce pro záporné.
 						
 					   		\figF{sigmoid}{$\sigma$}
 							
@@ -536,8 +544,9 @@
 				    		\figF{tanh}{Hyperbolický tangens}
 						
 						\item Další funkce s~vazbou na \emph{sigmoidu} je funkce \emph{swish} \autocite{article:AF}:
-							\begin{equation}f(x) = x\cdot \sigma(x) = \frac{x}{1+e^{-x}}\end{equation}										
-							Nepodařilo se mi ale najít derivaci za pomoci funkční hodnoty. \emph{Sigmoida} se také používá ve spojení s~ostatními funkcemi, většinou $\sigma(x)$ pro kladné a~druhá funkce pro záporné.
+							\begin{equation}f(x) = x\cdot \sigma(x) = \frac{x}{1+e^{-x}}\end{equation}		
+							\begin{equation}f'(x) = x + \sigma'(x) = x + \sigma(x)\cdot\left(1-\sigma(x)\right) \end{equation}					
+							Nepodařilo se mi ale najít derivaci za pomoci funkční hodnoty.
 							
 					    	\figF{swish}{Swish}
 						
@@ -549,9 +558,15 @@
 							
 						    \figF{rectifiedLinearUnit}{Rectified linear unit}
 						
-						\item Kromě této verze je v~knihovně ještě \emph{leaky} (děravá či prosakující) \emph{rectified linear unit} \autocite{article:AF}, která v~záporných hodnotách nedává nulu, ale \emph{přímou úměrnost}. K~těmto funkcím můžeme přiřadit i~\emph{hard hyperbolic function}, která je \emph{identitou} pouze na intervalu $(-1, 1)$, tedy odpovídá biologickému neuronu asi nejvíce z~těchto \uv{lineárních funkcí}.
+						\item Kromě této verze je v~knihovně ještě \emph{leaky} (děravá či prosakující) \emph{rectified linear unit} \autocite{article:AF}, která v~záporných hodnotách nedává nulu, ale \emph{přímou úměrnost}.
 					
 						    \figF{hardHyperbolicFunction}{Hard hyperbolic function}
+						    
+						\item K~těmto funkcím můžeme přiřadit i~\emph{hard hyperbolic function}, která je \emph{identitou} pouze na intervalu $(-1, 1)$, tedy odpovídá biologickému neuronu asi nejvíce z~těchto \uv{lineárních funkcí}.
+												    
+							\figF{leakyRectifiedLinearUnit}{Leaky rectified linear unit pro koeficient úměrnosti 0.1}
+
+						
 						
 						\item \emph{Rectified unit} není hladká (nemá derivaci v~bodě nula), ale to lze napravit, když použijeme funkci \emph{soft plus} \autocite{article:AF} ($\ln\left(1+e^x\right)$). Podobnou úpravu lze udělat i~s~funkcí \emph{signum} (\emph{znaménko}, často se značí \emph{sign}), což je téměř \emph{binární krok}\footnote{Z důvodu téhle podobnosti není ani implementována.}, akorát v~záporných hodnotách nabývá funkční hodnoty -1 místo 0. \emph{Signum} se dá zapsat jako podíl $x$ a~$|x|$, tudíž tato úprava (\emph{soft sign} \autocite{article:AF}) vypadá následovně:
 							\begin{equation} f(x) = \frac{x}{|x| + 1} \end{equation}
@@ -560,6 +575,7 @@
 							    \centering
 							    \figSF{softPlus}{Soft plus}
 						    	\figSF{softSign}{Soft signum}
+						    	\caption{Soft funkce}
 							\end{figure}
 						
 						\item Jednou skupinou funkcí, se kterými se sice experimentuje, ale stěží najdete nějaké využití, jsou ty, které nejsou monotonní\footnote{Můžeme si všimnout, že téměř všechny předchozí funkce jsou neklesající, většina dokonce rostoucí na celém definičním oboru.}, jako sinus, kosinus, \emph{Gaussova funkce} ($e^{-x^2}$), apod. Vzhledem k~jejich mizivému využití je implementován pouze \emph{sinus}.
@@ -571,30 +587,34 @@
 				\section{Shrnutí}
 					Rovnice:
 					\begin{itemize}
-						\item Dopředné propagace, tj.~\ref{eq:fp} resp. \ref{eq:fpb} nebo \ref{eq:bpn} resp. \ref{eq:bpnb}:
+						\item Dopředné propagace, tj.~(\ref{eq:fp}) resp.~(\ref{eq:fpb}) nebo~(\ref{eq:bpn}) resp.~(\ref{eq:bpnb}):
 							$$ v~= f\left(b + \vec{w} \cdot \vec{v} \right) $$
 							$$ v~= f\left(\vec{w} \cdot \vec{v} \right) $$
 							$$ \vec{v}_x = \vec{f}_x\left(\vec{b}_x + W_{x-1} \cdot \vec{v}_{x-1} \right) $$
 							$$ \vec{v}_x = \vec{f}_x\left(W_{x-1} \cdot \vec{v}_{x-1} \right) $$
-						\item Zpětné propagace, tj.~\ref{eq:bpve} a~\ref{eq:bp2} nebo \ref{eq:bpab} a~\ref{eq:bpab2}:
+						\item Zpětné propagace, tj.~(\ref{eq:bpve}) a~(\ref{eq:bp2}) nebo~(\ref{eq:bpab}) a~(\ref{eq:bpab2}):
 							$$ \varepsilon = f'\left(f^{-1}(v)\right) \sum_{n_x \in N_{out},\,\varepsilon_x \in n_x} \varepsilon_x \cdot W\left(n,\,n_x\right) $$
 							$$ \frac{\delta E}{\delta\vec{w}} = \vec{\varepsilon}\cdot v~$$
 							$$ \vec{\varepsilon}_x = \vec{f}_x'\left(\vec{f}_x^{-1}(\vec{v}_x)\right) \odot \left(\W_x^T \cdot \vec{\varepsilon}_{x+1}\right) $$
 							$$ \frac{\delta E}{\delta \W_x} = \vec{\varepsilon}_{x+1} \vec{v}_x^T $$
-						\item Prvotní části zpětné propagace, tj.~\ref{eq:bpout} nebo \ref{eq:bpab3}
+						\item Prvotní části zpětné propagace, tj.~(\ref{eq:bpout}) nebo~(\ref{eq:bpab3})
 							$$ \varepsilon_o = (v_{od} - v_o) f_o'\left(f_o^{-1}\left(v_o\right)\right) $$
 							$$ \vec{\varepsilon}_o = \vec{f}_x'\left(\vec{f}_x^{-1}(\vec{v}_x)\right) \odot \left(\vec{v}_{od} - \vec{v}_o\right) $$
 					\end{itemize}
-					nám popisují matematiku stojící za fungováním neuronových sítí, tedy naším cílem bude je implementovat. Navíc k~implementování těchto rovnic potřebujeme naprogramovat samotný neuron, který jsme si definovali v~\ref{s:neuron} jako:
+					nám popisují matematiku stojící za fungováním neuronových sítí, tedy naším cílem bude je implementovat. Navíc k~implementování těchto rovnic potřebujeme naprogramovat samotný neuron, který jsme si definovali v~sekci~\ref{s:neuron} jako:
 						$$ n = \left(N_{in},\,N_{out},\,f,\,b,\,v,\,\varepsilon\right) $$
 					Také často používáme aktivační funkce, proto by v~naší knihovně neměly chybět.
 		
 	\part{Praktická část}
-			Cílem této práce je knihovna, která nám umožní používat neuronové sítě v~\gls{Kotlin}u. Jak bylo řečeno na konci minulé kapitoly, musí obsahovat aktivační funkce, nejlépe všechny uvedené v~\ref{s:af}, zároveň však umožnit uživateli definovat si funkce vlastní. Poté se zaměříme hlavně na neuronovou síť obsahující vrstvy, její implementace bude zároveň zahrnovat jak implementaci neuronu, tak implementaci dopředné a~zpětné propagace.
+			\noindent Cílem této práce je knihovna, která nám umožní používat neuronové sítě v~\gls{Kotlin}u. Jak bylo řečeno na konci minulé kapitoly, musí obsahovat aktivační funkce, nejlépe všechny uvedené v~sekci~\ref{s:af}, zároveň však umožnit uživateli definovat si funkce vlastní. Poté se zaměříme hlavně na neuronovou síť obsahující vrstvy, její implementace bude zároveň zahrnovat jak implementaci neuronu, tak implementaci dopředné a~zpětné propagace.
 			
-			Konvoluční síť pro jednoduchost naprogramujeme za použití sítí s~vrstvami, tedy jedinou věc, kterou potřebujeme implementovat je způsob používání filtru. Nakonec se podíváme i~na asociativní paměť, ale tu z~nedostatku času implementuji pouze částečně.
+			Konvoluční síť pro jednoduchost naprogramujeme za použití sítí s~vrstvami, tedy jedinou věc, kterou potřebujeme implementovat, je způsob používání filtru. Nakonec se podíváme i~na asociativní paměť, pro kterou navíc potřebujeme naprogramovat neurony, jelikož na rozdíl od neuronové sítě s~vrstvami zde nelze ukládat jednotlivé hodnoty neuronu pohromadě (např.~všechny $v$ do jednoho pole, nebo všechny $\varepsilon$ do jiného).
 		
-			Aby nemuselo být v~knihovně implementováno maticové násobení, použil jsem knihovnu \verb!koma! (celým názvem Kotlin math), která implementuje základny lineární algebry v~\gls{Kotlin}u. Knihovna je pro \gls{JVM}, Javascript i~pro binární kód, avšak ve Windows ji nelze zkompilovat, proto naše knihovna funguje pouze pro \gls{JVM} a~Javascript. \autocite{online:Koma}
+			Aby nemuselo být v~knihovně implementováno maticové násobení, použil jsem knihovnu \verb!koma! (celým názvem Kotlin math), která implementuje základy lineární algebry v~\gls{Kotlin}u. Knihovna je pro \gls{JVM}, Javascript i~pro binární kód, avšak ve Windows ji nelze zkompilovat, proto naše knihovna funguje pouze pro \gls{JVM} a~Javascript. \autocite{online:Koma}
+			
+			\noindent\hrulefill
+			
+			Asociativní paměť se mi bohužel nepodařilo doprogramovat do konce, natož otestovat, tedy není uvedena dále v~této kapitole. Implementaci neuronu nalezneme v~\verb!core! (viz níže) jako \glsdisp{trida}{třídu} \verb!Neuron!, která se stará přímo o~výpočty z kapitoly~\ref{s:fn}. Uchovávání těchto neuronů a~spouštění výpočtů na každém z~nich má na starosti \gls{trida} \verb!AssociativeMemory! taktéž z~\verb!core!.
 	
 		\chapter{Struktura knihovny}
 		
@@ -641,7 +661,7 @@
 			Knihovna je rozdělena do dvou \glsdisp{balicek}{balíčků}:
 			\begin{itemize}
 				\item První, a~ten hlavní, je \verb!core! (česky jádro), které obsahuje definice neuronových sítí (tj.~konvoluční neuronovou síť, obyčejnou neuronovou síť, asociativní paměť) a~definice pro ně potřebné (například aktivační funkce). Právě v~tomto \glsdisp{balicek}{balíčku} je implementováno to, co bylo v~teoretické části.
-				\item Druhý je \verb!mnistDatabase!, která se stará o~učení neuronových sítí na datech z~databází ve formátu MNIST. O~databázích ve formátu MNIST se v~teorii nepsalo, jsou zmíněny až přímo v~sekci \ref{sec:md}, která pojednává o~tomto balíčku.
+				\item Druhý je \verb!mnistDatabase!, která se stará o~učení neuronových sítí na datech z~databází ve formátu MNIST. O~databázích ve formátu MNIST se v~teorii nepsalo, jsou zmíněny až přímo v~sekci~\ref{sec:md}, která pojednává o~tomto balíčku.
 			\end{itemize}
 			
 			\section{\texttt{core}}
@@ -652,7 +672,7 @@
 				\subsection{\texttt{ActivationFunctions}}
 					\Gls{enum} častých funkcí, jež se používají jako aktivační funkce v~neuronech. Některé jsou označeny jako překonané (anglicky deprecated), jelikož u~funkcí, které nejsou všude hladké, neexistuje všude derivace. Taktéž u~funkcí, jež nejsou prosté, nelze vždy určit derivaci podle funkční hodnoty.
 					
-					Implementovány jsou všechny funkce uvedené v~sekci \ref{s:af}
+					Implementovány jsou všechny funkce uvedené v~sekci~\ref{s:af}
 					
 				\subsection{\texttt{CustomFunction}}
 					Poskytuje možnost implementovat si vlastní aktivační funkci, má stejné metody (zde jsou to vlastnosti \gls{typ}u \verb!() -> Unit!) jako ActivationFunctions.
@@ -676,7 +696,7 @@
 				\subsection{\texttt{ConvolutionalNetwork}}
 					Tato \gls{trida} \gls{rozhrani} INeuralNetwork implementuje konvoluční neuronové sítě. Její konstruktor přijímá dva parametry \gls{typ}u \verb!BasicNeuralNetwork!, první je filtr, druhá je samotná neuronová síť. Dalším parametrem je logická hodnota, zda se má i~filtr učit (to se ale téměř nepoužívá, takže je tato hodnota při neuvedení nastavena na \glsref{false}\verb!false!).
 					
-					\Gls{cobject} této \glsdisp{trida}{třídy} navíc obsahuje příklad takového filtru (jednoduchý filtr detekující hrany viz obrázek \ref{fig:filter})
+					\Gls{cobject} této \glsdisp{trida}{třídy} navíc obsahuje příklad takového filtru (jednoduchý filtr detekující hrany viz obrázek~\ref{fig:filter})
 					\begin{figure}
 						\resizebox{\textwidth}{!}{%
 							\begin{tikzpicture}
@@ -728,20 +748,20 @@
 			\section{\texttt{mnistDatabase}} \label{sec:md}
 				Pro otestování knihovny je potřeba nějaký dataset. K~tomuto účelu je v~knihovně implementována \gls{trida} \verb!TrainingDataMnist!, která umí přečíst data z~databáze MNIST a~EMNIST. Poté poskytuje vždy jedno zadání (obrázek číslice / písmena) a~jeho řešení (ve formě vektoru, kde pouze na správném místě je 1, jinak je všude 0).
 				
-				Jako parametry přijímá řetězec (\verb!String!) s~názvem souboru s~obrázky a~řetězec s~názvem souboru s~daty (identifikací toho, co je na obrázcích). Zároveň nastavením parametru \verb!inverse! na \glsref{true}\verb!true! lze převrátit osy obrázku (viz \ref{EMNIST}). Tato \gls{trida} zatím funguje pouze v~\gls{JVM}, jelikož používá funkci na načtení souboru a~tuto funkci jsem zatím v~Javascriptu neimplementoval (soubor je většinou uložen někde na serveru, takže je obtížnější ho načíst).
+				Jako parametry přijímá řetězec (\verb!String!) s~názvem souboru s~obrázky a~řetězec s~názvem souboru s~daty (identifikací toho, co je na obrázcích). Zároveň nastavením parametru \verb!inverse! na \glsref{true}\verb!true! lze převrátit osy obrázku (viz~obrázek~\ref{EMNIST}). Tato \gls{trida} zatím funguje pouze v~\gls{JVM}, jelikož používá funkci na načtení souboru a~tuto funkci jsem zatím v~Javascriptu neimplementoval (soubor je většinou uložen někde na serveru, takže je obtížnější ho načíst).
 				
 				Dále tento \gls{balicek} rozšiřuje rozhraní \verb!INeuralNetwork! o~funkci \verb!train! s~parametrem \gls{typ}u \verb!TrainData!, což je pouze \verb!typealias! (tzn.~jiný název pro \gls{typ} v~\gls{Kotlin}u) za \glsref{DoubleArray}\glsref{Pair}\verb!Sequence<Pair<DoubleArray, DoubleArray>>!, jež je implementován výše zmíněnou \glsdisp{trida}{třídou} \verb!TrainingDataMnist!.
 				
 				\subsection{Databáze MNIST}
-					\uv{Dataset MNIST, dataset ručně psaných číslic dostupná na stránkách \url{http://yann.lecun.com/exdb/mnist/} obsahuje 60\,000 tréninkových a~10\,000 ověřovacích příkladů. MNIST vychází z~databáze spravované NIST (National Institute of Standarts and Technology). Číslice mají normalizovanou velikost a~jsou vycentrované v~obrázcích shodné velikosti.} \parencite[přeloženo]{online:MNIST} Ukázku takových obrázků vidíme na obrázku \ref{fig:MNIST}.
+					\uv{Databáze MNIST, dataset ručně psaných číslic dostupná na stránkách \url{http://yann.lecun.com/exdb/mnist/} obsahuje 60\,000 tréninkových a~10\,000 ověřovacích příkladů. MNIST vychází z~databáze spravované NIST (National Institute of Standarts and Technology). Číslice mají normalizovanou velikost a~jsou vycentrované v~obrázcích shodné velikosti.} \parencite[přeloženo]{online:MNIST} Ukázku takových obrázků vidíme na obrázku~\ref{fig:MNIST}.
 					
 					\begin{figure}
-						\includegraphics[width=\linewidth]{MnistExamples.png}
-						\caption{Příklad obrázků z~datasetu MNIST \autocite{wiki:MNIST}}
+						\includegraphics[width=0.95\linewidth]{MnistExamples.png}
+						\caption{Příklad obrázků z~databáze MNIST \autocite{wiki:MNIST}}
 						\label{fig:MNIST}
 					\end{figure}
 					
-					Tuto databázi jsem použil pro první testování své BasicNeuralNetwork, jelikož má pro první testování dostačující velikost. Pro pozdější testování využívám převážně EMNIST.
+					Tuto databázi jsem použil pro první testování své \verb!BasicNeuralNetwork!, jelikož má pro první testování dostačující velikost. Pro pozdější testování využívám převážně EMNIST.
 				\subsection{Databáze EMNIST} \label{EMNIST}
 					\uv{Databáze MNIST se stala standardem pro učení umělého vidění. Databáze MNIST je odvozená z~databáze NIST Special Database 19, která obsahuje ručně psané číslice a~velká i~malá písmena. EMNIST (Extended MNIST), varianta celé databáze NIST, přebírá uspořádání z~databáze MNIST\footnote{Má však prohozené řádky a~sloupce pixelů v~obrázcích.}.} \parencite[přeloženo]{article:EMNIST}
 					
@@ -749,11 +769,11 @@
 
 		\chapter{Používání knihovny}
 			\section{Trénování sítě}
-				Příklad takového tréningu je v~souboru \verb!NeuralNetworkTestJVM! funkce \verb!mnist()!. Takové trénování ale trvá více než deset minut (konkrétně tato funkce běží asi tři čtvrtě hodiny), tudíž ho nelze zahrnout do testů. V~testech je pouze trénování malinké sítě, aby fungovala jako \gls{xor}.
+				Příklad takového tréninku je v~souboru \verb!NeuralNetworkTestJVM! funkce \verb!mnist()!. Takové trénování ale trvá více než deset minut (konkrétně tato funkce běží asi tři čtvrtě hodiny), tudíž ho nelze zahrnout do testů. V~testech je pouze trénování malinké sítě, aby fungovala jako \gls{xor}.
 			
 				Nejprve musíme neuronovou síť natrénovat a~uložit. Trénování neuronové sítě probíhá za pomoci funkce \verb!train!. Té musíme poskytovat tréninkové vstupy s~odpovídajícími výstupy, což můžeme udělat tak, že funkci \verb!train! budeme volat z~\glsdisp{cyklus}{cyklu}, který bude tato data postupně načítat. Dalším způsobem je předat rovnou celý \glsref{Array}\verb!Array! vstupů a~výstupů, to ale často znamená načíst miliony objektů \glsdisp{trida}{třídy} \glsref{Double}\verb!Double!, proto to může výrazně zpomalit učení. Poslední možností (pokud máme data ve formátu MNIST) je využít \glsdisp{trida}{třídy} \verb!TrainingData!, které poskytneme soubory s~daty a~ona vytvoří příslušné objekty \gls{typ}u \glsref{Double}\verb!Double! až ve chvíli, kdy dojde na danou dvojici vstup -- výstup.
 				
-				Dobré je také během učení pomalu snižovat \verb!learningRate!, jelikož nejdřív se neuronová síť vlastně učí hlavně konkrétní obrázky (v~této fázi nejlépe poznává obrázky, které dostala v~tréninku naposledy), poté ale umí čím dál více věcí a~nechceme, aby se přepisovali již nabyté vědomosti. Já jsem například trénoval síť desetkrát na stejných datech (to není úplně vhodné, data by se měla měnit, aby se co nejméně naučila konkrétní obrázky\footnote{Při opakování malého datasetu se může stát, že neuronová síť bude umět rozpoznat jen obrázek, který je na pixel přesně shodný s~tréninkovými obrázky.}, ale pro jednoduchost to stačí) s~tím, že pokaždé jsem \verb!learningRate! vydělil 1,5.
+				Dobré je také během učení pomalu snižovat \verb!learningRate!, jelikož nejdřív se neuronová síť vlastně učí hlavně konkrétní obrázky (v~této fázi nejlépe poznává obrázky, které dostala v~tréninku naposledy), poté ale umí čím dál více věcí a~nechceme, aby se přepisovaly již nabyté vědomosti. Já jsem například trénoval síť desetkrát na stejných datech (to není úplně vhodné, data by se měla měnit, aby se co nejméně naučila konkrétní obrázky\footnote{Při opakování malého datasetu se může stát, že neuronová síť bude umět rozpoznat jen obrázek, který je na pixel přesně shodný s~tréninkovými obrázky.}, ale pro jednoduchost to stačí) s~tím, že pokaždé jsem \verb!learningRate! vydělil 1,5.
 				
 				Poté už můžeme síť hned používat (například ji otestovat), ale většinou ji chceme používat víckrát a~třeba i~v~rámci jiného programu. Proto mají \glsdisp{trida}{třídy} \gls{rozhrani} \verb!INeuralNetwork! funkci \verb!save!, která vrátí data neuronové sítě jako řetězec (takový \uv{osekaný} \gls{JSON}), který je pak možno uložit. V~\gls{JVM} je přímo definována funkce \verb!saveFile(název souboru, data)!.
 				
@@ -763,13 +783,13 @@
 				Jakmile máme nějakou síť natrénovanou a~uloženou v~řetězci, můžeme ji znovu nahrát pomocí funkce \verb!load(data)! nacházející se v~\gls{cobject}u \glsdisp{trida}{třídy} \verb!BasicNeuralNetwork! nebo \verb!ConvolutionalNeuralNetwork!. Návratovou hodnotou této funkce je samotná neuronová síť, takže ji stačí uložit do proměnné, na které pak zavoláme funkci \verb!run! s~vstupním vektorem jako parametrem a~tím získáme výstupní vektor, který stačí už jen zpracovat (např. při rozpoznávání číslic to znamená zjistit, který z~výsledných 10 neuronů vysílá největší výstupní signál).
 				
 		
-			\section{Nastavování hodnot}
-				Neuronová síť má mnoho hodnot, které lze nastavit. Knihovnu jsem zkoušel na rozpoznávání čísel v~databázích MNIST a~EMNIST a~zjistil jsem, že vhodné nastavení hodnot je asi:
+			\section{Nastavení hodnot}
+				Neuronová síť má mnoho hodnot, které lze nastavit. Knihovna je vyzkoušena na rozpoznávání čísel v~databázích MNIST a~EMNIST s následujícím nastavením hodnot:
 				\begin{itemize}
-					\item Learning rate je třeba nastavit na cca 0.1 a~samozřejmě snižovat.
-					\item Počet skrytých vrstev musí být právě jedna (dvě už se nenaučí propojit vstup s~výstupem a~bez skryté vrstvy vůbec nefunguje). Pokud byste potřebovali učit síť s~více skrytými vrstvami, musíte nastavit learning rate na daleko nižší hodnotu.
-					\item Počet neuronů ve skryté vrstvě je hodně variabilní, ideálně mezi hodnotami 100 a~300.
-					\item Jako aktivační funkce stačí třeba sigmoida, jiné jsem nepoužíval.
+					\item Learning rate na 0.1 a každou z 10 epoch (1 epocha = 1 průchod přes všechny obrázky) se snižuje na $\frac{2}{3}$ původní hodnoty.
+					\item Počet skrytých vrstev na jedna (dvě už se nenaučí propojit vstup s~výstupem a~bez skryté vrstvy síť vůbec nefunguje\footnote{Pokud byste potřebovali učit síť s~více skrytými vrstvami, musíte nastavit learning rate na daleko nižší hodnotu a učit síť daleko déle a na více vstupech.}).
+					\item Počet neuronů ve skryté vrstvě na 100 (snížení počtu neuronů výsledky zhorší, zvýšení na 200 až 300 výsledky moc nezlepší, navíc trénování větší sítě zabere mnohem více času).
+					\item Aktivační funkce na sigmoidu (jiné jsem moc nezkoušel, sigmoida stačí).
 				\end{itemize}
 
 
@@ -803,8 +823,8 @@
     	\item{Zdrojový kód knihovny} (následující stránky)
     \end{prilohy}  
     
-	\addcontentsline{toc}{section}{Přehled grafů aktivačních funkcí}	
 	\begin{figure}
+					\addcontentsline{toc}{section}{Přehled grafů aktivačních funkcí}	
 				    \centering
 					\figSF{binaryStep}{Binární krok}				
 					\figSF{identity}{Identita}
@@ -812,6 +832,7 @@
 				    \figSF{tanh}{Hyperbolický tangens}
 					\figSF{swish}{Swish}
 					\figSF{rectifiedLinearUnit}{Rectified linear unit}
+					\figSF{leakyRectifiedLinearUnit}{Leaky rectified linear unit}
 					\figSF{hardHyperbolicFunction}{Hard hyperbolic function}
 					\figSF{softPlus}{Soft plus}
 					\figSF{softSign}{Soft signum}
@@ -822,18 +843,31 @@
    	\pagebreak
 		\addcontentsline{toc}{section}{Zdrojový kód knihovny}
     		\KotlinCode{src/commonMain/kotlin/core/ActivationFunctions.kt}
+			   	\pagebreak
     		\KotlinCode{src/commonMain/kotlin/core/BasicNeuralNetwork.kt}
+			   	\pagebreak
 		    \KotlinCode{src/commonMain/kotlin/core/ConvolutionalNeuralNetwork.kt}
+			   	\pagebreak
     		\KotlinCode{src/commonMain/kotlin/core/CustomFunction.kt}
     		\KotlinCode{src/commonMain/kotlin/core/IActivationFunctions.kt}
+			   	\pagebreak
     		\KotlinCode{src/commonMain/kotlin/core/INeuralNetwork.kt}
+			   	\pagebreak
 	    	\KotlinCode{src/commonMain/kotlin/mnistDatabase/loadFile.kt}
+			   	\pagebreak
 	    	\KotlinCode{src/commonTest/kotlin/sample/Constants.kt}
+			   	\pagebreak
 		    \KotlinCode{src/commonTest/kotlin/sample/NeuralNetworkTest.kt}
+			   	\pagebreak
     		\KotlinCode{src/jsTest/kotlin/sample/ConstantsJS.kt}
 		    \KotlinCode{src/jvmMain/kotlin/mnistDatabase/loadFileJVM.kt}
     		\KotlinCode{src/jvmTest/kotlin/sample/ConstantsJVM.kt}
+			   	\pagebreak
 	    	\KotlinCode{src/jvmTest/kotlin/sample/NeuralNetworkTestJVM.kt}
+			   	\pagebreak
+    		\KotlinCode{src/commonMain/kotlin/core/AssociativeMemory.kt}
+			   	\pagebreak
+    		\KotlinCode{src/commonMain/kotlin/core/Neuron.kt}
     
     
 \end{document}
