@@ -52,6 +52,7 @@
 \newcommand{\place}[1]{\renewcommand{\place}{#1}}			% Definování příkazu \place tak, aby se do něj uložilo místo
 \newcommand{\skolnirok}[1]{\renewcommand{\skolnirok}{#1}}	% Definování příkazu \skolnirok tak, aby se do něj uložil školní rok
 \newcommand{\logo}[1]{\renewcommand{\logo}{#1}}				% Definování příkazu \logo tak, aby se do něj uložilo logo
+\newcommand{\kraj}[1]{\renewcommand{\kraj}{#1}}				% Definování příkazu \logo tak, aby se do něj uložilo logo
 
 \newcommand{\mytitlepage}{									% Definování vlastní titulní strany
 
@@ -63,17 +64,19 @@
 			
 			\vspace{1cm}									% Mezera s pevnou šířkou
 			
-			{\Huge MATURITNÍ PRÁCE}
+			{\LARGE STŘEDOŠKOLSKÁ ODBORNÁ ČINNOST}
+			\indent{\Large Obor č. 18: Informatika}
 
 			\vspace{4cm}
 			
-			{\Huge\@title\par}								% Autor
-			{\Huge\@author\par}								% Název
+			{\Huge\@title\par}								% Název
+			{\Huge\@author\par}								% Autor
 			{\Large vedoucí práce: \vedouci}				% Vedoucí práce
 			
 			\vfill											% Mezera roztahující se jak nejvíc může
 			
-			\large \place\ \@date\hfill\skolnirok			% Místo, datum a školní rok
+			\large \kraj\\
+			\indent\large \place\ \@date\hfill\skolnirok			% Místo, datum a školní rok
  
 	\end{titlepage}
 	
