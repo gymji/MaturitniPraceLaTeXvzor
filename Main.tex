@@ -46,6 +46,9 @@
   ndkeywordstyle={\color{BurntOrange}\bfseries},
   sensitive=true,
   stringstyle={\color{ForestGreen}\ttfamily},
+  %inputencoding=latin1, 						% for pdfLaTeX
+  %extendedchars=true, 							% for pdfLaTeX
+  %literate={š}{{\v{s}}}1 {á}{{\'{a}}}1, 		% for pdfLaTeX
 }
 
 \lstset{language=Kotlin, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}, basicstyle=\tiny}
@@ -724,19 +727,19 @@
 								
 					    		\foreach \x in {-1,0,1}{%
 						    		\foreach \y in {-1,0,1}{%
-										\node[S] (NI) at (\y, 5+\x) {$\pgfmathparse{(\x+\y)/abs(\x+\y)}\pgfmathprintnumber[fixed,fixed zerofill,precision=0]\pgfmathresult$};
+										\node[S] (NI) at (\y, 5+\x) {$\pgfmathparse{(\x+\y)/abs(\x+\y+0.1)}\pgfmathprintnumber[fixed,fixed zerofill,precision=0]\pgfmathresult$};
 									}
 								}\foreach \x in {-1,0,1}{%
 						    		\foreach \y in {-1,0,1}{%
-										\node[S] (NI) at (5-\y, 5+\x) {$\pgfmathparse{(\x+\y)/abs(\x+\y)}\pgfmathprintnumber[fixed,fixed zerofill,precision=0]\pgfmathresult$};
+										\node[S] (NI) at (5-\y, 5+\x) {$\pgfmathparse{(\x+\y)/abs(\x+\y+0.1)}\pgfmathprintnumber[fixed,fixed zerofill,precision=0]\pgfmathresult$};
 									}
 								}\foreach \x in {-1,0,1}{%
 						    		\foreach \y in {-1,0,1}{%
-										\node[S] (NI) at (10-\y, 5-\x) {$\pgfmathparse{(\x+\y)/abs(\x+\y)}\pgfmathprintnumber[fixed,fixed zerofill,precision=0]\pgfmathresult$};
+										\node[S] (NI) at (10-\y, 5-\x) {$\pgfmathparse{(\x+\y)/abs(\x+\y+0.1)}\pgfmathprintnumber[fixed,fixed zerofill,precision=0]\pgfmathresult$};
 									}
 								}\foreach \x in {-1,0,1}{%
 						    		\foreach \y in {-1,0,1}{%
-										\node[S] (NI) at (15+\y, 5-\x) {$\pgfmathparse{(\x+\y)/abs(\x+\y)}\pgfmathprintnumber[fixed,fixed zerofill,precision=0]\pgfmathresult$};
+										\node[S] (NI) at (15+\y, 5-\x) {$\pgfmathparse{(\x+\y)/abs(\x+\y+0.1)}\pgfmathprintnumber[fixed,fixed zerofill,precision=0]\pgfmathresult$};
 									}
 								}
 						    \end{tikzpicture}
