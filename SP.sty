@@ -5,6 +5,15 @@
 % Obvyklé balíčky na obrázky, tabulky a matematiku
 \usepackage{amsmath, amsthm, amssymb}
 \usepackage{graphicx, tabularx, xcolor}
+\usepackage{siunitx} %%% práce s jednotkami SI soustavy
+\sisetup{
+   output-decimal-marker = {,},
+   per-mode = fraction,
+   group-separator={\,},
+   group-minimum-digits={3},
+   per-mode=fraction,
+   fraction-function=\tfrac 
+}
 \graphicspath{{images/}}									% Přidání složky images do složek, kde se hledají obrázky
 
 \usepackage[hidelinks]{hyperref}							% Počítačová verze umí odkazy
@@ -16,7 +25,7 @@
 \makeglossaries												% Aktivování zkratek
 \loadglsentries{Zkratky}									% Načtení zkratek
 
-\usepackage[style=authoryear, backend=bibtex, maxcitenames=2]{biblatex}
+\usepackage[style=iso-numeric, backend=bibtex, maxcitenames=2, sorting=nty]{biblatex}
 															% Balíček pro citace
 \addbibresource{Bibliografie.bib}							% Import zdrojů
 
@@ -81,6 +90,7 @@
 
 \newcommand{\prohlaseni}[1]{								% Definování prohlášení
 	\chapter*{Prohlášení}
+	\thispagestyle{empty}
 		\vfill												% Mezera roztahující se jak nejvíc může
 		#1													% Parametr (text prohlášení)
 		\vfill												% Mezera roztahující se jak nejvíc může
@@ -92,6 +102,7 @@
 
 \newcommand{\abstrakt}[2]{									% Definování abstraktu
 	\chapter*{Abstrakt}
+	\thispagestyle{empty}
 		#1													% Parametr (text abstraktu)
 		\section*{Klíčová slova}
 		#2													% 2. parametr (klíčová slova)
@@ -100,6 +111,7 @@
 
 \newcommand{\podekovani}[1]{								% Definování poděkování
 	\chapter*{Poděkování}
+	\thispagestyle{empty}
 		#1													% Parametr (text poděkování)
 	\newpage												% Nová strana
 }
@@ -121,13 +133,43 @@
 \newcommand{\bigicon}[1]{\settoheight{\height}{A}\includegraphics[height=2\height]{#1}}
 \newcommand{\underlineicon}[1]{\settoheight{\height}{A}\raisebox{-0.25\height}{\includegraphics[height=1.25\height]{#1}}}
 \newcommand{\bigunderlineicon}[1]{\settoheight{\height}{A}\raisebox{-0.12\height}{\includegraphics[height=1.49\height]{#1}}}
+\def\uv#1{„#1“} % Definice makra pro sazbu českých uvozovek.
 
 \definecolor{codegray}{gray}{0.9}
 \newcommand{\code}[1]{\colorbox{codegray}{\texttt{#1}}}
+\renewcommand{\lstlistingname}{Zdrojový kód}
 
-\lstdefinestyle{mystyle}{
-	backgroundcolor=\color{codegray},
-	numbers=left, 
-	tabsize=2
+%\lstdefinestyle{mystyle}{
+%	backgroundcolor=\color{codegray},
+%	numbers=left, 
+%	tabsize=2
+%}
+%\lstset{style=mystyle}
+\definecolor{sediva}{rgb}{0.9,0.9,0.9}
+\lstset{ %
+  language=C++,                % the language of the code
+  basicstyle=\linespread{1}\color{black}\ttfamily,   % the size of the fonts that are used for the code
+  numbers=left,                   % where to put the line-numbers
+  stepnumber=1,                   % the step between two line-numbers. If it's 1, each line 
+                                  % will be numbered
+  rulesepcolor=\color{gray},
+  rulecolor=\color{black},                                  
+  frame=false,
+  columns=fixed,
+  aboveskip={1.5\baselineskip},
+  numbersep=5pt,                  % how far the line-numbers are from the code
+  backgroundcolor=\color{sediva},      % choose the background color. You must add \usepackage{color}
+  showspaces=false,               % show spaces adding particular underscores
+  showstringspaces=false,         % underline spaces within strings
+  showtabs=false,                 % show tabs within strings adding particular underscores
+  tabsize=2,                      % sets default tabsize to 2 spaces
+  captionpos=b,                   % sets the caption-position to bottom
+  breaklines=true,                % sets automatic line breaking
+  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+  otherkeywords={define,\#,include },
+  keywordstyle=\color{blue}\ttfamily, % keyword style
+  stringstyle=\color{orange}\ttfamily,   % string literal style
+  commentstyle=\color{olive}\ttfamily, % comment style
+  numberstyle=\color{gray}\ttfamily,  % the style that is used for the line-numbers
+  morecomment=[l][\color{violet}]{\#}  % other comment style
 }
-\lstset{style=mystyle}
