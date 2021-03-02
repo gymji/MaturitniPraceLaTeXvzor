@@ -1,4 +1,4 @@
-﻿# Maturitní seminární práce
+﻿# Maturitní práce
 
 ## Instalace (La)TeXu
 - Instalujte si MikTeX (spravuje knihovny TeXu): https://miktex.org/download
