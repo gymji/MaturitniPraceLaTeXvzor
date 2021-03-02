@@ -85,12 +85,13 @@
  
 	\end{titlepage}
 	
-	\addtocounter{page}{1}									% Posunutí countru stránek
+	\addtocounter{page}{0}									% Posunutí countru stránek
 }
 
 \newcommand{\prohlaseni}[1]{								% Definování prohlášení
 	\chapter*{Prohlášení}
 	\thispagestyle{empty}
+%%  \addtocontents{toc}{\protect\thispagestyle{empty}} % fígl pro odstranění číslování řádek na stránkách s obsahem
 		\vfill												% Mezera roztahující se jak nejvíc může
 		#1													% Parametr (text prohlášení)
 		\vfill												% Mezera roztahující se jak nejvíc může

@@ -1,16 +1,16 @@
 \documentclass[12pt]{report}			% Začátek dokumentu
-\usepackage{SP}							% Import stylu
+\usepackage{MP}							% Import stylu
 
-\author{Jonáš Havelka}
-\title{Neuronová síť}
-\date{19. února 2020}
-\vedouci{Dr. rer. nat. Michal Kočer}
+\author{Arnošt Thor}
+\title{Jak psát práci v \LaTeX{}u}
+\date{14. února 2020}
+\vedouci{Mgr. František Kantor, PhD.}
 \place{V Českých Budějovicích}
-\skolnirok{2019/2020}
+\skolnirok{2020/2021}
 \logo{\includegraphics[scale=0.75]{logo_gymji.jpg}}
 
 \begin{document}
-
+\pagenumbering{roman}                   % číslování stránek římskými číslicemi
 	\mytitlepage						% Vygenerování titulní strany
 	
 	\prohlaseni{
@@ -27,11 +27,10 @@
 		\lipsum[2]						% Poděkování
 	}
 	
-	\tableofcontents\newpage			% Obsah
+   {\tableofcontents\newpage}			% Obsah
 	
-	
-	
-	
+\addtocounter{page}{1}		% Posunutí countru stránek
+\pagenumbering{arabic}		% Číslování stránke arabskými číslicemi
 	\chapter*{Úvod}
 	
 		\lipsum[1]	
@@ -39,7 +38,7 @@
 	
 	\part{Teoretická část}
 	
-		\chapter{Asymptotická notace}
+		\chapter{Název úvodní kapitoly}
 			
 			\section{O-notace}
 				Odkaz v závorkách: \parencite[see][page 900]{einstein}\\
@@ -48,7 +47,8 @@
 				Dobrý den, ahoj, \gls{atd}\\
 				Praha, \gls{tj} hlavní město ČR
 				
-			\section{Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda }
+			\section[X-krát Abeceda]{Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda }
+			%%% v obsahu se objeví jen to co je v hranatých závorkách
 				\begin{figure}
 				  \includegraphics[width=\linewidth]{test.jpg}
 				  \caption{Testovací}

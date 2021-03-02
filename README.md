@@ -11,8 +11,8 @@
 - .gitignore = co má git ignorovat (nepotřebujete)
 - LICENSE = pod jakou licencí je to publikováno (nepotřebujete)
   - u tohoto je to zjednodšeně: Dělejte si s tím cokoliv, jen to šiřte pod stejnou licencí
-- SP.sty = nastavení (potřebujete, ale neupravujete) 
-- VzorSP.tex = vzorový soubor (takto má vypadat váš kód, klidně ho stáhněte, přejmenujte a upravte)
+- MP.sty = nastavení (potřebujete, ale neupravujete) 
+- VzorMP.tex = vzorový soubor (takto má vypadat váš kód, klidně ho stáhněte, přejmenujte a upravte)
 - images = složka na obrázky (potřebujete kvůli logu, ale obrázky klidně mohou být v základní složce)
 - Bibliografie.bib = váš seznam literatury (potřebujete)
 - Zkratky.tex = váš seznam zkratek (potřebujete)
