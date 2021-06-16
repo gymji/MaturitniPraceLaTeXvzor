@@ -5,6 +5,7 @@
 % Obvyklé balíčky na obrázky, tabulky a matematiku
 \usepackage{amsmath, amsthm, amssymb}
 \usepackage{graphicx, tabularx, xcolor}
+\usepackage[toc,page]{appendix} %%% přílohy	
 \usepackage{siunitx} %%% práce s jednotkami SI soustavy
 \sisetup{
    output-decimal-marker = {,},
@@ -174,3 +175,6 @@
   numberstyle=\color{gray}\ttfamily,  % the style that is used for the line-numbers
   morecomment=[l][\color{violet}]{\#}  % other comment style
 }
+\renewcommand{\appendixtocname}{Přílohy}
+\renewcommand{\appendixpagename}{Přílohy}
+\renewcommand{\appendixname}{Přílohy}

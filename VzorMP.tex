@@ -47,15 +47,8 @@
 				Dobrý den, ahoj, \gls{atd}\\
 				Praha, \gls{tj} hlavní město ČR
 				
-			\section[X-krát Abeceda]{Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda }
-			%%% v obsahu se objeví jen to co je v hranatých závorkách
-				\begin{figure}
-				  \includegraphics[width=\linewidth]{test.jpg}
-				  \caption{Testovací}
-				  \label{fig:test}
-				\end{figure}
 				\begin{table}
-				  \caption{Testovací}
+				  \caption{Testovací tabulka}
 				  \label{tab:test2}
 				  \begin{tabular}{ccccc}
                   1 & 1 & 1  & 1  & 1  \\
@@ -65,9 +58,20 @@
 				  \end{tabular}
 				\end{table}
 
+				\lipsum[2]
+
+			\section[X-krát Abeceda]{Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda }
+			%%% v obsahu se objeví jen to co je v hranatých závorkách
+				\begin{figure}
+				  \includegraphics[width=\linewidth]{test.jpg}
+				  \caption{Testovací}
+				  \label{fig:test}
+				\end{figure}
 				Obrázek \ref{fig:test} ukazuje Shangai z Pixabay.\\
 				Tabulka \ref{tab:test2} ukazuje hádejte, co.
 		
+	\lipsum[3]
+
 	\part{Praktická část}
 
 \section{Výpisy použitých programů}
@@ -101,10 +105,6 @@ int main(void) {
 Soucet: 52.4415
 \end{lstlisting}
 
-
-	\appendix
-	\addcontentsline{toc}{part}{Apendix}
-	
 	\chapter*{Závěr}
 	
 		\lipsum[1]
@@ -115,11 +115,14 @@ Soucet: 52.4415
     \printglossary[title={Zkratky}]		% Vytvoří seznam zkratek
     \listoffigures						% Vytvoří seznam obrázků
     \listoftables						% Vytvoří seznam tabulek
-    
-    \begin{prilohy}
-    	\pitem{Fotky z pokusů}
-    	\eitem{Vlastní program}
-    	\eitem{Dokumentace}
-    	\eitem{Testovací data}
-    \end{prilohy}
+
+    \begin{appendices}
+	\chapter{Fotky z pokusů}	
+	\lipsum[1]
+    	%\pitem{Fotky z pokusů}
+    	%\eitem{Vlastní program}
+    	%\eitem{Dokumentace}
+    	%\eitem{Testovací data}
+	\chapter{Příloha další }
+	\end{appendices}
 \end{document}
