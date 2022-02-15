@@ -35,6 +35,7 @@
 - Zvýraznění je `\emph{italika}`. Toto je preferovaný způsob oproti `\textit{italika}`
 - Tučné písmo je `\textbf{nebo zkratkou ctrl+b}`
 - Italika jako taková je `\textit{nebo zkratkou ctrl+i}`
+- Neproporcionální písmo (písmo psacího stroje) `\texttt{nazev.souboru}`
 
 - Odstavce se oddělují prázdným řádkem (nebo příkazem `\par`, pokud si to chcete někde vynutit)                                                 
 - Nový řádek vytvoříte příkazem `\\` (pozor, konce řádků v tom, co píšete, TeX ignoruje)
@@ -64,8 +65,4 @@
 - Tabulku vkládáme jako `\begin{table}Tabulka\caption{Název}\label{jmenoodkazu}\end{figure}`
   - Odkazuje se na ni pomocí `\ref{jmenoodkazu}`
   - Tabulku můžeme vygenerovat na http://www.tablesgenerator.com/
- 
-
-
-
 
