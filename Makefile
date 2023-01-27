@@ -1,15 +1,15 @@
 #### Makefile for systems using GNU Make
 
-PDFLATEX=pdflatex
+LATEX=xelatex
 BIBTEX=bibtex
 
 
 VzorMP.pdf: VzorMP.tex VzorMP.bib
-	$(PDFLATEX) VzorMP
-	$(PDFLATEX) VzorMP
+	$(LATEX) VzorMP
+	$(LATEX) VzorMP
 
 VzorMP.bib: Bibliografie.bib 
-	$(PDFLATEX) VzorMP
+	$(LATEX) VzorMP
 	$(BIBTEX) VzorMP
 
 

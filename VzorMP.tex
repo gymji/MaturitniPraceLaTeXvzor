@@ -80,14 +80,20 @@
 
 Výpis programu \nameref{lst:hello_world}  naleznete ve výpise \ref{lst:hello_world}.
 
-\begin{lstlisting}[title={Program hello.c}, caption={hello.c}, label={lst:hello_world}]
+\begin{lstlisting}[language=C++,
+	title={Program hello.c}, 
+	caption={hello.c}, 
+  	otherkeywords={define,\#,include },
+	label={lst:hello_world}]
 #include <stdio.h>
 #define CISLO 10
 
 int main(void) {
 	int i = CISLO;
 
+	// příliš žluťoučký kůň úpěl ďábelské ódy
 	print("Hello World!\n");
+	print("Ahoj Světe!\n");
 	print("%d", i);
 
 	return (0);
@@ -95,6 +101,20 @@ int main(void) {
 \end{lstlisting}
 
 \lipsum[1]	
+
+\begin{lstlisting}[firstnumber=10, title={Program hello.py}, caption={hello.py}, label={lst:hello_world_py}]
+# testovací program v Pythonu hello.py
+# příliš žluťoučký kůň úpěl ďábelské ódy
+i = CISLO;
+
+print("Hello World!\n")
+print("Ahoj Světe!")
+print(f"{i:d}")
+
+#  END FILE
+\end{lstlisting}
+
+\lipsum[1]
 
 \begin{lstlisting}[numbers=none, title={Příklad výstupního souboru}]
 11.0524
