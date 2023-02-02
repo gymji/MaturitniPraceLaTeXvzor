@@ -74,6 +74,36 @@
 
 	\part{Praktická část}
 
+\section{Sazba jednotek SI pomocí balíčku \texttt{siunitx}}
+
+K správné sazbě SI jednotek je vhodné použít package \texttt{siunitx}.
+Jednotky se pak zapisují pomocí příkazu \verb|\SI{číslo}{jednotka}|  
+
+Kódem: 
+{\footnotesize
+\begin{verbatim}
+\SI{1}{\metre\squared}; 
+\SI[{per-mode = symbol-or-fraction}]{1}{\meter\per\second} = \SI[per-mode = symbol]{3.6}{\kilo\meter\per\hour};
+\SI[{per-mode = symbol}]{2.3}{\meter\per\second\squared} 
+$$
+ \SI{1}{\micro\meter}\times\SI{1}{\micro\meter} = \SI{1}{\micro\meter\squared}
+$$ 
+$$
+ \SI{1}{\milli\meter}\times\SI{1}{\micro\meter} = \SI{1e-9}{\meter\squared}\\
+$$
+\end{verbatim}}
+vysázíme následující text
+
+\SI{1}{\metre\squared}; 
+  \SI[{per-mode = symbol-or-fraction}]{1}{\meter\per\second} = \SI[per-mode = symbol]{3.6}{\kilo\meter\per\hour};
+  \SI[{per-mode = symbol}]{2.3}{\meter\per\second\squared} 
+$$
+   \SI{1}{\micro\meter}\times\SI{1}{\micro\meter} = \SI{1}{\micro\meter\squared}
+$$ 
+$$
+   \SI{1}{\milli\meter}\times\SI{1}{\micro\meter} = \SI{1e-9}{\meter\squared}\\
+$$
+
 \section{Výpisy použitých programů}
 
 \lipsum[1]	
