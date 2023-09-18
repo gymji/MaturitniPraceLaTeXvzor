@@ -1,10 +1,14 @@
 ﻿# Maturitní práce
 
-## Instalace (La)TeXu
-- Instalujte si MikTeX (spravuje knihovny TeXu): https://miktex.org/download
-- Instalujte si TeXový editor TeXmarker: https://www.xm1math.net/texmaker/download.html
-- Otevřete TeXmarker a můžete pracovat
-  - Kvůli bibliografii nastavte: volby -> Nastavit Texmaker -> Rychlý překlad -> PdfLaTeX + Bib(la)tex + PdfLaTeX(x2) + Zobrazit PDF (2 možnost) -> Zmáčkněte enter pro uložení
+## Instalace XeLaTeXu pro použití ve Visual Studio Code
+- Nainstalujte balíčky pro XeLaTeX (vzorový příkaz pro Ubuntu):
+```
+sudo apt update
+sudo apt install texlive-xetex texlive-lang-czechslovak texlive-science latexmk biber
+```
+- Nainstalujte [LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop) do VS code  
+  - Pokud otevřete tento repozitář ve VSC a nemáte Workshop nainstalovaný, VSC instalaci samo nabídne v záložce Extensions -> Recommended
+- Pokud jste na Windows, použijte Windows Subsystem pro Linux a ulehčete si život
 
 ## Dokumenty:
 - README.md = tento soubor (nepotřebujete)
