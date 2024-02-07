@@ -65,4 +65,6 @@
 - Tabulku vkládáme jako `\begin{table}Tabulka\caption{Název}\label{jmenoodkazu}\end{figure}`
   - Odkazuje se na ni pomocí `\ref{jmenoodkazu}`
   - Tabulku můžeme vygenerovat na http://www.tablesgenerator.com/
+ 
+- České [uvozovky](https://blog.inpage.cz/inpage/7-typografickych-hrichu-2-uvozovky-a-zavorky/) sázíme pomocí `\uv{text}`. Potom parametr *text* vysází v českých uvozovkách jako „text“.
 
