@@ -13,8 +13,8 @@ VzorMP.bib: Bibliografie.bib
 	$(BIBTEX) VzorMP
 
 %.pdf: %.tex
-	xelatex $<
-	xelatex $<
+	$(BIBTEX) $<
+	$(BIBTEX) $<
 
 clean:
 	$(RM) -v VzorMP.aux
@@ -35,6 +35,7 @@ clean:
 mrproper: clean
 	$(RM) -v VzorMP.pdf
 
+# install TeX Live on Ubuntu/Debian Linux
 install:
 	sudo apt-get update
 	sudo apt-get install -y texlive-xetex
