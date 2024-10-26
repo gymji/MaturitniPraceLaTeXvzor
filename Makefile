@@ -7,6 +7,7 @@ BIBTEX=bibtex
 VzorMP.pdf: VzorMP.tex VzorMP.bib
 	$(LATEX) VzorMP
 	$(LATEX) VzorMP
+	if [ -d "./PDF" ]; then mv VzorMP.pdf PDF; fi
 
 VzorMP.bib: Bibliografie.bib 
 	$(LATEX) VzorMP
@@ -31,6 +32,7 @@ clean:
 	$(RM) -v VzorMP.run.xml
 	$(RM) -v VzorMP.toc
 	$(RM) -v VzorMP-blx.bib
+	if [ -d "./temp" ]; then rm  ./temp/* ; fi
 
 mrproper: clean
 	$(RM) -v VzorMP.pdf
@@ -43,5 +45,6 @@ install:
 	sudo apt-get install -y texlive-fonts-extra texlive-latex-extra texlive-fonts-recommended
 	sudo apt-get install -y texlive-science texlive-pstricks
 	sudo apt-get install -y texlive-bibtex-extra
+	sudo apt-get install -y latexmk
 
 
