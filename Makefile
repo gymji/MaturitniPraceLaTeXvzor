@@ -12,6 +12,9 @@ VzorMP.bib: Bibliografie.bib
 	$(LATEX) VzorMP
 	$(BIBTEX) VzorMP
 
+%.pdf: %.tex
+	xelatex $<
+	xelatex $<
 
 clean:
 	$(RM) -v VzorMP.aux
@@ -31,4 +34,13 @@ clean:
 
 mrproper: clean
 	$(RM) -v VzorMP.pdf
+
+install:
+	sudo apt-get update
+	sudo apt-get install -y texlive-xetex
+	sudo apt-get install -y texlive-lang-czechslovak
+	sudo apt-get install -y texlive-fonts-extra texlive-latex-extra texlive-fonts-recommended
+	sudo apt-get install -y texlive-science texlive-pstricks
+	sudo apt-get install -y texlive-bibtex-extra
+
 
