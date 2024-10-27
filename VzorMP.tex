@@ -1,15 +1,20 @@
-\documentclass[12pt]{report}			% Začátek dokumentu
-\usepackage{MP}							% Import stylu
-
-\author{Arnošt Thor}
-\title{Jak psát práci v \LaTeX{}u}
-\date{14. února 2025}
-\vedouci{Mgr. František Kantor, PhD.}
+% Šablona pro maturitní práci Gymnázia Jírovcova 8, České Budějovice
+% Autoři šablony: Jonáš Havelka, Michal Kočer, Daniel Sýkora
+% Typ dokumentu: report
+% veškeré úpravy v soubor MP.sty (styl maturitní práce)
+\documentclass[12pt]{report}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{MP}						  % Import stylu maturitní práce
+\author{Arnošt Thor}                  % AUTOR PRÁCE
+\title{Jak psát práci v \LaTeX{}u}    % NÁZEV PRÁCE
+\date{14. února 2025}                 % DATUM ODEVZDÁNÍ PRÁCE
+\vedouci{Mgr. František Kantor, PhD.} % VEDOUCÍ PRÁCE
 \place{V Českých Budějovicích}
-\skolnirok{2024/2025}
-\logo{\includegraphics[scale=1.25]{GJ8_logotyp}}
-
-\begin{document}
+\skolnirok{2024/2025}                  % ŠKOLNí ROK
+\logo{\includegraphics[scale=1.25]{GJ8_logotyp}} %Logo školy
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document} %%%%%%% začátek dokumentu
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Titulní stránka + úvodní povinné stránky
 \pagenumbering{roman}                   % číslování stránek římskými číslicemi
 	\mytitlepage						% Vygenerování titulní strany
 	
@@ -18,7 +23,7 @@
 	}	
 	
 	\abstrakt{
-		\lipsum[1]						% Abstrakt
+		\lipsum[1]						% Abstrakt 
 	}{
 		\lipsum[1]						% Klíčová slova
 	}
@@ -29,50 +34,52 @@
 	
    {\tableofcontents\newpage}			% Obsah
 	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% VLASTNÍ PRÁCE
 \addtocounter{page}{1}		% Posunutí countru stránek
-\pagenumbering{arabic}		% Číslování stránke arabskými číslicemi
-	\chapter*{Úvod}
+\pagenumbering{arabic}		% Číslování stránek arabskými číslicemi
+\chapter*{Úvod}     % úvod práce 
 	
-		\lipsum[1]	
+\lipsum[1]	
 	
+%%%%%%%%%%%%%% TEORETICKÁ ČÁST %%%%%%%%%%%%%%%%%%	
+\part{Teoretická část}  % název teoretické části (nenechávejte Teoretická část)
 	
-	\part{Teoretická část}
-	
-		\chapter{Název úvodní kapitoly}
+\chapter{Název úvodní kapitoly}
 			
-			\section{O-notace}
-				Odkaz v závorkách: \parencite[see][page 900]{einstein}\\
-				Odkaz: \cite{knuthwebsite}\\
-				A odkaz pod čarou: \footcite[see][s. 42]{latexcompanion}\\
-				Dobrý den, ahoj, \gls{atd}\\
-				Praha, \gls{tj} hlavní město ČR
-				
-				\begin{table}
-				  \caption{Testovací tabulka}
-				  \label{tab:test2}
-				  \begin{tabular}{ccccc}
-                  1 & 1 & 1  & 1  & 1  \\
-                  1 & 2 & 3  & 4  & 5  \\
-                  1 & 3 & 6  & 10 & 15 \\
-				  1 & 4 & 10 & 30 & 45
-				  \end{tabular}
-				\end{table}
+\section{O-notace}
+	Odkaz v závorkách: \parencite[see][page 900]{einstein}\\
+	Odkaz: \cite{knuthwebsite}\\
+	A odkaz pod čarou: \footcite[see][s. 42]{latexcompanion}\\
+	Dobrý den, ahoj, \gls{atd}\\
+	Praha, \gls{tj} hlavní město ČR
+	
+	\begin{table}
+ 		\caption{Testovací tabulka}
+		\label{tab:test2}
+			\begin{tabular}{ccccc}
+				1 & 1 & 1  & 1  & 1  \\
+				1 & 2 & 3  & 4  & 5  \\
+				1 & 3 & 6  & 10 & 15 \\
+				1 & 4 & 10 & 30 & 45
+				\end{tabular}
+	\end{table}
 
-				\lipsum[2]
+\lipsum[2]
 
-			\section[X-krát Abeceda]{Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda }
-			%%% v obsahu se objeví jen to co je v hranatých závorkách
-				\begin{figure}
-				  \includegraphics[width=\linewidth]{test.jpg}
-				  \caption{Testovací}
-				  \label{fig:test}
-				\end{figure}
-				Obrázek \ref{fig:test} ukazuje Shangai z Pixabay.\\
-				Tabulka \ref{tab:test2} ukazuje hádejte, co.
-		
-	\lipsum[3]
+\section[X-krát Abeceda]{Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda }
+%%% v obsahu se objeví jen to co je v hranatých závorkách
+\begin{figure}
+  \includegraphics[width=\linewidth]{test.jpg}
+  \caption{Testovací}
+  \label{fig:test}
+\end{figure}
+Obrázek \ref{fig:test} ukazuje Shangai z Pixabay.\\
+Tabulka \ref{tab:test2} ukazuje hádejte, co.
+	
+\lipsum[3]
 
-	\part{Praktická část}
+%%%%%%%%%%%%%% PRAKTICKÁ ČÁST %%%%%%%%%%%%%%%%%%	
+\part{Praktická část} % název praktické části (nenechávejte název Praktická část)
 
 \section{Výpisy použitých programů}
 
@@ -105,18 +112,20 @@ int main(void) {
 Soucet: 52.4415
 \end{lstlisting}
 
-	\chapter*{Závěr}
+%%%%%%%%%%%%% ZÁVĚR
+\chapter*{Závěr}
 	
-		\lipsum[1]
+\lipsum[1]
 	
-	\nocite{*}
-    \printbibliography					% Vytvoří seznam literatury
-	\addcontentsline{toc}{chapter}{Bibliografie}
-    \printglossary[title={Zkratky}]		% Vytvoří seznam zkratek
-    \listoffigures						% Vytvoří seznam obrázků
-    \listoftables						% Vytvoří seznam tabulek
+\nocite{*}
+\printbibliography					% Vytvoří seznam literatury
+\addcontentsline{toc}{chapter}{Bibliografie}
+\printglossary[title={Zkratky}]		% Vytvoří seznam zkratek
+\listoffigures						% Vytvoří seznam obrázků
+\listoftables						% Vytvoří seznam tabulek
 
-    \begin{appendices}
+%%%%%%%%%%%%% PŘÍLOHY - APPENDIX 	
+\begin{appendices}
 	\chapter{Fotky z pokusů}	
 	\lipsum[1]
     	%\pitem{Fotky z pokusů}
@@ -124,5 +133,7 @@ Soucet: 52.4415
     	%\eitem{Dokumentace}
     	%\eitem{Testovací data}
 	\chapter{Příloha další }
-	\end{appendices}
+\end{appendices}
+%%%%%%%%%%%%%%%
 \end{document}
+%%%%%%%%%%%%%%%%%%%% KONEC %%%%%%%%%%%%%%%%%%%%%%%%%
