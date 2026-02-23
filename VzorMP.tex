@@ -113,8 +113,8 @@ Tabulka~\ref{tab:mereni} obsahuje naměřené hodnoty.
 Obrázek s obtékáním textu – balíček \texttt{wrapfig} (obrázek~\ref{fig:wrap}):
 \begin{wrapfigure}{r}{0.4\linewidth}
 	\centering
-	\includegraphics[width=\linewidth]{test.jpg}
-	\caption{Obtékaný obrázek}
+	\includegraphics[width=\linewidth]{mandelbrot}
+	\caption{Mandelbrotova množina}
 	\label{fig:wrap}
 \end{wrapfigure}
 \lipsum[5]
@@ -124,13 +124,13 @@ Dva obrázky vedle sebe – balíček \texttt{subcaption} (obrázky~\ref{fig:sub
 	\centering
 	\begin{subfigure}{0.48\linewidth}
 		\includegraphics[width=\linewidth]{test.jpg}
-		\caption{První obrázek}
+		\caption{Šanghaj (Pixabay)}
 		\label{fig:sub1}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}{0.48\linewidth}
-		\includegraphics[width=\linewidth]{test.jpg}
-		\caption{Druhý obrázek}
+		\includegraphics[width=\linewidth]{mandelbrot}
+		\caption{Mandelbrotova množina}
 		\label{fig:sub2}
 	\end{subfigure}
 	\caption{Dva obrázky vedle sebe}
@@ -187,7 +187,7 @@ Vědecké názvy organismů se sází kurzívou: \textit{Homo sapiens}, \textit{
 
 Prostředí \texttt{tikzpicture} umožňuje kreslit vektorové diagramy přímo v \LaTeX{}u.
 
-\textbf{Geometrický nákres} – pravý trojúhelník:
+\textbf{Geometrický nákres} – pravoúhlý trojúhelník:
 \begin{center}
 \begin{tikzpicture}[scale=1.3]
 	\draw[thick] (0,0) -- (4,0) -- (4,3) -- cycle;
