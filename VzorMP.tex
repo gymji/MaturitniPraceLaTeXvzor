@@ -20,7 +20,13 @@
 	
 	\prohlaseni{
 		Prohlašuji, že jsem tuto práci vypracoval samostatně s vyznačením všech použitých pramenů.
-	}	
+
+		% Pokud jste při psaní práce využili nástroje umělé inteligence, uveďte to zde.
+		% Smažte nebo upravte následující větu dle skutečnosti:
+		Pro kontrolu pravopisu, úpravu formulací a generování komentářů ke zdrojovým textům
+		jsem využil nástroj umělé inteligence Claude Sonnet (Anthropic).
+		Veškerý obsah práce jsem vytvořil samostatně; nástroj sloužil výhradně jako pomocný prostředek.
+	}
 	
 	\abstrakt{
 		\lipsum[1]						% Abstrakt
@@ -37,9 +43,25 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% VLASTNÍ PRÁCE
 \addtocounter{page}{1}		% Posunutí countru stránek
 \pagenumbering{arabic}		% Číslování stránek arabskými číslicemi
-\chapter*{Úvod}     % úvod práce 
-	
-\lipsum[1]	
+\chapter*{Úvod}     % úvod práce -- NAHRAĎTE TENTO TEXT VLASTNÍM ÚVODEM
+
+Tato šablona slouží k psaní maturitní práce na Gymnáziu Jírovcova 8 v Českých Budějovicích.
+Vzorový dokument, který právě čtete, ukazuje, jak se různé prvky sázejí v \LaTeX{}u.
+Podrobný návod najdete v souboru \texttt{README.md}.
+
+\textbf{Než začnete psát, nastavte v záhlaví souboru \texttt{VzorMP.tex} tato metadata:}
+\begin{itemize}
+	\item \verb|\author{Jméno Příjmení}| \quad -- vaše jméno a příjmení
+	\item \verb|\title{Název práce}| \quad -- úplný název vaší maturitní práce
+	\item \verb|\date{datum odevzdání}| \quad -- datum odevzdání, např.~\texttt{14.~března~2025}
+	\item \verb|\vedouci{Mgr. Jméno Příjmení}| \quad -- jméno vedoucího práce s titulem
+	\item \verb|\skolnirok{2024/2025}| \quad -- aktuální školní rok
+\end{itemize}
+
+Poté nahraďte veškeré texty \verb|\lipsum[...]| vlastním obsahem a smažte části,
+které nepotřebujete (např.\ přílohy, seznam zkratek). Studenti, kteří chtějí
+začít s prázdnou šablonou přímo pojmenovanou svým jménem, mohou využít skript
+\texttt{scripts/new\_project.sh} (viz \texttt{README.md}).
 	
 %%%%%%%%%%%%%% TEORETICKÁ ČÁST %%%%%%%%%%%%%%%%%%	
 \part{Teoretická část}  % název teoretické části (nenechávejte Teoretická část)
