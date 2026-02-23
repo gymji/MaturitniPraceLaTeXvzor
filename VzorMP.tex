@@ -262,7 +262,34 @@ Právě tyto vztahy blokové schéma zachycuje.
 	\item schéma nemusí být úplné -- zachyťte hlavní vazby, ne každý řádek kódu
 \end{itemize}
 
-\textbf{Blokové schéma} jednoduché hry:
+\textbf{Blokové schéma 1} -- procedurální program s datovými soubory (viz Příloha~B):
+
+\begin{center}
+\begin{tikzpicture}[
+	node distance=1.4cm and 3cm,
+	modul/.style={rectangle, draw, rounded corners, fill=blue!12,
+	              minimum width=3.6cm, minimum height=1cm,
+	              align=center, font=\small},
+	data/.style={rectangle, draw, fill=orange!20,
+	             minimum width=3.4cm, minimum height=0.8cm,
+	             align=center, font=\small}
+]
+	\node[modul] (main)  {\texttt{main.c}\\hlavní program};
+	\node[modul, right=of main] (lib) {\texttt{knihovna\_mereni.c}\\zpracování dat};
+	\node[data,  below=of main] (out) {\texttt{mereni\_processed.csv}\\výsledky};
+	\node[data,  below=of lib]  (in)  {\texttt{mereni.csv}\\surová data};
+
+	\draw[->, bend left=15] (main) to
+		node[above, font=\scriptsize] {volání funkcí} (lib);
+	\draw[->, bend left=15] (lib)  to
+		node[below, font=\scriptsize] {\texttt{Mereni[ ]}} (main);
+	\draw[->] (main) -- node[left,  font=\scriptsize] {zapisuje} (out);
+	\draw[->] (in)   -- node[right, font=\scriptsize] {čte}      (lib);
+\end{tikzpicture}
+\end{center}
+
+\textbf{Blokové schéma 2} -- architektura jednoduché hry (stejný princip platí
+pro robotické projekty: vstupy\,=\,senzory, zpracování\,=\,mikrokontrolér, výstupy\,=\,motory):
 
 \begin{center}
 \begin{tikzpicture}[
@@ -285,9 +312,6 @@ Právě tyto vztahy blokové schéma zachycuje.
 \end{tikzpicture}
 \end{center}
 
-Stejný přístup platí pro robotické projekty
-(vstupy: senzory; zpracování: mikrokontrolér; výstupy: motory, displej)
-i pro fyzikální pokusy (vstupy: měřicí karta; zpracování: výpočetní skript; výstupy: grafy, tabulky).
 Pro složitější schémata, která se obtížně kreslí v \LaTeX{}u, lze použít nástroj
 \href{https://www.diagrams.net}{draw.io} a výsledek vložit jako obrázek.
 
