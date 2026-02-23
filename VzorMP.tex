@@ -120,6 +120,15 @@ vektory $\vec{F}$, normálový vektor $\hat{n}$.
 \section[Obrázky]{Obrázky (ukázka krátkého názvu sekce v obsahu)}
 %%% v obsahu se zobrazí jen text v hranatých závorkách – hodí se pro dlouhé nadpisy
 
+Obrázek s obtékáním textu – balíček \texttt{wrapfig} (obrázek~\ref{fig:wrap}):
+\begin{wrapfigure}{r}{0.4\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{mandelbrot}
+	\caption{Mandelbrotova množina}
+	\label{fig:wrap}
+\end{wrapfigure}
+\lipsum[5]
+
 Standardní obrázek přes celou šíři textu (obrázek~\ref{fig:test}):
 \begin{figure}[htbp]
 	\centering
@@ -131,15 +140,6 @@ Standardní obrázek přes celou šíři textu (obrázek~\ref{fig:test}):
 Tabulka~\ref{tab:mereni} obsahuje naměřené hodnoty.
 
 \lipsum[3]
-
-Obrázek s obtékáním textu – balíček \texttt{wrapfig} (obrázek~\ref{fig:wrap}):
-\begin{wrapfigure}{r}{0.4\linewidth}
-	\centering
-	\includegraphics[width=\linewidth]{mandelbrot}
-	\caption{Mandelbrotova množina}
-	\label{fig:wrap}
-\end{wrapfigure}
-\lipsum[5]
 
 Dva obrázky vedle sebe – balíček \texttt{subcaption} (obrázky~\ref{fig:sub1} a~\ref{fig:sub2}):
 \begin{figure}[htbp]
