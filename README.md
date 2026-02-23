@@ -3,24 +3,19 @@
 ## Instalace XeLaTeXu (doporučeno: VS Code)
 Šablona používá **XeLaTeX** (ne pdflatex). Doporučený postup:
 - Nainstalujte [Visual Studio Code](https://code.visualstudio.com/)
-- Nainstalujte balíčky pro XeLaTeX (viz sekce níže)
-- Nainstalujte rozšíření [LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop) – VS Code ho nabídne automaticky
+- Nainstalujte balíčky pro XeLaTeX (příkaz pro Ubuntu/Debian, funguje i ve WSL a GitHub Codespaces):
+```
+sudo apt update
+sudo apt install texlive-xetex texlive-lang-czechslovak texlive-science \
+                 texlive-fonts-extra texlive-latex-extra latexmk biber
+```
+- Nainstalujte rozšíření [LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop) – VS Code ho nabídne automaticky při otevření repozitáře
 - Otevřete `VzorMP.tex` a buildujte zkratkou `Ctrl+Alt+B`
+- Na Windows doporučujeme [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) nebo [GitHub Codespaces](https://code.visualstudio.com/docs/remote/codespaces)
 
 ### Alternativa: TeXmaker
 - Instalujte si [MikTeX](https://miktex.org/download) a [TeXmaker](https://www.xm1math.net/texmaker/download.html)
 - V TeXmakeru nastavte: Volby → Nastavit TeXmaker → Rychlý překlad → **XeLaTeX** + Bib(la)tex + XeLaTeX(x2) + Zobrazit PDF
-
-## Instalace XeLaTeXu pro použití ve Visual Studio Code
-- Nejlépe užívejte [GitHub Codespaces](https://code.visualstudio.com/docs/remote/codespaces)  či [Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/install)
-- Nainstalujte balíčky pro XeLaTeX (vzorový příkaz pro Ubuntu, funguje i ve WSL a Github Codespaces):
-```
-sudo apt update
-sudo apt install texlive-xetex texlive-lang-czechslovak texlive-science latexmk biber
-```
-- Nainstalujte [LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop) do VS code  
-  - Pokud otevřete tento repozitář ve VSC a nemáte Workshop nainstalovaný, VSC instalaci samo nabídne v záložce Extensions -> Recommended
-- Pokud jste na Windows, použijte Windows Subsystem pro Linux a ulehčete si život
 
 ## Začínám psát práci (doporučený postup)
 
@@ -41,16 +36,18 @@ v průzkumníku přejděte do složky `new_project/`, klikněte pravým tlačít
 
 ---
 
-## Dokumenty:
-- README.md = tento soubor (nepotřebujete)
-- .gitignore = co má git ignorovat (nepotřebujete)
-- LICENSE = pod jakou licencí je to publikováno (nepotřebujete)
-  - u tohoto je to zjednodšeně: Dělejte si s tím cokoliv, jen to šiřte pod stejnou licencí
-- MP.sty = nastavení (potřebujete, ale neupravujete) 
-- VzorMP.tex = vzorový soubor (takto má vypadat váš kód, klidně ho stáhněte, přejmenujte a upravte)
-- images = složka na obrázky (potřebujete kvůli logu, ale obrázky klidně mohou být v základní složce)
-- Bibliografie.bib = váš seznam literatury (potřebujete)
-- Zkratky.tex = váš seznam zkratek (potřebujete)
+## Dokumenty a struktura projektu
+- `VzorMP.tex` – vzorový dokument s ukázkami; upravte nebo použijte jako základ
+- `MP.sty` – stylesheet (neupravujte)
+- `Bibliografie.bib` – seznam literatury ve formátu BibTeX
+- `Zkratky.tex` – definice zkratek
+- `images/` – složka pro obrázky (logo školy, vlastní obrázky)
+- `PDF/` – výstupní PDF po překladu
+- `new_project/` – skript pro vygenerování nového projektu studenta
+- `scripts/` – pomocné skripty (např. generátor Mandelbrotovy množiny)
+- `Makefile` – build automatizace pro Linux/macOS
+- `make.bat` – build skript pro Windows
+- `README.md`, `.gitignore`, `LICENSE` – správa projektu
 
 ## Mé příkazy
 - `\mytitlepage` = vytvoří titulní stranu
@@ -68,15 +65,19 @@ v průzkumníku přejděte do složky `new_project/`, klikněte pravým tlačít
 - Tři tečky se píší jako `\ldots` (`\cdots` pro 3 tečky uprostřed, např. přeskočení členů v násobení)
 
 - Zvýraznění je `\emph{italika}`. Toto je preferovaný způsob oproti `\textit{italika}`
-- Tučné písmo je `\textbf{nebo zkratkou ctrl+b}`
-- Italika jako taková je `\textit{nebo zkratkou ctrl+i}`
+- Tučné písmo je `\textbf{tučný text}`
+- Italika jako taková je `\textit{kurzíva}` (vědecké názvy: `\textit{Homo sapiens}`)
 - Neproporcionální písmo (písmo psacího stroje) `\texttt{nazev.souboru}`
 
 - Odstavce se oddělují prázdným řádkem (nebo příkazem `\par`, pokud si to chcete někde vynutit)                                                 
 - Nový řádek vytvoříte příkazem `\\` (pozor, konce řádků v tom, co píšete, TeX ignoruje)
 
-- Matematické vzorce v rámci textu (inline) se píší jako `$ 1 + 1 = 4 $`, samostatné (display) jako `$$ 1 + 1 = 3 $$`
-  -Případně jako `\begin{equation} 1 + 1 = 5 \end{equation}`, pokud je chcete mít číslované 
+- Matematické vzorce v rámci textu (inline): `$ E = mc^2 $`
+- Samostatný (display) vzorec: `$$ a^2 + b^2 = c^2 $$`
+- Číslovaná rovnice s odkazem: `\begin{equation} ... \label{eq:nazev} \end{equation}`, odkaz: `\eqref{eq:nazev}`
+- Víceřádkové odvození: `\begin{align} F &= ma \\ W &= Fs \end{align}`
+- Vektory: `\vec{F}`, normálový vektor: `\hat{n}`, integrál: `\int_a^b f(x)\,dx`
+- Řecká písmena: `\alpha`, `\beta`, `\omega`, `\Delta`, `\lambda`
 - V matematických vzorcích se závorky píší `\left(` `\right)` resp. `\left\{` `\right\}`, aby se přizpůsobily velikosti vzorce uvnitř (`\` je escapovací znak)
 - Po čárce (oddělující prvky) píšete mezeru příkazem `\,`, stejně jako oddělujete trojice číslic `666\,666,666\,666` (číslo 666 666,666 666)
 - Zlomky jsou následovně `\frac{čitatel}{jmenovatel}`
@@ -94,12 +95,17 @@ v průzkumníku přejděte do složky `new_project/`, klikněte pravým tlačít
 
 - Zkratku definujete jako `\newglossaryentry{název zkratky}{name={to, co chcete vypsat na místě, kde ji používáte},description={popis zkratky}}` v souboru Zkratky.tex viz `\newglossaryentry{atd}{name={atd.},description={a tak dále}}` a pak použití: `\gls{atd}` vám vypíše `atd.`
 
-- Obrázek vkládáme jako `\begin{figure}\includegraphics[width=šířka obrázku,jiná další nastavení]{soubor obrázku}\caption{Název}\label{jmenoodkazu}\end{figure}`
-  - Odkazuje se na něj pomocí `\ref{jmenoodkazu}`
-  
-- Tabulku vkládáme jako `\begin{table}Tabulka\caption{Název}\label{jmenoodkazu}\end{figure}`
-  - Odkazuje se na ni pomocí `\ref{jmenoodkazu}`
-  - Tabulku můžeme vygenerovat na http://www.tablesgenerator.com/
+- Obrázek vkládáme příkazem `\includegraphics` uvnitř prostředí `figure`, odkaz: `\ref{fig:nazev}`
+  - Obtékání textu: `\begin{wrapfigure}{r}{0.4\linewidth} ... \end{wrapfigure}`
+  - Dva obrázky vedle sebe: prostředí `subfigure` (balíček `subcaption`)
+
+- Tabulku vkládáme uvnitř prostředí `table`, odkaz: `\ref{tab:nazev}`
+  - Profesionální styl s balíčkem `booktabs`: `\toprule`, `\midrule`, `\bottomrule`
+  - Generátor tabulek: http://www.tablesgenerator.com/
  
-- České [uvozovky](https://blog.inpage.cz/inpage/7-typografickych-hrichu-2-uvozovky-a-zavorky/) sázíme pomocí `\uv{text}`. Potom parametr *text* vysází v českých uvozovkách jako „text“.
+- České [uvozovky](https://blog.inpage.cz/inpage/7-typografickych-hrichu-2-uvozovky-a-zavorky/) sázíme pomocí `\uv{text}`. Potom parametr *text* vysází v českých uvozovkách jako „text”.
+
+- Chemické vzorce (balíček `mhchem`): `\ce{H2O}`, `\ce{2H2 + O2 -> 2H2O}`, `\ce{N2 + 3H2 <=> 2NH3}`
+
+- Vektorové diagramy (balíček `tikz`): prostředí `\begin{tikzpicture} ... \end{tikzpicture}`
 

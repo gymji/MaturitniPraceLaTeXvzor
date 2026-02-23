@@ -4,14 +4,12 @@ LATEX=xelatex
 BIBTEX=bibtex
 
 
-VzorMP.pdf: VzorMP.tex VzorMP.bib
+VzorMP.pdf: VzorMP.tex Bibliografie.bib
+	$(LATEX) VzorMP
+	$(BIBTEX) VzorMP
 	$(LATEX) VzorMP
 	$(LATEX) VzorMP
 	if [ -d "./PDF" ]; then mv VzorMP.pdf PDF; fi
-
-VzorMP.bib: Bibliografie.bib 
-	$(LATEX) VzorMP
-	$(BIBTEX) VzorMP
 
 %.pdf: %.tex
 	$(BIBTEX) $<
@@ -35,7 +33,7 @@ clean:
 	if [ -d "./temp" ]; then rm  ./temp/* ; fi
 
 mrproper: clean
-	$(RM) -v VzorMP.pdf
+	$(RM) -v PDF/VzorMP.pdf
 
 # install TeX Live on Ubuntu/Debian Linux
 install:
