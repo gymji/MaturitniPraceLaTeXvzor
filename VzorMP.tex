@@ -23,9 +23,9 @@
 	}	
 	
 	\abstrakt{
-		\lipsum[1]						% Abstrakt 
+		\lipsum[1]						% Abstrakt
 	}{
-		\lipsum[1]						% Klíčová slova
+		latex, typografie, maturitní práce, šablona, XeLaTeX		% Klíčová slova
 	}
 	
 	\podekovani{
@@ -46,12 +46,15 @@
 	
 \chapter{Název úvodní kapitoly}
 			
-\section{O-notace}
-	Odkaz v závorkách: \parencite[see][page 900]{einstein}\\
+\section{Citace a zkratky}
+	Odkaz v závorkách: \parencite[viz][str. 900]{einstein}\\
 	Odkaz: \cite{knuthwebsite}\\
-	A odkaz pod čarou: \footcite[see][s. 42]{latexcompanion}\\
+	A odkaz pod čarou: \footcite[viz][str. 42]{latexcompanion}\\
+	Odkaz na českou knihu: \cite{mareks}\\
 	Dobrý den, ahoj, \gls{atd}\\
-	Praha, \gls{tj} hlavní město ČR
+	Praha, \gls{tj} hlavní město ČR\\
+	České uvozovky se sází příkazem \verb|\uv{text}|, například: \uv{příliš žluťoučký kůň úpěl ďábelské ódy}.\\
+	Inline matematický výraz: $a^2 + b^2 = c^2$ nebo $\sum_{i=1}^{n} i = \frac{n(n+1)}{2}$.
 	
 	\begin{table}
  		\caption{Testovací tabulka}
@@ -78,8 +81,10 @@ Tabulka \ref{tab:test2} ukazuje hádejte, co.
 	
 \lipsum[3]
 
-%%%%%%%%%%%%%% PRAKTICKÁ ČÁST %%%%%%%%%%%%%%%%%%	
+%%%%%%%%%%%%%% PRAKTICKÁ ČÁST %%%%%%%%%%%%%%%%%%
 \part{Praktická část} % název praktické části (nenechávejte název Praktická část)
+
+\chapter{Název kapitoly praktické části}
 
 \section{Sazba jednotek SI pomocí balíčku \texttt{siunitx}}
 
@@ -113,38 +118,17 @@ $$
 
 \section{Výpisy použitých programů}
 
-\lipsum[1]	
+\lipsum[1]
 
-Výpis programu \nameref{lst:hello_world}  naleznete ve výpise \ref{lst:hello_world}.
+Výpis programu \nameref{lst:hello_world_py} naleznete ve výpise \ref{lst:hello_world_py}.
 
-\begin{lstlisting}[language=C++,
-	title={Program hello.c}, 
-	caption={hello.c}, 
-  	otherkeywords={define,\#,include },
-	label={lst:hello_world}]
-#include <stdio.h>
-#define CISLO 10
-
-int main(void) {
-	int i = CISLO;
-
-	// příliš žluťoučký kůň úpěl ďábelské ódy
-	print("Hello World!\n");
-	print("Ahoj Světe!\n");
-	print("%d", i);
-
-	return (0);
-}
-\end{lstlisting}
-
-\lipsum[1]	
-
-\begin{lstlisting}[firstnumber=10, title={Program hello.py}, caption={hello.py}, label={lst:hello_world_py}]
+\begin{lstlisting}[title={Program hello.py}, caption={hello.py}, label={lst:hello_world_py}]
 # testovací program v Pythonu hello.py
 # příliš žluťoučký kůň úpěl ďábelské ódy
-i = CISLO;
+CISLO = 10
+i = CISLO
 
-print("Hello World!\n")
+print("Hello World!")
 print("Ahoj Světe!")
 print(f"{i:d}")
 
@@ -167,7 +151,6 @@ Soucet: 52.4415
 	
 \lipsum[1]
 	
-\nocite{*}
 \printbibliography					% Vytvoří seznam literatury
 \addcontentsline{toc}{chapter}{Bibliografie}
 \printglossary[title={Zkratky}]		% Vytvoří seznam zkratek
@@ -182,7 +165,8 @@ Soucet: 52.4415
     	%\eitem{Vlastní program}
     	%\eitem{Dokumentace}
     	%\eitem{Testovací data}
-	\chapter{Příloha další }
+	\chapter{Příloha další}
+	\lipsum[1]
 \end{appendices}
 %%%%%%%%%%%%%%%
 \end{document}
