@@ -317,28 +317,105 @@ Pro složitější schémata, která se obtížně kreslí v \LaTeX{}u, lze pou�
 
 \textbf{UML diagram tříd} se hodí pro objektově orientovaný kód.
 Každá třída má tři části: název, atributy (proměnné) a metody (funkce).
-Viditelnost se značí \texttt{+} (veřejné) nebo \texttt{-} (privátní):
+Viditelnost se značí \texttt{+} (veřejné) nebo \texttt{-} (privátní).
+Šipka s dutým trojúhelníkem vyjadřuje \emph{dědičnost} -- odvozená třída
+přebírá atributy a metody rodičovské třídy a může je rozšířit nebo přepsat:
 
 \begin{center}
-\begin{tikzpicture}
-	\node[draw, thick, minimum width=5cm, font=\small\bfseries]
-		(cn) {Mereni};
-	\node[draw, thick, minimum width=5cm,
-	      below=-\pgflinewidth of cn,
-	      align=left, text width=4.6cm, font=\small, inner sep=4pt]
-		(at) {
-			\texttt{-- datum\,:\,string}\\
-			\texttt{-- hodnota\,:\,double}\\
-			\texttt{-- jednotka\,:\,string}
+\begin{tikzpicture}[font=\small]
+	%% Rodičovská třída Entita
+	\node[draw, thick, minimum width=4.4cm, align=center, font=\small\bfseries]
+		(en) {Entita};
+	\node[draw, thick, minimum width=4.4cm, below=-\pgflinewidth of en,
+	      align=left, text width=4.0cm, inner sep=3pt]
+		(ena) {
+			\texttt{- x\,:\,int}\\
+			\texttt{- y\,:\,int}
 		};
-	\node[draw, thick, minimum width=5cm,
-	      below=-\pgflinewidth of at,
-	      align=left, text width=4.6cm, font=\small, inner sep=4pt]
-		(mt) {
-			\texttt{+ nacti(soubor\,:\,string)}\\
-			\texttt{+ prumer()\,:\,double}\\
-			\texttt{+ vystup()\,:\,string}
+	\node[draw, thick, minimum width=4.4cm, below=-\pgflinewidth of ena,
+	      align=left, text width=4.0cm, inner sep=3pt]
+		(enm) {
+			\texttt{+ vykresli()}\\
+			\texttt{+ pohyb()}
 		};
+	%% Odvozená třída Hrac
+	\node[draw, thick, minimum width=4.4cm, align=center, font=\small\bfseries]
+		at (-3.3, -5) (hn) {Hrac};
+	\node[draw, thick, minimum width=4.4cm, below=-\pgflinewidth of hn,
+	      align=left, text width=4.0cm, inner sep=3pt]
+		(hna) {
+			\texttt{- zivoty\,:\,int}\\
+			\texttt{- skore\,:\,int}
+		};
+	\node[draw, thick, minimum width=4.4cm, below=-\pgflinewidth of hna,
+	      align=left, text width=4.0cm, inner sep=3pt]
+		(hnm) {
+			\texttt{+ skoc()}\\
+			\texttt{+ utoc()}
+		};
+	%% Odvozená třída Nepritel
+	\node[draw, thick, minimum width=4.4cm, align=center, font=\small\bfseries]
+		at (3.3, -5) (nn) {Nepritel};
+	\node[draw, thick, minimum width=4.4cm, below=-\pgflinewidth of nn,
+	      align=left, text width=4.0cm, inner sep=3pt]
+		(nna) {
+			\texttt{- rychlost\,:\,int}
+		};
+	\node[draw, thick, minimum width=4.4cm, below=-\pgflinewidth of nna,
+	      align=left, text width=4.0cm, inner sep=3pt]
+		(nnm) {
+			\texttt{+ ai()}\\
+			\texttt{+ utoc()}
+		};
+	%% Šipky dědičnosti (dutý trojúhelník = generalizace)
+	\coordinate (spoj) at (0, -3.7);
+	\draw (hn.north) -- ++(0, 0.5) -| (spoj);
+	\draw (nn.north) -- ++(0, 0.5) -| (spoj);
+	\draw[-{Triangle[open]}] (spoj) -- (enm.south);
+\end{tikzpicture}
+\end{center}
+
+\textbf{Schéma relační databáze} má podobnou strukturu jako UML diagram tříd,
+ale místo metod obsahuje datové typy sloupců.
+Primární klíč (\textit{PK}) jednoznačně identifikuje každý záznam;
+cizí klíč (\textit{FK}) odkazuje na primární klíč jiné tabulky.
+Šipka s popiskem \textit{N\,:\,1} vyjadřuje, že jeden hráč může mít více rekordů:
+
+\begin{center}
+\begin{tikzpicture}[font=\small]
+	%% Tabulka Hrac
+	\node[draw, fill=green!15, minimum width=4.4cm, align=center,
+	      font=\small\bfseries] (h0) {Hrac};
+	\node[draw, minimum width=4.4cm, below=-\pgflinewidth of h0,
+	      align=left, text width=4.0cm, inner sep=3pt]
+		(h1) {\underline{\texttt{id}}\,:\,int\hfill\textit{PK}};
+	\node[draw, minimum width=4.4cm, below=-\pgflinewidth of h1,
+	      align=left, text width=4.0cm, inner sep=3pt]
+		(h2) {\texttt{jmeno}\,:\,varchar};
+	\node[draw, minimum width=4.4cm, below=-\pgflinewidth of h2,
+	      align=left, text width=4.0cm, inner sep=3pt]
+		(h3) {\texttt{heslo\_hash}\,:\,varchar};
+	%% Tabulka Rekord
+	\node[draw, fill=green!15, minimum width=4.4cm, align=center,
+	      font=\small\bfseries] at (6.5, 0) (r0) {Rekord};
+	\node[draw, minimum width=4.4cm, below=-\pgflinewidth of r0,
+	      align=left, text width=4.0cm, inner sep=3pt]
+		(r1) {\underline{\texttt{id}}\,:\,int\hfill\textit{PK}};
+	\node[draw, minimum width=4.4cm, below=-\pgflinewidth of r1,
+	      align=left, text width=4.0cm, inner sep=3pt]
+		(r2) {\texttt{hrac\_id}\,:\,int\hfill\textit{FK}};
+	\node[draw, minimum width=4.4cm, below=-\pgflinewidth of r2,
+	      align=left, text width=4.0cm, inner sep=3pt]
+		(r3) {\texttt{uroven}\,:\,int};
+	\node[draw, minimum width=4.4cm, below=-\pgflinewidth of r3,
+	      align=left, text width=4.0cm, inner sep=3pt]
+		(r4) {\texttt{skore}\,:\,int};
+	\node[draw, minimum width=4.4cm, below=-\pgflinewidth of r4,
+	      align=left, text width=4.0cm, inner sep=3pt]
+		(r5) {\texttt{datum}\,:\,date};
+	%% Relace FK → PK  (trasa: nahoru pak doleva)
+	\draw[->] (r2.west) |-
+		node[pos=0.75, above, font=\scriptsize] {N\,:\,1} (h1.east);
 \end{tikzpicture}
 \end{center}
 
