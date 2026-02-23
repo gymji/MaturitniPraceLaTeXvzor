@@ -291,8 +291,17 @@ Soucet: 52.4415
     	%\eitem{Vlastní program}
     	%\eitem{Dokumentace}
     	%\eitem{Testovací data}
-	\chapter{Příloha další}
-	\lipsum[1]
+	\chapter{Seznam souborů v přiloženém archivu}
+	V přiloženém archivu \texttt{prilohy.zip} naleznete následující datovou strukturu:
+
+	\begin{center}
+	\begin{tabular}{@{}l@{\,\dotfill\;}l@{}}
+		\texttt{src/main.c}                    & hlavní program projektu \\
+		\texttt{src/knihovna\_mereni.c}         & definice funkcí pro zpracování měření \\
+		\texttt{data/mereni.csv}                & surová data měření \\
+		\texttt{data/mereni\_processed.csv}     & zpracovaná data měření \\
+	\end{tabular}
+	\end{center}
 \end{appendices}
 %%%%%%%%%%%%%%%
 \end{document}
