@@ -1,4 +1,4 @@
-pdflatex VzorMP
+xelatex VzorMP
 bibtex VzorMP
-pdflatex VzorMP
-pdflatex VzorMP
+xelatex VzorMP
+xelatex VzorMP

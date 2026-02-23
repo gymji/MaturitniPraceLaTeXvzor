@@ -1,10 +1,15 @@
 ﻿# Maturitní práce
 
-## Instalace (La)TeXu
-- Instalujte si MikTeX (spravuje knihovny TeXu): https://miktex.org/download
-- Instalujte si TeXový editor TeXmarker: https://www.xm1math.net/texmaker/download.html
-- Otevřete TeXmaker a můžete pracovat
-  - Kvůli bibliografii nastavte: volby -> Nastavit Texmaker -> Rychlý překlad -> PdfLaTeX + Bib(la)tex + PdfLaTeX(x2) + Zobrazit PDF (2 možnost) -> Zmáčkněte enter pro uložení
+## Instalace XeLaTeXu (doporučeno: VS Code)
+Šablona používá **XeLaTeX** (ne pdflatex). Doporučený postup:
+- Nainstalujte [Visual Studio Code](https://code.visualstudio.com/)
+- Nainstalujte balíčky pro XeLaTeX (viz sekce níže)
+- Nainstalujte rozšíření [LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop) – VS Code ho nabídne automaticky
+- Otevřete `VzorMP.tex` a buildujte zkratkou `Ctrl+Alt+B`
+
+### Alternativa: TeXmaker
+- Instalujte si [MikTeX](https://miktex.org/download) a [TeXmaker](https://www.xm1math.net/texmaker/download.html)
+- V TeXmakeru nastavte: Volby → Nastavit TeXmaker → Rychlý překlad → **XeLaTeX** + Bib(la)tex + XeLaTeX(x2) + Zobrazit PDF
 
 ## Instalace XeLaTeXu pro použití ve Visual Studio Code
 - Nejlépe užívejte [GitHub Codespaces](https://code.visualstudio.com/docs/remote/codespaces)  či [Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/install)
@@ -51,7 +56,7 @@ sudo apt install texlive-xetex texlive-lang-czechslovak texlive-science latexmk 
 - Odstavce se oddělují prázdným řádkem (nebo příkazem `\par`, pokud si to chcete někde vynutit)                                                 
 - Nový řádek vytvoříte příkazem `\\` (pozor, konce řádků v tom, co píšete, TeX ignoruje)
 
-- Matematické vzorce se píší jako `$$ 1 + 1 = 3 $$` (popřípadě `$ 1 + 1 = 4 $` v rámci textu, ale to nedoporučuji)
+- Matematické vzorce v rámci textu (inline) se píší jako `$ 1 + 1 = 4 $`, samostatné (display) jako `$$ 1 + 1 = 3 $$`
   -Případně jako `\begin{equation} 1 + 1 = 5 \end{equation}`, pokud je chcete mít číslované 
 - V matematických vzorcích se závorky píší `\left(` `\right)` resp. `\left\{` `\right\}`, aby se přizpůsobily velikosti vzorce uvnitř (`\` je escapovací znak)
 - Po čárce (oddělující prvky) píšete mezeru příkazem `\,`, stejně jako oddělujete trojice číslic `666\,666,666\,666` (číslo 666 666,666 666)

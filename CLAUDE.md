@@ -92,7 +92,7 @@ Zadní část:
 
 Metadata dokumentu (v hlavičce `VzorMP.tex`):
 - `\author`, `\title`, `\date`
-- `\vedouci`, `\misto`, `\skolniRok`
+- `\vedouci`, `\place`, `\skolnirok`
 
 ---
 
