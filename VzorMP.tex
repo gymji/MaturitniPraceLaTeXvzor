@@ -244,6 +244,79 @@ Prostředí \texttt{tikzpicture} umožňuje kreslit vektorové diagramy přímo 
 \end{tikzpicture}
 \end{center}
 
+\section{Schémata programů}
+
+Dobrý popis programu v maturitní práci neobsahuje jen výpis kódu, ale také schéma,
+které čtenáři rychle ukáže \emph{co} program dělá a \emph{jak} jsou jeho části propojeny.
+Schéma je vhodné navrhnout \emph{před} psaním kódu – nutí vás promyslet strukturu dříve,
+než se ponoříte do detailů implementace.
+
+\textbf{Jak sestavit blokové schéma:}
+\begin{itemize}
+	\item každý větší celek (soubor, modul, třída, funkce) = jeden blok
+	\item šipky = tok dat nebo volání funkce; na šipku napište \emph{co} teče nebo \emph{co} se volá
+	\item datové soubory a databáze odlište od modulů (jiný tvar nebo barva)
+	\item schéma nemusí být úplné – zachyťte hlavní vazby, ne každý řádek kódu
+\end{itemize}
+
+\textbf{Blokové schéma} projektu (viz také Příloha~B):
+
+\begin{center}
+\begin{tikzpicture}[
+	node distance=1.4cm and 3cm,
+	modul/.style={rectangle, draw, rounded corners, fill=blue!12,
+	              minimum width=3.6cm, minimum height=1cm,
+	              align=center, font=\small},
+	data/.style={rectangle, draw, fill=orange!20,
+	             minimum width=3.4cm, minimum height=0.8cm,
+	             align=center, font=\small}
+]
+	\node[modul] (main)  {\texttt{main.c}\\hlavní program};
+	\node[modul, right=of main] (lib) {\texttt{knihovna\_mereni.c}\\zpracování dat};
+	\node[data,  below=of main] (out) {\texttt{mereni\_processed.csv}\\výsledky};
+	\node[data,  below=of lib]  (in)  {\texttt{mereni.csv}\\surová data};
+
+	\draw[->, bend left=15] (main) to
+		node[above, font=\scriptsize] {volání funkcí} (lib);
+	\draw[->, bend left=15] (lib)  to
+		node[below, font=\scriptsize] {\texttt{Mereni[ ]}} (main);
+	\draw[->] (main) -- node[left,  font=\scriptsize] {zapisuje} (out);
+	\draw[->] (in)   -- node[right, font=\scriptsize] {čte}      (lib);
+\end{tikzpicture}
+\end{center}
+
+\textbf{UML diagram tříd} se hodí pro objektově orientovaný kód.
+Každá třída má tři části: název, atributy (proměnné) a metody (funkce).
+Viditelnost se značí \texttt{+} (veřejné) nebo \texttt{-} (privátní):
+
+\begin{center}
+\begin{tikzpicture}
+	\node[draw, thick, minimum width=5cm, font=\small\bfseries]
+		(cn) {Mereni};
+	\node[draw, thick, minimum width=5cm,
+	      below=-\pgflinewidth of cn,
+	      align=left, text width=4.6cm, font=\small, inner sep=4pt]
+		(at) {
+			\texttt{-- datum\,:\,string}\\
+			\texttt{-- hodnota\,:\,double}\\
+			\texttt{-- jednotka\,:\,string}
+		};
+	\node[draw, thick, minimum width=5cm,
+	      below=-\pgflinewidth of at,
+	      align=left, text width=4.6cm, font=\small, inner sep=4pt]
+		(mt) {
+			\texttt{+ nacti(soubor\,:\,string)}\\
+			\texttt{+ prumer()\,:\,double}\\
+			\texttt{+ vystup()\,:\,string}
+		};
+\end{tikzpicture}
+\end{center}
+
+Pro \textbf{sekvenční diagramy} (kdo koho volá a v jakém pořadí) a složitější
+schémata doporučujeme nástroj \href{https://www.diagrams.net}{draw.io}
+nebo textový generátor \href{https://plantuml.com}{PlantUML}.
+Výsledek exportujte jako PDF nebo PNG a vložte příkazem \verb|\includegraphics|.
+
 \section{Výpisy použitých programů}
 
 \lipsum[1]
