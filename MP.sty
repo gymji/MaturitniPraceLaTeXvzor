@@ -54,6 +54,13 @@
 \renewcommand{\footnotesize}{\oldscriptsize}				% Nastaví poznámky pod čarou na 8 pt
 \renewcommand{\scriptsize}{\oldfootnotesize}				% Nastaví poznámky u obrázků na 10 pt
 \usepackage[font=scriptsize]{caption}
+\usepackage{subcaption}								% Více obrázků vedle sebe (\begin{subfigure})
+
+\usepackage{booktabs}								% Profesionální tabulky (\toprule, \midrule, \bottomrule)
+\usepackage[version=4]{mhchem}						% Chemické vzorce: \ce{H2O}, \ce{2H2 + O2 -> 2H2O}
+\usepackage{tikz}									% Vektorové diagramy a grafy
+\usetikzlibrary{arrows.meta,shapes.geometric,positioning}	% TikZ knihovny pro diagramy a schémata
+\usepackage{wrapfig}								% Obtékání obrázků textem
 
 \usepackage{titlesec}										% Balíček pro změnu velikosti nadpisů
 \titleformat{\chapter}{\normalfont\bfseries\LARGE}{\thechapter}{1em}{}

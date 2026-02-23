@@ -56,30 +56,86 @@
 	České uvozovky se sází příkazem \verb|\uv{text}|, například: \uv{příliš žluťoučký kůň úpěl ďábelské ódy}.\\
 	Inline matematický výraz: $a^2 + b^2 = c^2$ nebo $\sum_{i=1}^{n} i = \frac{n(n+1)}{2}$.
 	
-	\begin{table}
- 		\caption{Testovací tabulka}
-		\label{tab:test2}
-			\begin{tabular}{ccccc}
-				1 & 1 & 1  & 1  & 1  \\
-				1 & 2 & 3  & 4  & 5  \\
-				1 & 3 & 6  & 10 & 15 \\
-				1 & 4 & 10 & 30 & 45
-				\end{tabular}
+	\begin{table}[htbp]
+		\centering
+		\caption{Naměřené hodnoty rychlosti}
+		\label{tab:mereni}
+		\begin{tabular}{lcc}
+			\toprule
+			Měření & Čas $t$ [\si{\second}] & Rychlost $v$ [\si{\meter\per\second}] \\
+			\midrule
+			1 & 1{,}25 & 3{,}84 \\
+			2 & 1{,}30 & 3{,}69 \\
+			3 & 1{,}22 & 3{,}93 \\
+			\midrule
+			Průměr & 1{,}26 & 3{,}82 \\
+			\bottomrule
+		\end{tabular}
 	\end{table}
 
 \lipsum[2]
 
-\section[X-krát Abeceda]{Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda Abeceda }
-%%% v obsahu se objeví jen to co je v hranatých závorkách
-\begin{figure}
-  \includegraphics[width=\linewidth]{test.jpg}
-  \caption{Testovací}
-  \label{fig:test}
+\section{Matematické výrazy}
+
+Číslovaná rovnice se vytvoří prostředím \texttt{equation}; odkazujeme na ni příkazem \verb|\eqref{}|.
+Pythagorova věta~\eqref{eq:pythagoras}:
+\begin{equation}
+	a^2 + b^2 = c^2
+	\label{eq:pythagoras}
+\end{equation}
+
+Víceřádkové odvození se zarovnaným rovnítkem (prostředí \texttt{align}):
+\begin{align}
+	E         &= mc^2 \\
+	\vec{F}   &= m\vec{a} \\
+	W         &= \vec{F} \cdot \vec{s}
+\end{align}
+
+Příklady zápisů v textu: řecká písmena $\alpha, \beta, \omega, \Delta, \lambda$,
+integrál $\int_a^b f(x)\,dx$, parciální derivace $\frac{\partial f}{\partial x}$,
+vektory $\vec{F}$, normálový vektor $\hat{n}$.
+
+\section[Obrázky]{Obrázky (ukázka krátkého názvu sekce v obsahu)}
+%%% v obsahu se zobrazí jen text v hranatých závorkách – hodí se pro dlouhé nadpisy
+
+Standardní obrázek přes celou šíři textu (obrázek~\ref{fig:test}):
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\linewidth]{test.jpg}
+	\caption{Šanghaj, zdroj: Pixabay}
+	\label{fig:test}
 \end{figure}
-Obrázek \ref{fig:test} ukazuje Shangai z Pixabay.\\
-Tabulka \ref{tab:test2} ukazuje hádejte, co.
-	
+
+Tabulka~\ref{tab:mereni} obsahuje naměřené hodnoty.
+
 \lipsum[3]
+
+Obrázek s obtékáním textu – balíček \texttt{wrapfig} (obrázek~\ref{fig:wrap}):
+\begin{wrapfigure}{r}{0.4\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{test.jpg}
+	\caption{Obtékaný obrázek}
+	\label{fig:wrap}
+\end{wrapfigure}
+\lipsum[5]
+
+Dva obrázky vedle sebe – balíček \texttt{subcaption} (obrázky~\ref{fig:sub1} a~\ref{fig:sub2}):
+\begin{figure}[htbp]
+	\centering
+	\begin{subfigure}{0.48\linewidth}
+		\includegraphics[width=\linewidth]{test.jpg}
+		\caption{První obrázek}
+		\label{fig:sub1}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.48\linewidth}
+		\includegraphics[width=\linewidth]{test.jpg}
+		\caption{Druhý obrázek}
+		\label{fig:sub2}
+	\end{subfigure}
+	\caption{Dva obrázky vedle sebe}
+	\label{fig:subfig}
+\end{figure}
 
 %%%%%%%%%%%%%% PRAKTICKÁ ČÁST %%%%%%%%%%%%%%%%%%
 \part{Praktická část} % název praktické části (nenechávejte název Praktická část)
@@ -115,6 +171,54 @@ $$
 $$
    \SI{1}{\milli\meter}\times\SI{1}{\micro\meter} = \SI{1e-9}{\meter\squared}\\
 $$
+
+\section{Chemické vzorce}
+
+Balíček \texttt{mhchem} umožňuje sazbu chemických vzorců příkazem \verb|\ce{}|.\\
+Molekuly: \ce{H2O}, \ce{CO2}, \ce{H2SO4}, \ce{C6H12O6}.\\
+Chemická rovnice:
+$$\ce{2H2 + O2 -> 2H2O}$$
+Rovnovážná reakce (Haber-Boschův proces):
+$$\ce{N2 + 3H2 <=> 2NH3}$$
+
+Vědecké názvy organismů se sází kurzívou: \textit{Homo sapiens}, \textit{Escherichia coli}.
+
+\section{Diagramy v prostředí TikZ}
+
+Prostředí \texttt{tikzpicture} umožňuje kreslit vektorové diagramy přímo v \LaTeX{}u.
+
+\textbf{Geometrický nákres} – pravý trojúhelník:
+\begin{center}
+\begin{tikzpicture}[scale=1.3]
+	\draw[thick] (0,0) -- (4,0) -- (4,3) -- cycle;
+	\draw (3.7,0) -- (3.7,0.3) -- (4,0.3);		% pravý úhel
+	\node[below] at (2,0) {$a$};
+	\node[right] at (4,1.5) {$b$};
+	\node[above left] at (2,1.5) {$c$};
+\end{tikzpicture}
+\end{center}
+
+\textbf{Vývojový diagram} – jednoduchý flowchart:
+\begin{center}
+\begin{tikzpicture}[
+	node distance=1.4cm,
+	box/.style={rectangle, draw, rounded corners, minimum width=3cm,
+	            minimum height=0.7cm, text centered},
+	dec/.style={diamond, draw, minimum width=3cm, minimum height=0.7cm,
+	            text centered, aspect=2.5}
+]
+	\node[box] (start) {Start};
+	\node[box, below=of start] (vstup) {Vstup: $n$};
+	\node[dec, below=of vstup] (podm) {$n > 0$\,?};
+	\node[box, below=of podm] (vypis) {Vypiš $n$};
+	\node[box, below=of vypis] (end) {Konec};
+	\draw[->] (start) -- (vstup);
+	\draw[->] (vstup) -- (podm);
+	\draw[->] (podm) -- node[right] {ano} (vypis);
+	\draw[->] (vypis) -- (end);
+	\draw[->] (podm.east) -- node[above] {ne} ++(2.2,0) |- (end.east);
+\end{tikzpicture}
+\end{center}
 
 \section{Výpisy použitých programů}
 

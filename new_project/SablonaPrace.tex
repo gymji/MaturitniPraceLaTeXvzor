@@ -1,0 +1,212 @@
+% Maturitní práce – Gymnázium Jírovcova 8, České Budějovice
+% Tento soubor byl vygenerován skriptem new_project.sh
+%
+% Postup:
+%   1. Vyplňte metadata níže (autor, název, datum, vedoucí)
+%   2. Nahraďte lipsum texty vlastním obsahem
+%   3. Kompilujte: make <název_souboru>.pdf  nebo  Ctrl+Alt+B ve VS Code
+
+\documentclass[12pt]{report}
+\usepackage{MP}
+
+%% ================================================================
+%%   METADATA – vyplňte před začátkem psaní
+%% ================================================================
+\author{%%AUTOR%%}                      % Vaše jméno a příjmení
+\title{Název vaší maturitní práce}      % Název práce
+\date{datum odevzdání}                  % Např. 14. března 2025
+\vedouci{Mgr. Jméno Příjmení}          % Vedoucí práce
+\place{V Českých Budějovicích}
+\skolnirok{2024/2025}
+\logo{\includegraphics[scale=1.25]{GJ8_logotyp}}
+
+\begin{document}
+
+%% ================================================================
+%%   PŘEDNÍ ČÁST (číslováno římsky, nečíslované stránky)
+%% ================================================================
+\pagenumbering{roman}
+\mytitlepage
+
+\prohlaseni{
+	Prohlašuji, že jsem tuto práci vypracoval samostatně s vyznačením
+	všech použitých pramenů.
+}
+
+\abstrakt{
+	% Shrnutí práce (10–15 vět).
+	% Co jste řešili, jakou metodou, co jste zjistili.
+}{
+	% Klíčová slova oddělená čárkami, např.:
+	klíčové slovo 1, klíčové slovo 2, klíčové slovo 3
+}
+
+\podekovani{
+	% Poděkování vedoucímu práce, rodině, institucím apod.
+	Děkuji vedoucímu práce \vedouci{} za odborné vedení a cenné rady.
+}
+
+{\tableofcontents\newpage}
+
+%% ================================================================
+%%   VLASTNÍ PRÁCE (číslováno arabsky)
+%% ================================================================
+\addtocounter{page}{1}
+\pagenumbering{arabic}
+
+\chapter*{Úvod}
+% Uveďte téma práce, proč jste si jej vybrali, cíle práce
+% a stručný popis struktury (co je v které kapitole).
+
+
+%% ================================================================
+%%   TEORETICKÁ ČÁST
+%%   Přejmenujte \part{} dle obsahu, např. "Teorie signálů"
+%% ================================================================
+\part{Teoretická část}
+
+\chapter{Název první kapitoly}
+
+\section{Název sekce}
+% Text sekce...
+
+% Odkaz na zdroj v závorkách:   \parencite[viz][str. 10]{klic}
+% Přímý odkaz:                  \cite{klic}
+% Odkaz v poznámce pod čarou:   \footcite[viz][str. 10]{klic}
+% České uvozovky:               \uv{text}
+% Zkratka (definujte v Zkratky.tex): \gls{nazev}
+
+%% -- Tabulka (profesionální styl booktabs) --
+% \begin{table}[htbp]
+%     \centering
+%     \caption{Popis tabulky}
+%     \label{tab:nazev}
+%     \begin{tabular}{lcc}
+%         \toprule
+%         Název sloupce & Jednotka [\si{\meter}] & Hodnota \\
+%         \midrule
+%         Řádek 1 & 1{,}23 & hodnota \\
+%         Řádek 2 & 4{,}56 & hodnota \\
+%         \bottomrule
+%     \end{tabular}
+% \end{table}
+
+%% -- Standardní obrázek --
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=0.8\linewidth]{nazev_souboru}
+%     \caption{Popis obrázku. Zdroj: \cite{klic}}
+%     \label{fig:nazev}
+% \end{figure}
+
+%% -- Obrázek s obtékáním textem --
+% \begin{wrapfigure}{r}{0.4\linewidth}
+%     \centering
+%     \includegraphics[width=\linewidth]{nazev_souboru}
+%     \caption{Popis}
+%     \label{fig:wrap}
+% \end{wrapfigure}
+% Text, který obrázek obtéká...
+
+%% -- Dva obrázky vedle sebe --
+% \begin{figure}[htbp]
+%     \centering
+%     \begin{subfigure}{0.48\linewidth}
+%         \includegraphics[width=\linewidth]{soubor1}
+%         \caption{První obrázek}
+%         \label{fig:sub1}
+%     \end{subfigure}
+%     \hfill
+%     \begin{subfigure}{0.48\linewidth}
+%         \includegraphics[width=\linewidth]{soubor2}
+%         \caption{Druhý obrázek}
+%         \label{fig:sub2}
+%     \end{subfigure}
+%     \caption{Společný popis}
+%     \label{fig:subfig}
+% \end{figure}
+
+%% -- Číslovaná rovnice --
+% \begin{equation}
+%     E = mc^2
+%     \label{eq:nazev}
+% \end{equation}
+% Odkaz na rovnici: rovnice~\eqref{eq:nazev}
+
+%% -- Víceřádkové odvození --
+% \begin{align}
+%     F   &= ma \\
+%     W   &= F \cdot s
+% \end{align}
+
+%% -- Fyzikální symboly v textu --
+% Vektory: $\vec{F}$, $\hat{n}$
+% Integrál: $\int_a^b f(x)\,dx$
+% Řecká písmena: $\alpha, \beta, \omega, \Delta, \lambda$
+
+\section{Název další sekce}
+
+
+\chapter{Název druhé kapitoly (smažte, pokud nepotřebujete)}
+
+
+%% ================================================================
+%%   PRAKTICKÁ ČÁST
+%%   Přejmenujte \part{} dle obsahu, např. "Implementace"
+%% ================================================================
+\part{Praktická část}
+
+\chapter{Název první kapitoly praktické části}
+
+\section{Název sekce}
+% Popis postupu, výsledků, měření...
+
+%% -- Výpis kódu --
+% \begin{lstlisting}[language=Python, caption={Popis kódu}, label={lst:nazev}]
+% CISLO = 10
+% print(f"Výsledek: {CISLO}")
+% \end{lstlisting}
+
+%% -- Chemické vzorce (je-li potřeba) --
+% Molekuly:  \ce{H2O}, \ce{CO2}
+% Rovnice:   $\ce{2H2 + O2 -> 2H2O}$
+% Rovnováha: $\ce{N2 + 3H2 <=> 2NH3}$
+
+%% -- Vědecké názvy kurzívou --
+% \textit{Homo sapiens}, \textit{Escherichia coli}
+
+%% -- TikZ diagram --
+% \begin{tikzpicture}
+%     % váš diagram
+% \end{tikzpicture}
+
+%% -- SI jednotky --
+% \SI{9.81}{\meter\per\second\squared}
+% \SI{1}{\kilo\gram}
+
+
+%% ================================================================
+%%   ZÁVĚR
+%% ================================================================
+\chapter*{Závěr}
+% Shrnutí výsledků, zhodnocení splnění cílů, návrhy na další rozvoj.
+
+
+%% ================================================================
+%%   ZADNÍ ČÁST
+%% ================================================================
+\printbibliography
+\addcontentsline{toc}{chapter}{Bibliografie}
+\printglossary[title={Zkratky}]
+\listoffigures
+\listoftables
+
+%% ================================================================
+%%   PŘÍLOHY – smažte celý blok, pokud přílohy nemáte
+%% ================================================================
+\begin{appendices}
+	\chapter{Název přílohy}
+	% Obsah přílohy (fotky, výpisy, schémata, CD/DVD apod.)
+\end{appendices}
+
+\end{document}

@@ -22,6 +22,25 @@ sudo apt install texlive-xetex texlive-lang-czechslovak texlive-science latexmk 
   - Pokud otevřete tento repozitář ve VSC a nemáte Workshop nainstalovaný, VSC instalaci samo nabídne v záložce Extensions -> Recommended
 - Pokud jste na Windows, použijte Windows Subsystem pro Linux a ulehčete si život
 
+## Začínám psát práci (doporučený postup)
+
+Spusťte skript, který vám vygeneruje prázdný projekt s vaším jménem:
+
+```bash
+cd new_project
+bash new_project.sh
+```
+
+Skript se zeptá na vaše jméno a třídu a vytvoří adresář `../prijmeni_jmeno_trida/`
+s vyplněnou šablonou, Makefile a všemi potřebnými soubory.
+Výsledné PDF se bude jmenovat `prijmeni_jmeno_trida.pdf`.
+
+**Na Windows:** nainstalujte [Git for Windows](https://git-scm.com/download/win),
+v průzkumníku přejděte do složky `new_project/`, klikněte pravým tlačítkem →
+*Git Bash Here* a zadejte `bash new_project.sh`.
+
+---
+
 ## Dokumenty:
 - README.md = tento soubor (nepotřebujete)
 - .gitignore = co má git ignorovat (nepotřebujete)
