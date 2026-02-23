@@ -246,44 +246,50 @@ Prostředí \texttt{tikzpicture} umožňuje kreslit vektorové diagramy přímo 
 
 \section{Schémata programů}
 
-Dobrý popis programu v maturitní práci neobsahuje jen výpis kódu, ale také schéma,
-které čtenáři rychle ukáže \emph{co} program dělá a \emph{jak} jsou jeho části propojeny.
-Schéma je vhodné navrhnout \emph{před} psaním kódu – nutí vás promyslet strukturu dříve,
-než se ponoříte do detailů implementace.
+Dobrý popis složitějšího programu neobsahuje jen výpis kódu, ale také schéma struktury.
+Schéma čtenáři rychle ukáže \emph{co} program dělá a \emph{jak} jsou jeho části propojeny
+-- a vám pomůže promyslet architekturu \emph{před} psaním kódu.
+Typické studentské projekty -- grafická hra, ovládání robota nebo zpracování dat
+z fyzikálního pokusu -- mají vždy podobnou strukturu:
+\textbf{vstupy}, \textbf{zpracování} a \textbf{výstupy}.
+Právě tyto vztahy blokové schéma zachycuje.
 
 \textbf{Jak sestavit blokové schéma:}
 \begin{itemize}
-	\item každý větší celek (soubor, modul, třída, funkce) = jeden blok
-	\item šipky = tok dat nebo volání funkce; na šipku napište \emph{co} teče nebo \emph{co} se volá
-	\item datové soubory a databáze odlište od modulů (jiný tvar nebo barva)
-	\item schéma nemusí být úplné – zachyťte hlavní vazby, ne každý řádek kódu
+	\item každý větší celek (modul, třída, soubor) = jeden blok
+	\item šipky = tok dat nebo volání; na šipku napište \emph{co} teče nebo \emph{co} se volá
+	\item datové soubory a herní stav odlište od modulů (jiný tvar nebo barva)
+	\item schéma nemusí být úplné -- zachyťte hlavní vazby, ne každý řádek kódu
 \end{itemize}
 
-\textbf{Blokové schéma} projektu (viz také Příloha~B):
+\textbf{Blokové schéma} jednoduché hry:
 
 \begin{center}
 \begin{tikzpicture}[
-	node distance=1.4cm and 3cm,
+	node distance=1.4cm and 2.6cm,
 	modul/.style={rectangle, draw, rounded corners, fill=blue!12,
-	              minimum width=3.6cm, minimum height=1cm,
+	              minimum width=3.2cm, minimum height=1cm,
 	              align=center, font=\small},
 	data/.style={rectangle, draw, fill=orange!20,
-	             minimum width=3.4cm, minimum height=0.8cm,
+	             minimum width=3.2cm, minimum height=0.8cm,
 	             align=center, font=\small}
 ]
-	\node[modul] (main)  {\texttt{main.c}\\hlavní program};
-	\node[modul, right=of main] (lib) {\texttt{knihovna\_mereni.c}\\zpracování dat};
-	\node[data,  below=of main] (out) {\texttt{mereni\_processed.csv}\\výsledky};
-	\node[data,  below=of lib]  (in)  {\texttt{mereni.csv}\\surová data};
+	\node[modul] (vstup)  {Vstup\\{\footnotesize klávesnice\,/\,myš}};
+	\node[modul, right=of vstup]  (logika) {Herní logika\\{\footnotesize fyzika, kolize, AI}};
+	\node[modul, right=of logika] (render) {Renderer\\{\footnotesize kreslení scény}};
+	\node[data,  below=1.2cm of logika] (stav) {Herní stav\\{\footnotesize pozice, skóre, životy}};
 
-	\draw[->, bend left=15] (main) to
-		node[above, font=\scriptsize] {volání funkcí} (lib);
-	\draw[->, bend left=15] (lib)  to
-		node[below, font=\scriptsize] {\texttt{Mereni[ ]}} (main);
-	\draw[->] (main) -- node[left,  font=\scriptsize] {zapisuje} (out);
-	\draw[->] (in)   -- node[right, font=\scriptsize] {čte}      (lib);
+	\draw[->]  (vstup)  -- node[above, font=\scriptsize] {události}     (logika);
+	\draw[->]  (logika) -- node[above, font=\scriptsize] {data scény}   (render);
+	\draw[<->] (logika) -- node[right, font=\scriptsize] {čte\,/\,zapisuje} (stav);
 \end{tikzpicture}
 \end{center}
+
+Stejný přístup platí pro robotické projekty
+(vstupy: senzory; zpracování: mikrokontrolér; výstupy: motory, displej)
+i pro fyzikální pokusy (vstupy: měřicí karta; zpracování: výpočetní skript; výstupy: grafy, tabulky).
+Pro složitější schémata, která se obtížně kreslí v \LaTeX{}u, lze použít nástroj
+\href{https://www.diagrams.net}{draw.io} a výsledek vložit jako obrázek.
 
 \textbf{UML diagram tříd} se hodí pro objektově orientovaný kód.
 Každá třída má tři části: název, atributy (proměnné) a metody (funkce).
@@ -311,11 +317,6 @@ Viditelnost se značí \texttt{+} (veřejné) nebo \texttt{-} (privátní):
 		};
 \end{tikzpicture}
 \end{center}
-
-Pro \textbf{sekvenční diagramy} (kdo koho volá a v jakém pořadí) a složitější
-schémata doporučujeme nástroj \href{https://www.diagrams.net}{draw.io}
-nebo textový generátor \href{https://plantuml.com}{PlantUML}.
-Výsledek exportujte jako PDF nebo PNG a vložte příkazem \verb|\includegraphics|.
 
 \section{Výpisy použitých programů}
 
