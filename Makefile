@@ -35,7 +35,7 @@ clean:
 mrproper: clean
 	$(RM) -v PDF/VzorMP.pdf
 
-# install TeX Live on Ubuntu/Debian Linux
+# install TeX Live on Ubuntu/Debian Linux/Github Codespaces
 install:
 	sudo apt-get update --allow-unauthenticated 2>/dev/null || true
 	sudo apt-get install -y texlive-xetex
