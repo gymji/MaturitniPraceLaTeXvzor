@@ -37,7 +37,7 @@ mrproper: clean
 
 # install TeX Live on Ubuntu/Debian Linux
 install:
-	sudo apt-get update
+	sudo apt-get update --allow-unauthenticated 2>/dev/null || true
 	sudo apt-get install -y texlive-xetex
 	sudo apt-get install -y texlive-lang-czechslovak
 	sudo apt-get install -y texlive-fonts-extra texlive-latex-extra texlive-fonts-recommended
