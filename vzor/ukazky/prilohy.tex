@@ -1,0 +1,18 @@
+% !TEX root = ../../vzor.tex
+%% Ukázka: přílohy (fotky z pokusů, seznam souborů v archivu)
+%% Vkládá ji soubor vzor/kapitoly/prilohy.tex; ve vzor.pdf je pod nadpisem uvedeno „Zdroj ukázky".
+
+\chapter{Fotky z pokusů}	
+\zdrojukazky{vzor/ukazky/prilohy.tex}
+\lipsum[1]
+\chapter{Seznam souborů v přiloženém archivu}
+V přiloženém archivu \texttt{novak\_vaclav\_4A.zip} naleznete následující soubory:
+
+\begin{center}
+\begin{tabular}{@{}l@{\,\dotfill\;}l@{}}
+	\texttt{src/main.c}                    & hlavní program projektu \\
+	\texttt{src/knihovna\_mereni.c}         & definice funkcí pro zpracování měření \\
+	\texttt{data/mereni.csv}                & surová data měření \\
+	\texttt{data/mereni\_processed.csv}     & zpracovaná data měření \\
+\end{tabular}
+\end{center}

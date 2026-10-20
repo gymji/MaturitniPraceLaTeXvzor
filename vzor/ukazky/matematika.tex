@@ -1,0 +1,24 @@
+% !TEX root = ../../vzor.tex
+%% Ukázka: číslované rovnice, align, řecká písmena, vektory
+%% Vkládá ji soubor vzor/kapitoly/teorie.tex; ve vzor.pdf je pod nadpisem uvedeno „Zdroj ukázky".
+
+\section{Matematické výrazy}
+\zdrojukazky{vzor/ukazky/matematika.tex}
+
+Číslovaná rovnice se vytvoří prostředím \texttt{equation}; odkazujeme na ni příkazem \verb|\eqref{}|.
+Pythagorova věta~\eqref{eq:pythagoras}:
+\begin{equation}
+	a^2 + b^2 = c^2
+	\label{eq:pythagoras}
+\end{equation}
+
+Víceřádkové odvození se zarovnaným rovnítkem (prostředí \texttt{align}):
+\begin{align}
+	E         &= mc^2 \\
+	\vec{F}   &= m\vec{a} \\
+	W         &= \vec{F} \cdot \vec{s}
+\end{align}
+
+Příklady zápisů v textu: řecká písmena $\alpha, \beta, \omega, \Delta, \lambda$,
+integrál $\int_a^b f(x)\,dx$, parciální derivace $\frac{\partial f}{\partial x}$,
+vektory $\vec{F}$, normálový vektor $\hat{n}$.

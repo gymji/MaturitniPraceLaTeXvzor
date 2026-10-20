@@ -1,0 +1,179 @@
+% !TEX root = ../../vzor.tex
+%% Ukázka: bloková schémata, UML diagram tříd, schéma databáze
+%% Vkládá ji soubor vzor/kapitoly/prakticka.tex; ve vzor.pdf je pod nadpisem uvedeno „Zdroj ukázky".
+
+\section{Schémata programů}
+\zdrojukazky{vzor/ukazky/schemata.tex}
+
+Dobrý popis složitějšího programu neobsahuje jen výpis kódu, ale také schéma struktury.
+Schéma čtenáři rychle ukáže \emph{co} program dělá a \emph{jak} jsou jeho části propojeny
+-- a vám pomůže promyslet architekturu \emph{před} psaním kódu.
+Typické studentské projekty -- grafická hra, ovládání robota nebo zpracování dat
+z fyzikálního pokusu -- mají vždy podobnou strukturu:
+\textbf{vstupy}, \textbf{zpracování} a \textbf{výstupy}.
+Právě tyto vztahy blokové schéma zachycuje.
+
+\textbf{Jak sestavit blokové schéma:}
+\begin{itemize}
+	\item každý větší celek (modul, třída, soubor) = jeden blok
+	\item šipky = tok dat nebo volání; na šipku napište \emph{co} teče nebo \emph{co} se volá
+	\item datové soubory a herní stav odlište od modulů (jiný tvar nebo barva)
+	\item schéma nemusí být úplné -- zachyťte hlavní vazby, ne každý řádek kódu
+\end{itemize}
+
+\textbf{Blokové schéma 1} -- procedurální program s datovými soubory (viz Příloha~B):
+
+\begin{center}
+\begin{tikzpicture}[
+	node distance=1.4cm and 3cm,
+	modul/.style={rectangle, draw, rounded corners, fill=blue!12,
+	              minimum width=3.6cm, minimum height=1cm,
+	              align=center, font=\small},
+	data/.style={rectangle, draw, fill=orange!20,
+	             minimum width=3.4cm, minimum height=0.8cm,
+	             align=center, font=\small}
+]
+	\node[modul] (main)  {\texttt{main.c}\\hlavní program};
+	\node[modul, right=of main] (lib) {\texttt{knihovna\_mereni.c}\\zpracování dat};
+	\node[data,  below=of main] (out) {\texttt{mereni\_processed.csv}\\výsledky};
+	\node[data,  below=of lib]  (in)  {\texttt{mereni.csv}\\surová data};
+
+	\draw[->, bend left=15] (main) to
+		node[above, font=\scriptsize] {volání funkcí} (lib);
+	\draw[->, bend left=15] (lib)  to
+		node[below, font=\scriptsize] {\texttt{Mereni[ ]}} (main);
+	\draw[->] (main) -- node[left,  font=\scriptsize] {zapisuje} (out);
+	\draw[->] (in)   -- node[right, font=\scriptsize] {čte}      (lib);
+\end{tikzpicture}
+\end{center}
+
+\textbf{Blokové schéma 2} -- architektura jednoduché hry (stejný princip platí
+pro robotické projekty: vstupy\,=\,senzory, zpracování\,=\,mikrokontrolér, výstupy\,=\,motory):
+
+\begin{center}
+\begin{tikzpicture}[
+	node distance=1.4cm and 2.6cm,
+	modul/.style={rectangle, draw, rounded corners, fill=blue!12,
+	              minimum width=3.2cm, minimum height=1cm,
+	              align=center, font=\small},
+	data/.style={rectangle, draw, fill=orange!20,
+	             minimum width=3.2cm, minimum height=0.8cm,
+	             align=center, font=\small}
+]
+	\node[modul] (vstup)  {Vstup\\{\footnotesize klávesnice\,/\,myš}};
+	\node[modul, right=of vstup]  (logika) {Herní logika\\{\footnotesize fyzika, kolize, AI}};
+	\node[modul, right=of logika] (render) {Renderer\\{\footnotesize kreslení scény}};
+	\node[data,  below=1.2cm of logika] (stav) {Herní stav\\{\footnotesize pozice, skóre, životy}};
+
+	\draw[->]  (vstup)  -- node[above, font=\scriptsize] {události}     (logika);
+	\draw[->]  (logika) -- node[above, font=\scriptsize] {data scény}   (render);
+	\draw[<->] (logika) -- node[right, font=\scriptsize] {čte\,/\,zapisuje} (stav);
+\end{tikzpicture}
+\end{center}
+
+Pro složitější schémata, která se obtížně kreslí v \LaTeX{}u, lze použít nástroj
+\href{https://www.diagrams.net}{draw.io} a výsledek vložit jako obrázek.
+
+\textbf{UML diagram tříd} se hodí pro objektově orientovaný kód.
+Každá třída má tři části: název, atributy (proměnné) a metody (funkce).
+Viditelnost se značí \texttt{+} (veřejné) nebo \texttt{-} (privátní).
+Šipka s dutým trojúhelníkem vyjadřuje \emph{dědičnost} -- odvozená třída
+přebírá atributy a metody rodičovské třídy a může je rozšířit nebo přepsat:
+
+\begin{center}
+\begin{tikzpicture}[font=\small]
+	%% Rodičovská třída Entita
+	\node[draw, thick, minimum width=4.4cm, align=center, font=\small\bfseries]
+		(en) {Entita};
+	\node[draw, thick, minimum width=4.4cm, below=-\pgflinewidth of en,
+	      align=left, text width=4.0cm, inner sep=3pt]
+		(ena) {
+			\texttt{- x\,:\,int}\\
+			\texttt{- y\,:\,int}
+		};
+	\node[draw, thick, minimum width=4.4cm, below=-\pgflinewidth of ena,
+	      align=left, text width=4.0cm, inner sep=3pt]
+		(enm) {
+			\texttt{+ vykresli()}\\
+			\texttt{+ pohyb()}
+		};
+	%% Odvozená třída Hrac
+	\node[draw, thick, minimum width=4.4cm, align=center, font=\small\bfseries]
+		at (-3.3, -5) (hn) {Hrac};
+	\node[draw, thick, minimum width=4.4cm, below=-\pgflinewidth of hn,
+	      align=left, text width=4.0cm, inner sep=3pt]
+		(hna) {
+			\texttt{- zivoty\,:\,int}\\
+			\texttt{- skore\,:\,int}
+		};
+	\node[draw, thick, minimum width=4.4cm, below=-\pgflinewidth of hna,
+	      align=left, text width=4.0cm, inner sep=3pt]
+		(hnm) {
+			\texttt{+ skoc()}\\
+			\texttt{+ utoc()}
+		};
+	%% Odvozená třída Nepritel
+	\node[draw, thick, minimum width=4.4cm, align=center, font=\small\bfseries]
+		at (3.3, -5) (nn) {Nepritel};
+	\node[draw, thick, minimum width=4.4cm, below=-\pgflinewidth of nn,
+	      align=left, text width=4.0cm, inner sep=3pt]
+		(nna) {
+			\texttt{- rychlost\,:\,int}
+		};
+	\node[draw, thick, minimum width=4.4cm, below=-\pgflinewidth of nna,
+	      align=left, text width=4.0cm, inner sep=3pt]
+		(nnm) {
+			\texttt{+ ai()}\\
+			\texttt{+ utoc()}
+		};
+	%% Šipky dědičnosti (dutý trojúhelník = generalizace)
+	\coordinate (spoj) at (0, -3.7);
+	\draw (hn.north) -- ++(0, 0.5) -| (spoj);
+	\draw (nn.north) -- ++(0, 0.5) -| (spoj);
+	\draw[-{Triangle[open]}] (spoj) -- (enm.south);
+\end{tikzpicture}
+\end{center}
+
+\textbf{Schéma relační databáze} má podobnou strukturu jako UML diagram tříd,
+ale místo metod obsahuje datové typy sloupců.
+Primární klíč (\textit{PK}) jednoznačně identifikuje každý záznam;
+cizí klíč (\textit{FK}) odkazuje na primární klíč jiné tabulky.
+Šipka s popiskem \textit{N\,:\,1} vyjadřuje, že jeden hráč může mít více rekordů:
+
+\begin{center}
+\begin{tikzpicture}[font=\small]
+	%% Tabulka Hrac
+	\node[draw, fill=green!15, minimum width=4.4cm, align=center,
+	      font=\small\bfseries] (h0) {Hrac};
+	\node[draw, minimum width=4.4cm, below=-\pgflinewidth of h0,
+	      align=left, text width=4.0cm, inner sep=3pt]
+		(h1) {\underline{\texttt{id}}\,:\,int\hfill\textit{PK}};
+	\node[draw, minimum width=4.4cm, below=-\pgflinewidth of h1,
+	      align=left, text width=4.0cm, inner sep=3pt]
+		(h2) {\texttt{jmeno}\,:\,varchar};
+	\node[draw, minimum width=4.4cm, below=-\pgflinewidth of h2,
+	      align=left, text width=4.0cm, inner sep=3pt]
+		(h3) {\texttt{heslo\_hash}\,:\,varchar};
+	%% Tabulka Rekord
+	\node[draw, fill=green!15, minimum width=4.4cm, align=center,
+	      font=\small\bfseries] at (6.5, 0) (r0) {Rekord};
+	\node[draw, minimum width=4.4cm, below=-\pgflinewidth of r0,
+	      align=left, text width=4.0cm, inner sep=3pt]
+		(r1) {\underline{\texttt{id}}\,:\,int\hfill\textit{PK}};
+	\node[draw, minimum width=4.4cm, below=-\pgflinewidth of r1,
+	      align=left, text width=4.0cm, inner sep=3pt]
+		(r2) {\texttt{hrac\_id}\,:\,int\hfill\textit{FK}};
+	\node[draw, minimum width=4.4cm, below=-\pgflinewidth of r2,
+	      align=left, text width=4.0cm, inner sep=3pt]
+		(r3) {\texttt{uroven}\,:\,int};
+	\node[draw, minimum width=4.4cm, below=-\pgflinewidth of r3,
+	      align=left, text width=4.0cm, inner sep=3pt]
+		(r4) {\texttt{skore}\,:\,int};
+	\node[draw, minimum width=4.4cm, below=-\pgflinewidth of r4,
+	      align=left, text width=4.0cm, inner sep=3pt]
+		(r5) {\texttt{datum}\,:\,date};
+	%% Relace FK → PK  (trasa: nahoru pak doleva)
+	\draw[->] (r2.west) |-
+		node[pos=0.75, above, font=\scriptsize] {N\,:\,1} (h1.east);
+\end{tikzpicture}
+\end{center}

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Generátor barevné Mandelbrotovy množiny pro šablonu maturitní práce.
-Výstup: images/mandelbrot.png (relativně ke kořeni projektu)
+Výstup: vzor/obrazky/mandelbrot.png (relativně ke kořeni projektu)
 
 Spuštění:
     pip install numpy matplotlib
@@ -59,7 +59,7 @@ rgba[interior] = [0.0, 0.0, 0.0, 1.0]
 # --- Uložení ---
 script_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.dirname(script_dir)
-output_path = os.path.join(project_root, "images", "mandelbrot.png")
+output_path = os.path.join(project_root, "vzor", "obrazky", "mandelbrot.png")
 
 fig, ax = plt.subplots(figsize=(10, 6.67), dpi=150)
 ax.imshow(rgba, extent=[-2.5, 1.0, -1.2, 1.2], origin="lower", interpolation="bilinear")

@@ -1,0 +1,39 @@
+% !TEX root = ../../vzor.tex
+%% Ukázka: jednotky SI (siunitx)
+%% Vkládá ji soubor vzor/kapitoly/prakticka.tex; ve vzor.pdf je pod nadpisem uvedeno „Zdroj ukázky".
+
+\section{Sazba jednotek SI pomocí balíčku \texttt{siunitx}}
+\zdrojukazky{vzor/ukazky/jednotky.tex}
+
+K správné sazbě SI jednotek je vhodné použít package \texttt{siunitx}.
+Jednotky se pak zapisují pomocí příkazu \verb|\SI{číslo}{jednotka}|  
+
+Kódem: 
+{\footnotesize
+\begin{verbatim}
+\SI{1}{\metre\squared}; 
+\SI[{per-mode = symbol-or-fraction}]{1}{\meter\per\second} = \SI[per-mode = symbol]{3.6}{\kilo\meter\per\hour};
+\SI[{per-mode = symbol}]{2.3}{\meter\per\second\squared} 
+$$
+ \SI{1}{\micro\meter}\times\SI{1}{\micro\meter} = \SI{1}{\micro\meter\squared}
+$$ 
+$$
+ \SI{1}{\milli\meter}\times\SI{1}{\micro\meter} = \SI{1e-9}{\meter\squared}\\
+$$
+\end{verbatim}}
+vysázíme následující text
+
+\SI{1}{\metre\squared}; 
+  \SI[{per-mode = symbol-or-fraction}]{1}{\meter\per\second} = \SI[per-mode = symbol]{3.6}{\kilo\meter\per\hour};
+  \SI[{per-mode = symbol}]{2.3}{\meter\per\second\squared} 
+$$
+   \SI{1}{\micro\meter}\times\SI{1}{\micro\meter} = \SI{1}{\micro\meter\squared}
+$$ 
+$$
+   \SI{1}{\milli\meter}\times\SI{1}{\micro\meter} = \SI{1e-9}{\meter\squared}\\
+$$
+
+\medskip
+\noindent\textit{Poznámka:} od verze~3 (2021) doporučuje balíček \texttt{siunitx} zápis
+\verb|\qty{9.81}{\meter\per\second\squared}| místo \verb|\SI{...}{...}| a \verb|\unit{...}| místo \verb|\si{...}|.
+Starší příkazy \verb|\SI| a \verb|\si| fungují dál, proto je tento vzor zatím používá.

@@ -1,0 +1,37 @@
+% !TEX root = ../../vzor.tex
+%% Ukázka: výpisy programů (listings)
+%% Vkládá ji soubor vzor/kapitoly/prakticka.tex; ve vzor.pdf je pod nadpisem uvedeno „Zdroj ukázky".
+
+\section{Výpisy použitých programů}
+\zdrojukazky{vzor/ukazky/vypisy.tex}
+
+\lipsum[1]
+
+Výpis programu \nameref{lst:hello_world_py} naleznete ve výpise \ref{lst:hello_world_py}.
+
+\begin{lstlisting}[title={Program hello.py}, caption={hello.py}, label={lst:hello_world_py}]
+# testovací program v Pythonu hello.py
+# příliš žluťoučký kůň úpěl ďábelské ódy
+CISLO = 10
+i = CISLO
+
+print("Hello World!")
+print("Ahoj Světe!")
+print(f"{i:d}")
+
+#  END FILE
+\end{lstlisting}
+
+\lipsum[1]
+
+\begin{lstlisting}[numbers=none, title={Příklad výstupního souboru}]
+11.0524
+5.5954
+6.7996
+13.8584
+15.1357
+Soucet: 52.4415
+\end{lstlisting}
+
+Seznam všech výpisů vytvoří příkaz \verb|\lstlistoflistings|
+(v souboru \texttt{mprace.tex} je připravený, stačí ho odkomentovat).

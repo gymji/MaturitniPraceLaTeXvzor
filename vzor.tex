@@ -1,0 +1,88 @@
+% !TEX program = xelatex
+%% =====================================================================
+%%  VZOR maturitní práce – Gymnázium Jírovcova 8, České Budějovice
+%%  Autoři šablony: Jonáš Havelka, Michal Kočer, Daniel Sýkora (MIT)
+%% =====================================================================
+%%  Tento dokument ukazuje, jak vypadá hotová práce a jak se sázejí
+%%  jednotlivé prvky. Svou práci pište do souboru mprace.tex.
+%%
+%%  Hotové PDF: vzor.pdf. Zdroje ukázek: vzor/ukazky/*.tex
+%%  (pod každou ukázkou je v PDF šedě uvedeno, ve kterém souboru je).
+%%
+%%  Kostra tohoto souboru odpovídá souboru mprace.tex (hlídá make check).
+%%  Vzor obsahuje mnoho obrázků a diagramů – na Overleafu (zdarma) by
+%%  se nemusel stihnout přeložit; překládejte ho lokálně: make vzor
+%% =====================================================================
+\documentclass[12pt]{report}
+\usepackage{MP}								% Styl maturitní práce
+\addbibresource{vzor/vzor.bib}				% Soubor se seznamem literatury
+\loadglsentries{vzor/zkratky}				% Soubor se seznamem zkratek
+
+\graphicspath{{images/}{vzor/obrazky/}}		% Obrázky vzoru jsou ve vzor/obrazky
+\newcommand{\zdrojukazky}[1]{%				% Poznámka, kde je zdroj ukázky
+	\par\noindent{\small\color{gray}Zdroj ukázky: \texttt{#1}}\par\medskip}
+
+%% ---------------------------------------------------------------------
+%%  ÚDAJE O PRÁCI
+%% ---------------------------------------------------------------------
+\author{Arnošt Thor}						% Jméno a příjmení
+\title{Jak psát práci v \LaTeX{}u}			% Název práce
+\date{14. února 2027}						% Datum odevzdání
+\vedouci{Mgr. František Kantor, PhD.}		% Vedoucí práce i s tituly
+\place{V Českých Budějovicích}
+\skolnirok{2026/2027}
+\logo{\includegraphics[scale=1.25]{GJ8_logotyp}}
+
+\begin{document}
+%% ---- ÚVODNÍ STRANY (číslováno římsky, čísla stran se nezobrazují) ----
+\pagenumbering{roman}
+\mytitlepage
+
+\prohlaseni{
+	Prohlašuji, že jsem tuto práci vypracoval samostatně s vyznačením všech použitých pramenů.
+
+	% Pokud jste při psaní práce využili nástroje umělé inteligence, uveďte to zde.
+	% Smažte nebo upravte následující větu dle skutečnosti:
+	Pro kontrolu pravopisu, úpravu formulací a generování komentářů ke zdrojovým textům
+	jsem využil nástroj umělé inteligence Claude Sonnet (Anthropic).
+	Veškerý obsah práce jsem vytvořil samostatně; nástroj sloužil výhradně jako pomocný prostředek.
+}
+
+\abstrakt{
+	\lipsum[1]
+}{
+	latex, typografie, maturitní práce, šablona, XeLaTeX
+}
+
+\podekovani{
+	\lipsum[2]
+}
+
+{\tableofcontents\newpage}
+
+%% ---- VLASTNÍ PRÁCE (číslováno arabsky) ----
+\pagenumbering{arabic}
+
+\include{vzor/kapitoly/uvod}
+
+\part{Teoretická část}						% Přejmenujte podle obsahu práce
+\include{vzor/kapitoly/teorie}
+
+\part{Praktická část}						% Přejmenujte podle obsahu práce
+\include{vzor/kapitoly/prakticka}
+
+\include{vzor/kapitoly/zaver}
+
+%% ---- SEZNAMY (vytvářejí se automaticky; nepotřebné smažte) ----
+\printbibliography[heading=bibintoc]		% Seznam literatury
+\printglossary[title={Zkratky}]				% Seznam zkratek
+\listoffigures								% Seznam obrázků
+\listoftables								% Seznam tabulek
+% \lstlistoflistings						% Seznam výpisů programů
+
+%% ---- PŘÍLOHY ----
+\begin{appendices}
+\include{vzor/kapitoly/prilohy}
+\end{appendices}
+
+\end{document}

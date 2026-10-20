@@ -1,0 +1,34 @@
+% !TEX root = ../../vzor.tex
+%% Úvod vzoru – vysvětluje, jak se šablonou pracovat.
+\chapter*{Úvod}
+\addcontentsline{toc}{chapter}{Úvod}
+
+Tato šablona slouží k psaní maturitní práce na Gymnáziu Jírovcova 8 v Českých Budějovicích.
+Dokument, který právě čtete, je \emph{vzor}: ukazuje, jak vypadá hotová práce
+a jak se v \LaTeX{}u sázejí jednotlivé prvky -- citace, rovnice, obrázky, tabulky,
+diagramy nebo výpisy programů.
+Pod nadpisem každé ukázky je šedě uvedeno, ve kterém souboru najdete její zdrojový kód
+(všechny ukázky jsou ve složce \texttt{vzor/ukazky/}).
+
+Svou práci pište do souboru \texttt{mprace.tex} a do souborů ve složce \texttt{kapitoly/}:
+\begin{itemize}
+	\item \texttt{mprace.tex} -- údaje o práci, úvodní strany a pořadí kapitol,
+	\item \texttt{kapitoly/uvod.tex}, \texttt{teorie.tex}, \texttt{prakticka.tex}, \texttt{zaver.tex}
+	      a \texttt{prilohy.tex} -- vlastní text práce,
+	\item \texttt{Bibliografie.bib} -- seznam literatury, \texttt{Zkratky.tex} -- seznam zkratek,
+	\item \texttt{images/} -- obrázky.
+\end{itemize}
+
+\textbf{Než začnete psát, vyplňte v souboru \texttt{mprace.tex} údaje o práci:}
+\begin{itemize}
+	\item \verb|\author{Jméno Příjmení}| \quad -- vaše jméno a příjmení
+	\item \verb|\title{Název práce}| \quad -- úplný název vaší maturitní práce
+	\item \verb|\date{datum odevzdání}| \quad -- datum odevzdání, např.~\texttt{14.~února~2027}
+	\item \verb|\vedouci{Mgr. Jméno Příjmení}| \quad -- jméno vedoucího práce s titulem
+	\item \verb|\skolnirok{2026/2027}| \quad -- aktuální školní rok
+\end{itemize}
+
+Práci překládejte \textbf{XeLaTeXem} (na Overleafu: \emph{Menu $\to$ Compiler $\to$ XeLaTeX}).
+Jak šablonu použít na Overleafu, v GitHub Codespaces nebo na vlastním počítači,
+popisuje soubor \texttt{README.md} v~repozitáři šablony
+\url{https://github.com/gymji/MaturitniPraceLaTeXvzor}.
