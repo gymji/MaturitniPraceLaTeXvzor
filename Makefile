@@ -3,16 +3,18 @@
 #   make            přeloží mprace.tex  -> mprace.pdf (vaše práce)
 #   make vzor       přeloží vzor.tex    -> vzor.pdf   (vzor s ukázkami)
 #   make check      zkontroluje, že kostra vzor.tex odpovídá mprace.tex
-#   make zip        vytvoří ZIP pro Overleaf ($(ZIP_OUT))
+#   make zip        vytvoří odlehčený ZIP pro Overleaf ($(ZIP_OUT))
 #   make clean      smaže pomocné soubory překladu
 #   make mrproper   smaže i mprace.pdf a ZIP (vzor.pdf zůstává)
 #   make install    nainstaluje TeX Live (Ubuntu/Debian/GitHub Codespaces)
 
 LATEXMK  = latexmk -xelatex -interaction=nonstopmode -file-line-error
 ZIP_OUT  = MaturitniPrace-overleaf.zip
-# Co patří do ZIPu pro Overleaf (jen soubory verzované v gitu)
-ZIP_FILES = mprace.tex kapitoly MP.sty Bibliografie.bib images \
-            vzor.tex vzor.pdf vzor latexmkrc
+# Co patří do odlehčeného ZIPu pro Overleaf (jen soubory verzované v gitu).
+# Bez vzor.tex, vzor/kapitoly a vzor/obrazky: jediný soubor s \documentclass
+# je mprace.tex (Overleaf ho vybere jako hlavní) a vzor se tam nepřekládá.
+ZIP_FILES = mprace.tex kapitoly MP.sty Bibliografie.bib images latexmkrc \
+            vzor.pdf vzor/ukazky vzor/vzor.bib
 AUX_EXT  = aux bbl blg bcf fdb_latexmk fls glg glo gls ist lof log lol lot out \
            run.xml toc xdv synctex.gz
 

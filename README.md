@@ -25,6 +25,11 @@ Autoři: Jonáš Havelka, Michal Kočer, Daniel Sýkora · Licence: MIT
 | `latexmkrc` | nastavení překladu (vynucuje XeLaTeX) |
 | `Makefile`, `make.bat` | překlad z příkazové řádky (Linux/macOS, Windows) |
 
+Celý projekt (tento repozitář) je **plná verze**: obsahuje i zdroj vzoru s fotkami
+a přeložíte ho na svém počítači nebo v Codespaces. **ZIP pro Overleaf je odlehčený**:
+obsahuje vaši práci, hotový `vzor.pdf` a zdroje ukázek (`vzor/ukazky/`), ale ne
+`vzor.tex` a fotky vzoru – ty by se v bezplatném Overleafu nestihly přeložit.
+
 Pod nadpisem každé ukázky ve `vzor.pdf` je šedě uvedeno, ve kterém souboru
 najdete její zdrojový kód (např. *Zdroj ukázky: vzor/ukazky/matematika.tex*).
 Kód si zkopírujte do své kapitoly a upravte.
@@ -39,15 +44,17 @@ Kód si zkopírujte do své kapitoly a upravte.
    tohoto repozitáře, případně ho dostanete od vyučujícího).
 2. Na [overleaf.com](https://www.overleaf.com) zvolte **New Project → Upload Project**
    a nahrajte ZIP (nerozbalujte ho).
-3. Otevřete **Menu** (vlevo nahoře) a nastavte:
-   - **Compiler: XeLaTeX**
+3. Projekt se přeloží sám. Pro jistotu zkontrolujte v **Menu** (vlevo nahoře):
+   - **Compiler: XeLaTeX** (soubor `latexmkrc` zajistí XeLaTeX, i když zůstane pdfLaTeX)
    - **Main document: `mprace.tex`**
 4. Klikněte na **Recompile**.
 5. Projekt si přejmenujte na `prijmeni_jmeno_trida`.
 
 Tipy pro Overleaf:
-- `vzor.pdf` otevřete kliknutím ve stromu souborů. **Vzor na Overleafu nepřekládejte** –
-  je velký a v bezplatné verzi by se nemusel stihnout přeložit (limit 10 s).
+- `vzor.pdf` otevřete kliknutím ve stromu souborů; zdroj ukázek najdete ve `vzor/ukazky/`.
+- Bezplatný Overleaf má na překlad limit 10 s. Objeví-li se *Your compile timed out*,
+  zkuste **Recompile** znovu, případně v nabídce u tlačítka Recompile zvolte režim
+  **Fast [draft]** (nevkládá obrázky, je rychlejší).
 - Když se vaše práce rozroste a překlad začne trvat dlouho, použijte v `mprace.tex`
   řádek `\includeonly{kapitoly/...}` – přeloží se jen kapitola, na které pracujete
   (ostatní v PDF dočasně chybí, čísla stran a odkazy zůstanou správně).
@@ -205,8 +212,10 @@ prodlužuje překlad. Potřebujete-li ho (práce s mnoha odbornými zkratkami):
   po změně ukázek ho přeložte a commitněte.
 - `make check` – ověří, že kostra `vzor.tex` odpovídá `mprace.tex`
   (pořadí `\include`, `\part`, seznamů, příloh…). Při změně kostry upravte oba soubory.
-- `make zip` – spustí kontrolu, přeloží vzor a vytvoří `MaturitniPrace-overleaf.zip`
-  z verzovaných souborů (bez README, Makefile, `.vscode` apod.).
+- `make zip` – spustí kontrolu, přeloží vzor a vytvoří odlehčený `MaturitniPrace-overleaf.zip`
+  z verzovaných souborů: práce, kapitoly, styl, literatura, logo, `latexmkrc`, `vzor.pdf`,
+  `vzor/ukazky/`, `vzor/vzor.bib`. Záměrně bez `vzor.tex` – jinak by si ho Overleaf
+  vybral jako hlavní dokument a narazil na limit překladu (ověřeno 2026-10).
 - Každá ukázka je jen jednou – ve `vzor/ukazky/`. Kapitoly v `kapitoly/` obsahují
   jen osnovu a odkazy na ukázky.
 - `scripts/generate_mandelbrot.py` vygeneruje `vzor/obrazky/mandelbrot.png`.
