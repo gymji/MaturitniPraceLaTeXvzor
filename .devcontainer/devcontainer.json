@@ -1,0 +1,56 @@
+{
+    // ==========================================================
+    // GitHub Codespaces — konfigurace prostředí pro šablonu maturitní práce
+    // ==========================================================
+    "name": "Maturitní práce (LaTeX)",
+
+    // Dockerfile ve stejné složce — základ: Microsoft devcontainer
+    // ubuntu-24.04 s plným TeX Live
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+
+    // Uživatel vscode je součástí Microsoft base image
+    "remoteUser": "vscode",
+
+    // -------------------------------------------------------
+    // VS Code rozšíření nainstalovaná automaticky
+    // -------------------------------------------------------
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "James-Yu.latex-workshop",
+                "phr0s.bib"
+            ],
+            "settings": {
+                "latex-workshop.latex.recipe.default": "latexmk (xelatex)",
+
+                "latex-workshop.latex.recipes": [
+                    {
+                        "name": "latexmk (xelatex)",
+                        "tools": ["latexmk-xelatex"]
+                    }
+                ],
+
+                "latex-workshop.latex.tools": [
+                    {
+                        "name": "latexmk-xelatex",
+                        "command": "latexmk",
+                        "args": [
+                            "-xelatex",
+                            "-interaction=nonstopmode",
+                            "-halt-on-error",
+                            "-cd",
+                            "%DOC%"
+                        ]
+                    }
+                ],
+
+                "latex-workshop.view.pdf.viewer": "tab",
+                "latex-workshop.latex.autoBuild.run": "onSave",
+                "latex-workshop.message.error.show": true,
+                "latex-workshop.message.warning.show": false
+            }
+        }
+    }
+}

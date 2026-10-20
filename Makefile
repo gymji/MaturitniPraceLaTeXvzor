@@ -1,39 +1,47 @@
-#### Makefile for systems using GNU Make
+#### Makefile pro šablonu maturitní práce (GNU Make: Linux, macOS, GitHub Codespaces)
+#
+#   make            přeloží mprace.tex  -> mprace.pdf (vaše práce)
+#   make vzor       přeloží vzor.tex    -> vzor.pdf   (vzor s ukázkami)
+#   make check      zkontroluje, že kostra vzor.tex odpovídá mprace.tex
+#   make zip        vytvoří ZIP pro Overleaf ($(ZIP_OUT))
+#   make clean      smaže pomocné soubory překladu
+#   make mrproper   smaže i mprace.pdf a ZIP (vzor.pdf zůstává)
+#   make install    nainstaluje TeX Live (Ubuntu/Debian/GitHub Codespaces)
 
-LATEX=xelatex
-BIBTEX=bibtex
+LATEXMK  = latexmk -xelatex -interaction=nonstopmode -file-line-error
+ZIP_OUT  = MaturitniPrace-overleaf.zip
+# Co patří do ZIPu pro Overleaf (jen soubory verzované v gitu)
+ZIP_FILES = mprace.tex kapitoly MP.sty Bibliografie.bib Zkratky.tex images \
+            vzor.tex vzor.pdf vzor latexmkrc
+AUX_EXT  = aux bbl blg bcf fdb_latexmk fls glg glo gls ist lof log lol lot out \
+           run.xml toc xdv synctex.gz
 
+.PHONY: all mprace vzor check zip clean mrproper install
 
-VzorMP.pdf: VzorMP.tex Bibliografie.bib
-	$(LATEX) VzorMP
-	$(BIBTEX) VzorMP
-	$(LATEX) VzorMP
-	$(LATEX) VzorMP
-	if [ -d "./PDF" ]; then mv VzorMP.pdf PDF; fi
+all: mprace
+mprace: mprace.pdf
+vzor: vzor.pdf
 
-%.pdf: %.tex
-	$(BIBTEX) $<
-	$(BIBTEX) $<
+mprace.pdf: mprace.tex MP.sty Bibliografie.bib Zkratky.tex $(wildcard kapitoly/*.tex) latexmkrc
+	$(LATEXMK) mprace
+
+vzor.pdf: vzor.tex MP.sty $(wildcard vzor/*.bib vzor/*.tex vzor/*/*.tex) latexmkrc
+	$(LATEXMK) vzor
+
+check:
+	python3 scripts/kontrola_kostry.py mprace.tex vzor.tex
+
+zip: check vzor.pdf
+	rm -f $(ZIP_OUT)
+	git ls-files -- $(ZIP_FILES) | zip -X -q $(ZIP_OUT) -@
+	@echo "Hotovo: $(ZIP_OUT) ($$(unzip -Z1 $(ZIP_OUT) | wc -l | tr -d ' ') souborů)"
 
 clean:
-	$(RM) -v VzorMP.aux
-	$(RM) -v VzorMP.bbl
-	$(RM) -v VzorMP.blg
-	$(RM) -v VzorMP.glg
-	$(RM) -v VzorMP.glo
-	$(RM) -v VzorMP.gls
-	$(RM) -v VzorMP.ist
-	$(RM) -v VzorMP.lof
-	$(RM) -v VzorMP.log
-	$(RM) -v VzorMP.lot
-	$(RM) -v VzorMP.out
-	$(RM) -v VzorMP.run.xml
-	$(RM) -v VzorMP.toc
-	$(RM) -v VzorMP-blx.bib
-	if [ -d "./temp" ]; then rm  ./temp/* ; fi
+	$(RM) $(foreach d,mprace vzor,$(foreach e,$(AUX_EXT),$(d).$(e)) $(d)-blx.bib)
+	$(RM) kapitoly/*.aux vzor/kapitoly/*.aux
 
 mrproper: clean
-	$(RM) -v PDF/VzorMP.pdf
+	$(RM) mprace.pdf $(ZIP_OUT)
 
 # install TeX Live on Ubuntu/Debian Linux/Github Codespaces
 install:
@@ -41,8 +49,6 @@ install:
 	sudo apt-get install -y texlive-xetex
 	sudo apt-get install -y texlive-lang-czechslovak
 	sudo apt-get install -y texlive-fonts-extra texlive-latex-extra texlive-fonts-recommended
-	sudo apt-get install -y texlive-science texlive-pstricks
+	sudo apt-get install -y texlive-science
 	sudo apt-get install -y texlive-bibtex-extra
 	sudo apt-get install -y latexmk
-
-

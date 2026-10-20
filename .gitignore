@@ -241,3 +241,11 @@ TSWLatexianTemp*
 
 # generated if using elsarticle.cls
 *.spl
+
+## Šablona maturitní práce
+.DS_Store
+# PDF práce studenta (vzor.pdf se naopak verzuje – je součástí ZIPu)
+mprace.pdf
+# ZIP pro Overleaf (make zip)
+MaturitniPrace-overleaf.zip
+__pycache__/
