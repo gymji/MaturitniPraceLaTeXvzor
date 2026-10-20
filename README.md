@@ -50,7 +50,9 @@ Tipy pro Overleaf:
 - `vzor.pdf` otevřete kliknutím ve stromu souborů. **Vzor na Overleafu nepřekládejte** –
   je velký a v bezplatné verzi by se nemusel stihnout přeložit (limit 10 s).
 - Když se vaše práce rozroste a překlad začne trvat dlouho, použijte v `mprace.tex`
-  řádek `\includeonly{kapitoly/...}` – přeloží se jen kapitola, na které pracujete.
+  řádek `\includeonly{kapitoly/...}` – přeloží se jen kapitola, na které pracujete
+  (ostatní v PDF dočasně chybí, čísla stran a odkazy zůstanou správně).
+  Před odevzdáním řádek znovu zakomentujte.
 - Velké fotografie před nahráním zmenšete (stačí šířka 1500–2000 px).
 
 ### B) GitHub Codespaces (VS Code v prohlížeči)
