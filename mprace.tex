@@ -1,0 +1,96 @@
+% !TEX program = xelatex
+%% =====================================================================
+%%  MATURITNÍ PRÁCE – Gymnázium Jírovcova 8, České Budějovice
+%%  Autoři šablony: Jonáš Havelka, Michal Kočer, Daniel Sýkora (MIT)
+%% =====================================================================
+%%  PŘEKLÁDEJTE XeLaTeXem!
+%%    Overleaf: Menu → Compiler: XeLaTeX, Main document: mprace.tex
+%%    Při pdfLaTeXu skončí překlad chybou (fontspec / polyglossia).
+%%
+%%  Co je kde:
+%%    mprace.tex        tento soubor – údaje o práci, úvodní strany,
+%%                      pořadí kapitol a seznamy
+%%    kapitoly/*.tex    text práce, každá část ve vlastním souboru
+%%    Bibliografie.bib  seznam literatury
+%%    Zkratky.tex       seznam zkratek
+%%    images/           obrázky
+%%    vzor.pdf          vzorová práce s ukázkami (citace, rovnice, obrázky,
+%%                      tabulky, diagramy, výpisy kódu…); zdrojový kód
+%%                      ukázek je ve vzor/ukazky/
+%%    MP.sty            styl práce – neupravujte
+%% =====================================================================
+\documentclass[12pt]{report}
+\usepackage{MP}								% Styl maturitní práce
+\addbibresource{Bibliografie.bib}			% Soubor se seznamem literatury
+\loadglsentries{Zkratky}					% Soubor se seznamem zkratek
+
+%% ---------------------------------------------------------------------
+%%  ÚDAJE O PRÁCI – vyplňte
+%% ---------------------------------------------------------------------
+\author{Jméno Příjmení}						% Vaše jméno a příjmení
+\title{Název maturitní práce}				% Název práce
+\date{datum odevzdání}						% Např. 14. února 2027
+\vedouci{Mgr. Jméno Příjmení}				% Vedoucí práce i s tituly
+\place{V Českých Budějovicích}
+\skolnirok{2026/2027}
+\logo{\includegraphics[scale=1.25]{GJ8_logotyp}}
+
+%% Rychlejší překlad delší práce: odkomentujte a uveďte jen kapitoly,
+%% na kterých právě pracujete (ostatní se nepřekládají, ale čísla stran
+%% a odkazy zůstanou z posledního úplného překladu).
+% \includeonly{kapitoly/prakticka}
+
+\begin{document}
+%% ---- ÚVODNÍ STRANY (číslováno římsky, čísla stran se nezobrazují) ----
+\pagenumbering{roman}
+\mytitlepage
+
+\prohlaseni{
+	Prohlašuji, že jsem tuto práci vypracoval samostatně s vyznačením všech použitých pramenů.
+
+	% Pokud jste při psaní práce využili nástroje umělé inteligence, uveďte to zde
+	% (který nástroj a k čemu). Upravte nebo smažte následující větu podle skutečnosti:
+	Pro kontrolu pravopisu a úpravu formulací jsem využil nástroj umělé inteligence (název nástroje).
+}
+
+\abstrakt{
+	% Shrnutí práce (10–15 vět): co jste řešili, jakou metodou a co jste zjistili.
+	Text abstraktu.
+}{
+	% Klíčová slova oddělená čárkami
+	klíčové slovo, klíčové slovo, klíčové slovo
+}
+
+\podekovani{
+	% Poděkování vedoucímu práce, rodině, institucím apod.
+	Děkuji vedoucímu práce \vedouci{} za odborné vedení a cenné rady.
+}
+
+{\tableofcontents\newpage}
+
+%% ---- VLASTNÍ PRÁCE (číslováno arabsky) ----
+\pagenumbering{arabic}
+
+\include{kapitoly/uvod}
+
+\part{Teoretická část}						% Přejmenujte podle obsahu práce
+\include{kapitoly/teorie}
+
+\part{Praktická část}						% Přejmenujte podle obsahu práce
+\include{kapitoly/prakticka}
+
+\include{kapitoly/zaver}
+
+%% ---- SEZNAMY (vytvářejí se automaticky; nepotřebné smažte) ----
+\printbibliography[heading=bibintoc]		% Seznam literatury (jen citované zdroje)
+\printglossary[title={Zkratky}]				% Seznam zkratek (jen použité zkratky)
+\listoffigures								% Seznam obrázků
+\listoftables								% Seznam tabulek
+% \lstlistoflistings						% Seznam výpisů programů
+
+%% ---- PŘÍLOHY (nemáte-li přílohy, smažte celé prostředí appendices) ----
+\begin{appendices}
+\include{kapitoly/prilohy}
+\end{appendices}
+
+\end{document}
