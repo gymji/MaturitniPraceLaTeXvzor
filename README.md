@@ -18,7 +18,6 @@ Autoři: Jonáš Havelka, Michal Kočer, Daniel Sýkora · Licence: MIT
 | `mprace.tex` | **vaše práce** – údaje o práci, úvodní strany, pořadí kapitol, seznamy |
 | `kapitoly/` | text práce: `uvod.tex`, `teorie.tex`, `prakticka.tex`, `zaver.tex`, `prilohy.tex` |
 | `Bibliografie.bib` | seznam literatury (BibTeX) |
-| `Zkratky.tex` | seznam zkratek |
 | `images/` | obrázky (je tu logo školy) |
 | `vzor.pdf` | **vzorová práce s ukázkami** – podívejte se, jak co vypadá |
 | `vzor.tex`, `vzor/` | zdrojový kód vzoru; ukázky jsou ve `vzor/ukazky/` po tématech |
@@ -107,13 +106,33 @@ Rychlý překlad → XeLaTeX + Bib(la)tex + XeLaTeX (x2) + Zobrazit PDF*.
    - Názvy částí `\part{Teoretická část}` a `\part{Praktická část}` v `mprace.tex`
      přejmenujte podle obsahu práce.
 3. **Obrázky** nahrávejte do složky `images/`.
-4. **Literaturu** zapisujte do `Bibliografie.bib`, **zkratky** do `Zkratky.tex`.
-   Do seznamů se dostane jen to, co v textu opravdu citujete (`\cite`) nebo použijete (`\gls`).
-5. **Seznamy** (literatura, zkratky, obrázky, tabulky) se vytvářejí automaticky.
+4. **Literaturu** zapisujte do `Bibliografie.bib`. Do seznamu literatury se dostane
+   jen to, co v textu opravdu citujete (`\cite`, `\parencite`, `\footcite`).
+5. **Seznamy** (literatura, obrázky, tabulky) se vytvářejí automaticky.
    Seznam, který nepotřebujete (např. nemáte tabulky), v `mprace.tex` smažte.
    Seznam výpisů programů zapnete odkomentováním `\lstlistoflistings`.
 6. **Přílohy** pište do `kapitoly/prilohy.tex`. Nemáte-li přílohy, smažte
    v `mprace.tex` celé prostředí `appendices`.
+
+### Seznam zkratek (nepovinný)
+
+Šablona seznam zkratek neobsahuje – je nepovinný a automatický seznam
+prodlužuje překlad. Potřebujete-li ho (práce s mnoha odbornými zkratkami):
+
+- **Ručně (doporučeno):** v `mprace.tex` vložte mezi `\printbibliography`
+  a `\listoffigures` kapitolu se seznamem – viz ukázka `vzor/ukazky/zkratky.tex`.
+- **Automaticky (balíček `glossaries`):**
+  1. do `mprace.tex` za `\addbibresource{...}` přidejte
+     ```latex
+     \usepackage[toc]{glossaries}
+     \makenoidxglossaries
+     \loadglsentries{Zkratky}
+     ```
+  2. vytvořte soubor `Zkratky.tex` se zkratkami, např.
+     `\newglossaryentry{pwm}{name={PWM},description={pulzně šířková modulace}}`
+  3. v textu pište `\gls{pwm}` (do seznamu se dostanou jen použité zkratky)
+  4. mezi `\printbibliography` a `\listoffigures` přidejte
+     `\printnoidxglossary[title={Seznam zkratek}]`
 
 ---
 
@@ -161,9 +180,6 @@ Rychlý překlad → XeLaTeX + Bib(la)tex + XeLaTeX (x2) + Zobrazit PDF*.
 - Citaci jako `\cite[text před (jako třeba viz), nepovinné][text za, třeba strana (např.: s. 50) nepovinné]{klíč zdroje}`
 - Citaci pod čarou pak stejně jako citaci, akorát příkazem `\footcite`
 - Citaci v závorkách stejně jako citaci, akorát příkazem `\parencite`
-- Zkratku použijete jako `\gls{klíč zkratky}`
-
-- Zkratku definujete v souboru `Zkratky.tex` jako `\newglossaryentry{klíč}{name={to, co se vypíše v textu},description={popis zkratky}}`, např. `\newglossaryentry{atd}{name={atd.},description={a tak dále}}` a pak použití: `\gls{atd}` vám vypíše `atd.`
 
 - Obrázek vkládáme příkazem `\includegraphics` uvnitř prostředí `figure`, odkaz: `\ref{fig:nazev}`
   - Obtékání textu: `\begin{wrapfigure}{r}{0.4\linewidth} ... \end{wrapfigure}`

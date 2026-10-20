@@ -11,7 +11,7 @@
 LATEXMK  = latexmk -xelatex -interaction=nonstopmode -file-line-error
 ZIP_OUT  = MaturitniPrace-overleaf.zip
 # Co patří do ZIPu pro Overleaf (jen soubory verzované v gitu)
-ZIP_FILES = mprace.tex kapitoly MP.sty Bibliografie.bib Zkratky.tex images \
+ZIP_FILES = mprace.tex kapitoly MP.sty Bibliografie.bib images \
             vzor.tex vzor.pdf vzor latexmkrc
 AUX_EXT  = aux bbl blg bcf fdb_latexmk fls glg glo gls ist lof log lol lot out \
            run.xml toc xdv synctex.gz
@@ -22,7 +22,7 @@ all: mprace
 mprace: mprace.pdf
 vzor: vzor.pdf
 
-mprace.pdf: mprace.tex MP.sty Bibliografie.bib Zkratky.tex $(wildcard kapitoly/*.tex) latexmkrc
+mprace.pdf: mprace.tex MP.sty Bibliografie.bib $(wildcard kapitoly/*.tex) latexmkrc
 	$(LATEXMK) mprace
 
 vzor.pdf: vzor.tex MP.sty $(wildcard vzor/*.bib vzor/*.tex vzor/*/*.tex) latexmkrc

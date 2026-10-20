@@ -1,0 +1,34 @@
+% !TEX root = ../../vzor.tex
+%% Ukázka: ruční seznam zkratek (nepovinný)
+%% Vkládá ji soubor vzor/kapitoly/teorie.tex; ve vzor.pdf je pod nadpisem uvedeno „Zdroj ukázky".
+
+\section{Seznam zkratek}
+\zdrojukazky{vzor/ukazky/zkratky.tex}
+
+Seznam zkratek je \emph{nepovinný}. Hodí se, když práce používá hodně odborných zkratek
+(např.\ GPIO, PWM, API); běžné české zkratky (atd., tj., např.) do něj nepatří.
+Nejjednodušší je napsat ho ručně jako samostatnou kapitolu -- v souboru \texttt{mprace.tex}
+ji vložte mezi \verb|\printbibliography| a \verb|\listoffigures|:
+
+{\footnotesize
+\begin{verbatim}
+\chapter*{Seznam zkratek}
+\addcontentsline{toc}{chapter}{Seznam zkratek}
+\begin{description}
+  \item[API] Application Programming Interface -- rozhraní pro programování aplikací
+  \item[GPIO] General Purpose Input/Output -- univerzální vstupy a výstupy
+  \item[PWM] Pulse Width Modulation -- pulzně šířková modulace
+\end{description}
+\end{verbatim}}
+
+Výsledek (zde bez nadpisu kapitoly):
+\begin{description}
+	\item[API] Application Programming Interface -- rozhraní pro programování aplikací
+	\item[GPIO] General Purpose Input/Output -- univerzální vstupy a výstupy
+	\item[PWM] Pulse Width Modulation -- pulzně šířková modulace
+\end{description}
+
+Zkratky řaďte abecedně a při prvním použití v textu je vysvětlete,
+např.\ \uv{pulzně šířková modulace (PWM)}.
+Automaticky vytvářený seznam zkratek (balíček \texttt{glossaries}) popisuje \texttt{README.md};
+prodlužuje ale překlad.

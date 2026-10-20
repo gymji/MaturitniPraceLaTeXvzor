@@ -12,7 +12,6 @@
 %%                      pořadí kapitol a seznamy
 %%    kapitoly/*.tex    text práce, každá část ve vlastním souboru
 %%    Bibliografie.bib  seznam literatury
-%%    Zkratky.tex       seznam zkratek
 %%    images/           obrázky
 %%    vzor.pdf          vzorová práce s ukázkami (citace, rovnice, obrázky,
 %%                      tabulky, diagramy, výpisy kódu…); zdrojový kód
@@ -22,7 +21,6 @@
 \documentclass[12pt]{report}
 \usepackage{MP}								% Styl maturitní práce
 \addbibresource{Bibliografie.bib}			% Soubor se seznamem literatury
-\loadglsentries{Zkratky}					% Soubor se seznamem zkratek
 
 %% ---------------------------------------------------------------------
 %%  ÚDAJE O PRÁCI – vyplňte
@@ -84,7 +82,6 @@
 
 %% ---- SEZNAMY (vytvářejí se automaticky; nepotřebné smažte) ----
 \printbibliography[heading=bibintoc]		% Seznam literatury (jen citované zdroje)
-\printglossary[title={Zkratky}]				% Seznam zkratek (jen použité zkratky)
 \listoffigures								% Seznam obrázků
 \listoftables								% Seznam tabulek
 % \lstlistoflistings						% Seznam výpisů programů
