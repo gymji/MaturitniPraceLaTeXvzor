@@ -2,9 +2,10 @@
 """
 Kontrola kostry: ověří, že vzor.tex a mprace.tex mají stejnou stavbu.
 
-Porovnává pořadí strukturních příkazů (balíčky, údaje o práci, úvodní
+Porovnává pořadí strukturních příkazů (styl MP, údaje o práci, úvodní
 strany, \\include kapitol, \\part, seznamy, přílohy). Text uvnitř příkazů
-se neporovnává – vzor má jiné údaje o práci i jiné prohlášení.
+se neporovnává – vzor má jiné údaje o práci i jiné prohlášení. Další
+balíčky (\\usepackage{tikz} apod.) smí vzor načítat navíc.
 Cesty v \\include se porovnávají bez předpony "vzor/"
 (vzor/kapitoly/uvod  ~  kapitoly/uvod).
 
@@ -46,6 +47,10 @@ def kostra(cesta):
                     continue
                 nazev = m.group(3)
                 if nazev not in (TELO if v_tele else PREAMBULE):
+                    continue
+                # Vzor smí načítat balíčky navíc (tikz, mhchem… jsou v mprace.tex
+                # volitelné); porovnává se jen styl práce MP.
+                if nazev == "usepackage" and m.group(5) != "{MP}":
                     continue
                 zaznam = "\\" + nazev
                 if nazev in S_ARGUMENTEM:

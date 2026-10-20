@@ -17,6 +17,11 @@
 \usepackage{MP}								% Styl maturitní práce
 \addbibresource{vzor/vzor.bib}				% Soubor se seznamem literatury
 
+%% Balíčky, které jsou v mprace.tex volitelné (vzor je potřebuje pro ukázky)
+\usepackage{tikz}\usetikzlibrary{arrows.meta,shapes.geometric,positioning} % diagramy, schémata
+\usepackage[version=4]{mhchem}				% chemické vzorce \ce{...}
+\usepackage{lipsum}							% výplňový text vzoru
+
 \graphicspath{{images/}{vzor/obrazky/}}		% Obrázky vzoru jsou ve vzor/obrazky
 \newcommand{\zdrojukazky}[1]{%				% Poznámka, kde je zdroj ukázky
 	\par\noindent{\small\color{gray}Zdroj ukázky: \texttt{#1}}\par\medskip}

@@ -105,7 +105,9 @@ Rychlý překlad → XeLaTeX + Bib(la)tex + XeLaTeX (x2) + Zobrazit PDF*.
      a v `mprace.tex` přidejte řádek `\include{kapitoly/mereni}`.
    - Názvy částí `\part{Teoretická část}` a `\part{Praktická část}` v `mprace.tex`
      přejmenujte podle obsahu práce.
-3. **Obrázky** nahrávejte do složky `images/`.
+3. **Obrázky** nahrávejte do složky `images/`. Potřebujete-li diagramy (`tikz`) nebo
+   chemické vzorce (`mhchem`), odkomentujte v záhlaví `mprace.tex` připravený řádek –
+   šablona je kvůli rychlosti překladu nenačítá automaticky.
 4. **Literaturu** zapisujte do `Bibliografie.bib`. Do seznamu literatury se dostane
    jen to, co v textu opravdu citujete (`\cite`, `\parencite`, `\footcite`).
 5. **Seznamy** (literatura, obrázky, tabulky) se vytvářejí automaticky.
@@ -191,9 +193,9 @@ prodlužuje překlad. Potřebujete-li ho (práce s mnoha odbornými zkratkami):
 
 - České [uvozovky](https://blog.inpage.cz/inpage/7-typografickych-hrichu-2-uvozovky-a-zavorky/) sázíme pomocí `\uv{text}`. Potom parametr *text* vysází v českých uvozovkách jako „text“.
 
-- Chemické vzorce (balíček `mhchem`): `\ce{H2O}`, `\ce{2H2 + O2 -> 2H2O}`, `\ce{N2 + 3H2 <=> 2NH3}`
+- Chemické vzorce (balíček `mhchem` – v `mprace.tex` odkomentujte jeho řádek): `\ce{H2O}`, `\ce{2H2 + O2 -> 2H2O}`, `\ce{N2 + 3H2 <=> 2NH3}`
 
-- Vektorové diagramy (balíček `tikz`): prostředí `\begin{tikzpicture} ... \end{tikzpicture}`
+- Vektorové diagramy (balíček `tikz` – v `mprace.tex` odkomentujte jeho řádek): prostředí `\begin{tikzpicture} ... \end{tikzpicture}`
 
 ---
 

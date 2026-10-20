@@ -20,7 +20,7 @@
 
 \usepackage[nottoc,notbib]{tocbibind}						% Seznam obrázků a tabulek do obsahu
 \usepackage[hidelinks]{hyperref}							% Počítačová verze umí odkazy
-\usepackage{lipsum}											% Lorem ipsum text
+%\usepackage{lipsum}										% Lorem ipsum text (načítá jen vzor.tex)
 \usepackage{listings}										% Balíček pro zvýraznění a formátování kódu
 \usepackage{lstautogobble}									% Doplňující balíček k listings
 
@@ -58,9 +58,11 @@
 \usepackage{subcaption}								% Více obrázků vedle sebe (\begin{subfigure})
 
 \usepackage{booktabs}								% Profesionální tabulky (\toprule, \midrule, \bottomrule)
-\usepackage[version=4]{mhchem}						% Chemické vzorce: \ce{H2O}, \ce{2H2 + O2 -> 2H2O}
-\usepackage{tikz}									% Vektorové diagramy a grafy
-\usetikzlibrary{arrows.meta,shapes.geometric,positioning}	% TikZ knihovny pro diagramy a schémata
+% Chemie (mhchem) a diagramy (tikz) jsou volitelné – prodlužují překlad.
+% Kdo je potřebuje, odkomentuje připravené řádky v mprace.tex (vzor.tex je načítá sám).
+%\usepackage[version=4]{mhchem}						% Chemické vzorce: \ce{H2O}, \ce{2H2 + O2 -> 2H2O}
+%\usepackage{tikz}									% Vektorové diagramy a grafy
+%\usetikzlibrary{arrows.meta,shapes.geometric,positioning}	% TikZ knihovny pro diagramy a schémata
 \usepackage{wrapfig}								% Obtékání obrázků textem
 
 \usepackage{titlesec}										% Balíček pro změnu velikosti nadpisů
