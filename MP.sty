@@ -1,5 +1,4 @@
 % Balíčky pro češtinu
-\usepackage[utf8]{inputenc}
 %\usepackage[shorthands=off,czech]{babel}
 \usepackage{polyglossia} % nastavení jazyka
 \setdefaultlanguage{czech} % české vzory dělení, atd.
@@ -19,6 +18,7 @@
 }
 \graphicspath{{images/}}									% Přidání složky images do složek, kde se hledají obrázky
 
+\usepackage[nottoc,notbib]{tocbibind}						% Seznam obrázků a tabulek do obsahu
 \usepackage[hidelinks]{hyperref}							% Počítačová verze umí odkazy
 \usepackage{lipsum}											% Lorem ipsum text
 \usepackage{listings}										% Balíček pro zvýraznění a formátování kódu
@@ -129,16 +129,17 @@
 	\newpage												% Nová strana
 }
 
-\newcommand{\pitem}[1]{\addcontentsline{toc}{section}{#1} \item #1}
-\newcommand{\eitem}[1]{\addtocontents{toc}{\ #1 \leaders\hbox{.\ \,}\hfill CD\par} \item #1}
-\newenvironment{prilohy}{									% Definování příloh
-	\chapter*{Přílohy}
-	\let\olditem\item
-	\addcontentsline{toc}{chapter}{Přílohy}
-	\begin{enumerate}										% Začátek číslovaného seznamu
-}{
-	\end{enumerate}											% Konec číslovaného seznamu
-}
+% Původní seznam příloh (z doby odevzdávání na CD) – nahrazen prostředím appendices.
+%\newcommand{\pitem}[1]{\addcontentsline{toc}{section}{#1} \item #1}
+%\newcommand{\eitem}[1]{\addtocontents{toc}{\ #1 \leaders\hbox{.\ \,}\hfill CD\par} \item #1}
+%\newenvironment{prilohy}{									% Definování příloh
+%	\chapter*{Přílohy}
+%	\let\olditem\item
+%	\addcontentsline{toc}{chapter}{Přílohy}
+%	\begin{enumerate}										% Začátek číslovaného seznamu
+%}{
+%	\end{enumerate}											% Konec číslovaného seznamu
+%}
 
 \newlength{\height}
 \newcommand{\odkaz}[1]{\href{#1}{#1}}
