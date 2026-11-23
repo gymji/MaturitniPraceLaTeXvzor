@@ -40,6 +40,13 @@
 \usepackage[style=iso-authoryear, backend=bibtex, maxcitenames=2, sorting=nyt]{biblatex}
 \else
 \usepackage[style=iso-numeric, backend=bibtex, maxcitenames=2, sorting=nty]{biblatex}
+% \parencite v hranatých závorkách [1] jako \cite (iso-numeric ho mění na kulaté (1));
+% autor–rok zůstává v kulatých: (Halliday et al., 2013)
+\DeclareCiteCommand{\parencite}[\mkbibbrackets]
+  {\usebibmacro{prenote}}
+  {\usebibmacro{citeindex}\usebibmacro{cite}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
 \fi
 															% Balíček pro citace
 															% Soubor s literaturou připojuje dokument: \addbibresource{Bibliografie.bib}
