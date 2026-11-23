@@ -1,3 +1,10 @@
+% Volby balíčku (v mprace.tex):
+%   \usepackage{MP}            citace číslované [1]      (ČSN ISO 690, biblatex iso-numeric)
+%   \usepackage[autorrok]{MP}  citace autor–rok (Novák, 2020) = harvardský systém (iso-authoryear)
+\newif\ifMP@autorrok
+\DeclareOption{autorrok}{\MP@autorroktrue}
+\ProcessOptions\relax
+
 % Balíčky pro češtinu
 %\usepackage[shorthands=off,czech]{babel}
 \usepackage{polyglossia} % nastavení jazyka
@@ -29,7 +36,11 @@
 %\usepackage[automake,toc]{glossaries}						% Balíček pro zkratky
 %\makeglossaries											% Aktivování zkratek
 
+\ifMP@autorrok
+\usepackage[style=iso-authoryear, backend=bibtex, maxcitenames=2, sorting=nyt]{biblatex}
+\else
 \usepackage[style=iso-numeric, backend=bibtex, maxcitenames=2, sorting=nty]{biblatex}
+\fi
 															% Balíček pro citace
 															% Soubor s literaturou připojuje dokument: \addbibresource{Bibliografie.bib}
 

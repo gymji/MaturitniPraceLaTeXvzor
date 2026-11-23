@@ -117,6 +117,9 @@ Rychlý překlad → XeLaTeX + Bib(la)tex + XeLaTeX (x2) + Zobrazit PDF*.
    šablona je kvůli rychlosti překladu nenačítá automaticky.
 4. **Literaturu** zapisujte do `Bibliografie.bib`. Do seznamu literatury se dostane
    jen to, co v textu opravdu citujete (`\cite`, `\parencite`, `\footcite`).
+   Citace jsou číslované [1] (ČSN ISO 690). Harvardský systém autor–rok (Novák, 2020)
+   zapnete v `mprace.tex` řádkem `\usepackage[autorrok]{MP}` místo `\usepackage{MP}`.
+   Záznamy do `Bibliografie.bib` pomůže vytvořit formulář https://gymji.github.io/zdroje-biblatex/.
 5. **Seznamy** (literatura, obrázky, tabulky) se vytvářejí automaticky.
    Seznam, který nepotřebujete (např. nemáte tabulky), v `mprace.tex` smažte.
    Seznam výpisů programů zapnete odkomentováním `\lstlistoflistings`.
